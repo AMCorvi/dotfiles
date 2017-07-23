@@ -21,8 +21,6 @@ export PATH
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/usr/local/mysql/bin
-export PROMPT_COMMAND='export PS1="${_PS1} $(_git_prompt)\n$ "'
-export _PS1="$YELLOW\u$NO_COLOUR:\w$(_git_prompt)"
 export _Z_DATA="$HOME/z-data"
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
 export PS1='hack:/$(pwd) \n\n=> '
@@ -59,10 +57,11 @@ alias arc.pic='cd ~/Pictures'
 alias arc.portf='arc.code && cd portfolio/'
 alias arc.portfp='arc.code && cd portfolio/\#practice'
 alias arc.sobp='source ~/.bash_profile'
-alias arc.vimrc='cd ~/.vim_runtime/vimrcs && nvim . '
+alias arc.bashrc='cd ~/.dotfiles/ && nvim bashrc'
 alias code='open -a "Code" '
 alias corvi.code='cd ~/Desktop/.Corvi-APPS'
 alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
+alias dotfiles='cd ~/.dotfiles'
 alias frammed='alias'
 alias la='ls -a'
 alias ll='ls -l'
@@ -73,7 +72,8 @@ alias nodeenv='NODE_ENV='
 alias py3='python3'
 alias redcheck='ls'
 alias shiva.enters='cat ~/.shiva_net_title'
-alias vimconfig='cd ~/.vim_runtime/'
+alias arc.vimrc='v ~/.vim/init.vim'
+alias vimruntime='cd ~/.vim_runtime/'
 
 # Useful blah blah blah
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
@@ -100,7 +100,7 @@ YELLOW="\[\033[0;33m\]"
 GREEN="\[\033[0;32m\]"
 NO_COLOUR="\[\033[0m\]"
 
-function _git_prompt() {
+function _git_prompt {
 local git_status="`git status -unormal 2>&1`"
 # Checks to see if we're in a git repo
 if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
@@ -129,6 +129,8 @@ if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
   echo -n '| \['"$ansi"'\]'"$branch"'\[\e[0m\] [$(_git_changes)]'
 fi
 }
+export PROMPT_COMMAND='export PS1="${_PS1} $(_git_prompt)\n$ "'
+export _PS1="$YELLOW\u$NO_COLOUR:\w$(_git_prompt)"
 
 function _git_changes {
 [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == true ]] || return 1
