@@ -8,6 +8,7 @@
 ""      ███    █▀   ▀█   ███   █▀  ████████▀   ▀██████▀    ███    ███  ▀██████▀  █▀
 ""                                                         ███    ███              "
 " Author: Mr. Corvi
+" test
 
 " Setup dein  ---------------------------------------------------------------{{{
   if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
@@ -117,6 +118,8 @@
   call dein#add('sjl/vitality.vim')
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+  " call dein#add('suan/vim-instant-markdown')
+  call dein#add('JamshedVesuna/vim-markdown-preview')
   if dein#check_install()
     call dein#install()
     let pluginsExist=1
@@ -124,6 +127,7 @@
 
   call dein#end()
   filetype plugin indent on
+  filetype plugin on
 " }}}
 
 " System Settings  ----------------------------------------------------------{{{
@@ -185,6 +189,8 @@
 " System mappings  ----------------------------------------------------------{{{
 
 
+"Refresh vim
+  nnoremap <f5>
 
 " No need for ex mode
   nnoremap Q <nop>
@@ -306,7 +312,7 @@
 
 " Themes, Commands, etc  ----------------------------------------------------{{{
   syntax on
-  colorscheme 1989
+  colorscheme spring-night
   " let g:OceanicNext_italic = 1
 
   "Colorscheme
@@ -343,6 +349,11 @@
       \}
   let g:neomake_markdown_enabled_makers = ['alex', 'proselint']
 
+
+
+  let g:instant_markdown_autostart = 0
+  let g:instant_markdown_slow = 1
+  let vim_markdown_preview_github=1
 "}}}
 
 " Javascript ----------------------------------------------------------------{{{
@@ -665,6 +676,20 @@
 "}}}
 
 " Emmet customization -------------------------------------------------------{{{
+
+
+" 1. Expand abbreviation *emmet-expand-abbr
+  nnoremap <leader>em, <C-y>,
+
+" 2. Expand abbreviation *emmet-expand-word* *<C-y>;*
+  nnoremap <leader>emt <C-y>;
+
+" 3. Update tag *emmet-update-tag* *<C-y>u*
+  nnoremap <leader>emu <c-y>u
+
+" 4. Wrap with abbreviation *emmet-wrap-with-abbreviation* *v_<C-y>,*
+  vnoremap <leader>em, v_<C-y>,
+
 
 " Remapping <C-y>, just doesn't cut it.
   function! s:expand_html_tab()

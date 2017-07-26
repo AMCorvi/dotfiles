@@ -27,7 +27,7 @@ compinit -d ~/.zcompdump_capture
 source ~/antigen/antigen.zsh
 # antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-syntax-highlighting
-# antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle marzocchi/zsh-notify
 # antigen bundle https://github.com/Valodim/zsh-capture-completion

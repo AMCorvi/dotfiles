@@ -51,6 +51,7 @@
   call dein#add('tpope/vim-repeat')
   call dein#add('tpope/vim-unimpaired')
   call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
+  call dein#add('digitaltoad/vim-pug')
   call dein#add('editorconfig/editorconfig-vim')
   call dein#add('rhysd/vim-color-spring-night')
   call dein#add('AndrewRadev/switch.vim')
@@ -120,6 +121,8 @@
   call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
   " call dein#add('suan/vim-instant-markdown')
   call dein#add('JamshedVesuna/vim-markdown-preview')
+  call dein#add('vingorius/pug-beautifier')
+  call dein#add("flowtype/vim-flow", {"autoload": {"filetypes": "javascript"}, "build":{"mac":"yarn global install flow-bin", "unix":"yarn global install flow-bin"}})
   if dein#check_install()
     call dein#install()
     let pluginsExist=1
@@ -146,7 +149,7 @@
   set  number
   set relativenumber
   set numberwidth=1
-  set tabstop=2 shiftwidth=2 expandtab
+  set tabstop=4 shiftwidth=4 expandtab
   set conceallevel=0
   set virtualedit=
   set wildmenu
@@ -182,7 +185,7 @@
   set inccommand=nosplit
   set shortmess=atIc
   set isfname-==
-  set spell
+  set nospell
 
 " }}}
 
@@ -218,6 +221,9 @@
 " press i twice for normal mode
   inoremap ii <esc>
 
+" Select all
+  nnoremap å ggVG
+
 " Navigate between display lines
   noremap  <silent> <Up>   gk
   noremap  <silent> <Down> gj
@@ -241,6 +247,10 @@
   nnoremap <leader>on :on<CR>
 " Close Current Window
   nnoremap <leader>clo :clo<CR>
+" Close current buffer
+  nnoremap <leader>bd :bd<CR>
+" Update Buffer
+  noremap <leader>ct :checktime<CR>
 
 " copy current files path to clipboard
   nmap cp :let @+= expand("%") <cr>
@@ -310,7 +320,7 @@
 
 "}}}"
 
-" Themes, Commands, etc  ----------------------------------------------------{{{
+" , Commands, etc  ----------------------------------------------------{{{
   syntax on
   colorscheme spring-night
   " let g:OceanicNext_italic = 1
@@ -333,7 +343,13 @@
   hi CursorLineNr cterm=NONE ctermfg=yellow ctermbg=red
   hi CursorLineNr gui=NONE guifg=yellow guibg=red
 
-
+  " Neomake sign colors
+  hi NeomakeErrorSign guifg=red
+  hi NeomakeWarningSign guifg=yellow
+  hi NeomakeErrorSign guibg=bg
+  hi NeomakeWarningSign guibg=bg
+  hi NeomakeErrorSign ctermfg=red
+  hi NeomakeWarningSign ctermfg=yellow
 
 
 "}}}
@@ -358,8 +374,24 @@
 
 " Javascript ----------------------------------------------------------------{{{
 
-  " let g:neoformat_enabled_javascript = ['prettier']
+
+  " let g:neoformat_enabled_javascript = ['jsbeautfy']
+  " let g:neomake_highlight_columns = 1
+  " let g:neomake_open_list = 1
   let g:neomake_javascript_enabled_makers = ['eslint']
+  let g:neomake_verbose = 1
+  let g:neomake_javascript_eslint_maker = {
+    \ 'args': ['--no-color', '--format', 'compact'],
+    \ 'errorformat': '%f: line %l\, col %c\, %m'
+    \ }
+  let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+  let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+
+
+  " Mapping for jsdoc Documentation
+   autocmd FileType javascript nnoremap <leader>dc :JsDoc<CR>
+
+
 
   let g:jsx_ext_required = 1
   let g:jsdoc_allow_input_prompt = 1
@@ -426,6 +458,7 @@
 
 " HTML ----------------------------------------------------------------------{{{
   let g:neomake_html_enabled_makers = []
+  let g:neoformat_enabled_pug = ['pug-beautifier']
 
 " }}}
 
@@ -449,6 +482,9 @@
   let g:jedi#auto_vim_configuration = 0
   let g:jedi#documentation_command = "<leader>k"
 
+
+  let g:neoformat_enabled_htmldjango = ['html-beautify']
+
 " }}}
 
 " Fold, gets it's own section  ----------------------------------------------{{{
@@ -460,8 +496,8 @@
       let foldedlinecount = v:foldend - v:foldstart
 
       " expand tabs into spaces
-      let onetab = strpart('          ', 0, &tabstop)
-      let line = substitute(line, '\t', onetab, 'g')
+      " let onetab = strpart('          ', 0, &tabstop)
+      " let line = substitute(line, '\t', onetab, 'g')
 
       let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
       " let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
@@ -678,17 +714,17 @@
 " Emmet customization -------------------------------------------------------{{{
 
 
-" 1. Expand abbreviation *emmet-expand-abbr
-  nnoremap <leader>em, <C-y>,
-
-" 2. Expand abbreviation *emmet-expand-word* *<C-y>;*
-  nnoremap <leader>emt <C-y>;
-
-" 3. Update tag *emmet-update-tag* *<C-y>u*
-  nnoremap <leader>emu <c-y>u
-
-" 4. Wrap with abbreviation *emmet-wrap-with-abbreviation* *v_<C-y>,*
-  vnoremap <leader>em, v_<C-y>,
+"  " 1. Expand abbreviation *emmet-expand-abbr
+"   nnoremap <leader>em, <C-y>,
+"
+" " 2. Expand abbreviation *emmet-expand-word* *<C-y>;*
+"   nnoremap <leader>emt <C-y>;
+"
+" " 3. Update tag *emmet-update-tag* *<C-y>u*
+"   nnoremap <leader>emu <c-y>u
+"
+" " 4. Wrap with abbreviation *emmet-wrap-with-abbreviation* *v_<C-y>,*
+"   vnoremap <leader>em, v_<C-y>,
 
 
 " Remapping <C-y>, just doesn't cut it.
@@ -763,7 +799,7 @@
   nnoremap <silent> <leader>u :call dein#update()<CR>
   nnoremap <silent> <Leader>i :Denite menu:ionic <CR>
   call denite#custom#map('insert','<C-n>','<denite:move_to_next_line>','noremap')
-	call denite#custom#map('insert','<C-p>','<denite:move_to_previous_line>','noremap')
+	call denite#custom#map('insert','<C-N>','<denite:move_to_previous_line>','noremap')
   call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
     \ [ '.git/', '.ropeproject/', '__pycache__/',
     \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
@@ -914,11 +950,11 @@
         \}
 
 "}}}
+"
 
 " Linting -------------------------------------------------------------------{{{
-
   autocmd! BufWritePost * Neomake
-  let g:neomake_warning_sign = {'text': '⚠'}
-  let g:neomake_error_sign = {'text': 'x'}
+  let g:neomake_warning_sign = {'text': '⚠️'}
+  let g:neomake_error_sign = {'text': '🚨'}
 
 "}}}
