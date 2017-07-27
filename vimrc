@@ -187,6 +187,7 @@
   set isfname-==
   set nospell
 
+  set breakindent
 " }}}
 
 " System mappings  ----------------------------------------------------------{{{
@@ -483,7 +484,7 @@
   let g:jedi#documentation_command = "<leader>k"
 
 
-  let g:neoformat_enabled_htmldjango = ['html-beautify']
+  " let g:neoformat_enabled_htmldjango = ['html-beautify']
 
 " }}}
 
@@ -950,7 +951,6 @@
         \}
 
 "}}}
-"
 
 " Linting -------------------------------------------------------------------{{{
   autocmd! BufWritePost * Neomake
