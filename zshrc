@@ -24,7 +24,7 @@ compinit -d ~/.zcompdump_capture
 . <(npm completion)
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source ~/antigen/antigen.zsh
+source ~/.dotfiles/antigen.zsh
 # antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train

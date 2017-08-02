@@ -3,3 +3,4 @@
 	name = A M Corvi
 [core]
 	editor = nvim
+	excludesfile = .gitignore
