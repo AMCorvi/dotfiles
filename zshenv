@@ -19,19 +19,19 @@ export PATH=${PATH}:~/.cargo/bin:$PATH
 export ANDROID_HOME=~/Library/Android/sdk
 export PATH=$PATH:$GOPATH/bin
 PATH=$PATH:$HOME/.composer/vendor/bin
-export NPM_TOKEN=19e676c0-ed55-4f5c-94ec-05ee8a55ece1
+# export NPM_TOKEN=19e676c0-ed55-4f5c-94ec-05ee8a55ece1
 export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export ZLE_RPROMPT_INDENT=0
-export BULLETTRAIN_TIME_SHOW=false
-export BULLETTRAIN_STATUS_SHOW=false
+# export BULLETTRAIN_TIME_SHOW=false
+# export BULLETTRAIN_STATUS_SHOW=false
 export BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 export DISABLE_AUTO_TITLE=true
 # export NVIM_PYTHON_LOG_FILE=/tmp/log
 # export NVIM_PYTHON_LOG_LEVEL=DEBUG
 export EVENT_NOKQUEUE=1
-export VSCODE_TSJS=1
+# export VSCODE_TSJS=1
 
 function strip_diff_leading_symbols(){
     color_code_regex=$'(\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K])'
@@ -175,9 +175,9 @@ function ghPages(){
   alias cls='clear'
 
 # presentation crap
-  # alias whoamireally='echo "Mike Hartington
-  # Dev Advocate for Ionic
-  # Beer lover and Cat lover" '
+  alias whoamireally='echo "Alistar Mazzella Corvi
+  Full Stack Developer and CEO of Corvidae
+  Music lover and Kristen lover" '
 
 # archive file or folder
   function compress()

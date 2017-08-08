@@ -24,12 +24,23 @@ compinit -d ~/.zcompdump_capture
 . <(npm completion)
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+_ANTIGEN_CACHE_ENABLED="false"
+
 source ~/.dotfiles/antigen.zsh
-# antigen use oh-my-zsh
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle rsync
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle python
+antigen bundle history
+antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle marzocchi/zsh-notify
+antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+# antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 # antigen bundle https://github.com/Valodim/zsh-capture-completion
 antigen apply
 

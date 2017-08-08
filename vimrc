@@ -122,7 +122,7 @@
   " call dein#add('suan/vim-instant-markdown')
   call dein#add('JamshedVesuna/vim-markdown-preview')
   call dein#add('vingorius/pug-beautifier')
-  call dein#add("flowtype/vim-flow", {"autoload": {"filetypes": "javascript"}, "build":{"mac":"yarn global install flow-bin", "unix":"yarn global install flow-bin"}})
+  call dein#add("flowtype/vim-flow")
   if dein#check_install()
     call dein#install()
     let pluginsExist=1
@@ -194,7 +194,7 @@
 
 
 "Refresh vim
-  nnoremap <f5>
+  nnoremap <f5> :so $MYVIMRC<CR>
 
 " No need for ex mode
   nnoremap Q <nop>
@@ -239,6 +239,11 @@
   inoremap ¬ <Right>
   inoremap ˙ <Left>
 
+" Add semicolon to end of line
+  nnoremap … A;<esc>
+
+" Toggle Neomake globally
+  nnoremap <leader>nt :NeomakeToggle<cr>
 
 " Vertical Split
   nnoremap <leader>sp :sp<CR>
@@ -392,7 +397,8 @@
   " Mapping for jsdoc Documentation
    autocmd FileType javascript nnoremap <leader>dc :JsDoc<CR>
 
-
+    " To disable this, set to 0 in your ~/.vimrc, like so:
+    let g:flow#enable = 0
 
   let g:jsx_ext_required = 1
   let g:jsdoc_allow_input_prompt = 1
@@ -654,9 +660,9 @@
 " Enable snipMate compatibility feature.
   let g:neosnippet#enable_snipmate_compatibility = 1
   let g:neosnippet#expand_word_boundary = 1
-  imap <C-x>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-x>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-x>     <Plug>(neosnippet_expand_target)
+  imap <C-x> <Plug>(neosnippet_expand_or_jump)
+  smap <C-x> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-x> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
   imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -953,8 +959,10 @@
 "}}}
 
 " Linting -------------------------------------------------------------------{{{
+
+  autocmd! BufWinEnter * NeomakeDisable
   autocmd! BufWritePost * Neomake
-  let g:neomake_warning_sign = {'text': '⚠️'}
-  let g:neomake_error_sign = {'text': '🚨'}
+  let g:neomake_warning_sign = {'text': '!!'}
+  let g:neomake_error_sign = {'text': 'X'}
 
 "}}}
