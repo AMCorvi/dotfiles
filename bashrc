@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ~/.profile
+
 # Exports
 # This is for android crap
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'

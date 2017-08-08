@@ -24,7 +24,7 @@ compinit -d ~/.zcompdump_capture
 . <(npm completion)
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-_ANTIGEN_CACHE_ENABLED="false"
+_ANTIGEN_CACHE_ENABLED="true"
 
 source ~/.dotfiles/antigen.zsh
 antigen use oh-my-zsh
@@ -42,6 +42,7 @@ antigen bundle marzocchi/zsh-notify
 antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 # antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 # antigen bundle https://github.com/Valodim/zsh-capture-completion
+# antigen theme bureau
 antigen apply
 
 source ~/.z/z.sh

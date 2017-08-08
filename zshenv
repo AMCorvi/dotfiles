@@ -24,14 +24,31 @@ export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export ZLE_RPROMPT_INDENT=0
-# export BULLETTRAIN_TIME_SHOW=false
-# export BULLETTRAIN_STATUS_SHOW=false
-export BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 export DISABLE_AUTO_TITLE=true
 # export NVIM_PYTHON_LOG_FILE=/tmp/log
 # export NVIM_PYTHON_LOG_LEVEL=DEBUG
 export EVENT_NOKQUEUE=1
+export KEYTIMEOUT=1
 # export VSCODE_TSJS=1
+
+# Theme specific exports
+    # Bullet Train THEME
+        # export BULLETTRAIN_TIME_SHOW=false
+        # export BULLETTRAIN_STATUS_SHOW=false
+        # export BULLETTRAIN_PROMPT_ADD_NEWLINE=false
+
+    # Spaceship Theme
+    export SPACESHIP_PROMPT_SYMBOL=$
+    export SPACESHIP_HOST_PREFIX=@
+    export SPACESHIP_USER_COLOR=red
+    export SPACESHIP_DIR_COLOR=green
+    export SPACESHIP_GIT_BRANCH_COLOR=yellow
+    export SPACESHIP_PACKAGE_SHOW=false
+    export SPACESHIP_PACKAGE_SYMBOL="\n"
+    export SPACESHIP_PACKAGE_COLOR=cyan
+    export SPACESHIP_VENV_COLOR=white
+
+
 
 function strip_diff_leading_symbols(){
     color_code_regex=$'(\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K])'

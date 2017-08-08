@@ -328,7 +328,7 @@
 
 " , Commands, etc  ----------------------------------------------------{{{
   syntax on
-  colorscheme spring-night
+  colorscheme heroku
   " let g:OceanicNext_italic = 1
 
   "Colorscheme
