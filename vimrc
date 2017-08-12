@@ -61,6 +61,8 @@
   call dein#add('tomtom/tcomment_vim')
   call dein#add('mattn/emmet-vim')
   call dein#add('sbdchd/neoformat')
+  call dein#add('prettier/vim-prettier')
+
   " theme
   call dein#add('bluz71/vim-moonfly-colors')
   call dein#add('smancill/darkglass')
@@ -73,6 +75,7 @@
   call dein#add('vim-scripts/pink')
   call dein#add('vim-scripts/synic.vim')
   call dein#add('vim-airline/vim-airline-themes')
+
 " deoplete stuff
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/deol.nvim')
@@ -123,6 +126,9 @@
   call dein#add('JamshedVesuna/vim-markdown-preview')
   call dein#add('vingorius/pug-beautifier')
   call dein#add("flowtype/vim-flow")
+
+  call dein#add('rizzatti/dash.vim')
+
   if dein#check_install()
     call dein#install()
     let pluginsExist=1
@@ -238,6 +244,10 @@
   inoremap ˚ <Up>
   inoremap ¬ <Right>
   inoremap ˙ <Left>
+
+  " Page wide find and replace
+  nnoremap <leader><leader>s :%s/
+  nnoremap <leader><leader>S :s/
 
 " Add semicolon to end of line
   nnoremap … A;<esc>
@@ -380,8 +390,42 @@
 
 " Javascript ----------------------------------------------------------------{{{
 
+  " Formatting
+  let g:neoformat_enabled_javascript = ['prettier']
 
-  " let g:neoformat_enabled_javascript = ['jsbeautfy']
+    " The command :Prettier by default is synchronous but can also be forced async
+    let g:prettier#exec_cmd_async = 1
+
+    " max line lengh that prettier will wrap on
+    let g:prettier#config#print_width = 80
+
+    " number of spaces per indentation level
+    let g:prettier#config#tab_width = 2
+
+    " use tabs over spaces
+    let g:prettier#config#use_tabs = 'true'
+
+    " print semicolons
+    let g:prettier#config#semi = 'true'
+
+    " single quotes over double quotes
+    let g:prettier#config#single_quote = 'false'
+
+    " print spaces between brackets
+    let g:prettier#config#bracket_spacing = 'false'
+
+    " put > on the last line instead of new line
+    let g:prettier#config#jsx_bracket_same_line = 'true'
+
+    " none|es5|all
+    let g:prettier#config#trailing_comma = 'all'
+
+    " flow|babylon|typescript|postcss|json|graphql
+    let g:prettier#config#parser = 'flow'
+
+
+" Linting
+"
   " let g:neomake_highlight_columns = 1
   " let g:neomake_open_list = 1
   let g:neomake_javascript_enabled_makers = ['eslint']
