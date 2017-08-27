@@ -34,7 +34,7 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle lein
 antigen bundle python
-antigen bundle history
+# antigen bundle history
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions

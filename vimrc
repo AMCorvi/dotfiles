@@ -8,7 +8,7 @@
 ""      ███    █▀   ▀█   ███   █▀  ████████▀   ▀██████▀    ███    ███  ▀██████▀  █▀
 ""                                                         ███    ███              "
 " Author: Mr. Corvi
-" we are good
+"
 
 " Setup dein  ---------------------------------------------------------------{{{
   if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
@@ -20,114 +20,153 @@
   call dein#begin(expand('~/.config/nvim'))
   call dein#add('Shougo/dein.vim')
   call dein#add('haya14busa/dein-command.vim')
-" syntax
-  call dein#add('othree/html5.vim')
-  call dein#add('othree/yajs.vim')
-  call dein#add('othree/jsdoc-syntax.vim')
-  call dein#add('heavenshell/vim-jsdoc')
-  call dein#add('elzr/vim-json')
-  call dein#add('HerringtonDarkholme/yats.vim')
-  call dein#add('skwp/vim-html-escape')
-  call dein#add('hail2u/vim-css3-syntax')
-  call dein#add('ap/vim-css-color')
-  call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
-  call dein#add('dhruvasagar/vim-table-mode')
-  call dein#add('nelstrom/vim-markdown-folding', {'on_ft': 'markdown'})
-  call dein#add('rhysd/vim-grammarous')
-  call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
-  call dein#add('tmux-plugins/vim-tmux')
-  call dein#add('itmammoth/doorboy.vim')
-  call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'})
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('tpope/vim-rhubarb')
-  call dein#add('chemzqm/vim-easygit')
-  call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
-  call dein#add('sgeb/vim-diff-fold')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('junegunn/gv.vim')
-  call dein#add('lambdalisue/gina.vim')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('Xuyuanp/nerdtree-git-plugin')
-  call dein#add('tpope/vim-repeat')
-  call dein#add('tpope/vim-unimpaired')
-  call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
-  call dein#add('digitaltoad/vim-pug')
-  call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('rhysd/vim-color-spring-night')
-  call dein#add('AndrewRadev/switch.vim')
-  call dein#add('christoomey/vim-tmux-navigator')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('tpope/vim-surround')
-  call dein#add('tomtom/tcomment_vim')
-  call dein#add('mattn/emmet-vim')
-  call dein#add('sbdchd/neoformat')
-  call dein#add('prettier/vim-prettier')
+" SYNTAX
 
-  " theme
-  call dein#add('bluz71/vim-moonfly-colors')
-  call dein#add('smancill/darkglass')
-  call dein#add('roosta/vim-srcery')
-  call dein#add('sonjapeterson/1989.vim')
-  call dein#add('vim-scripts/turbo.vim')
-  call dein#add('stulzer/heroku-colorscheme')
-  call dein#add('vim-scripts/proton')
-  call dein#add('MaxSt/FlatColor')
-  call dein#add('vim-scripts/pink')
-  call dein#add('vim-scripts/synic.vim')
-  call dein#add('vim-airline/vim-airline-themes')
+    " Javascript
+      call dein#add('elzr/vim-json')
+      call dein#add('heavenshell/vim-jsdoc')
+      call dein#add('othree/jsdoc-syntax.vim')
+      call dein#add('prettier/vim-prettier')
+      call dein#add('pangloss/vim-javascript') "Vastly improved Javascript indentation and syntax support in Vim.
+      call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
+      call dein#add("flowtype/vim-flow") " A vim plugin for Flow
+      call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
+      call dein#add('carlitux/deoplete-ternjs') "deoplete.nvim source for javascript
+      call dein#add('ternjs/tern_for_vim', {'build': 'npm install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
 
-" deoplete stuff
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('Shougo/deol.nvim')
+    "HTML
+      call dein#add('digitaltoad/vim-pug')
+      call dein#add('mattn/emmet-vim')
+      call dein#add('othree/html5.vim')
+      call dein#add('skwp/vim-html-escape')
+      call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'}) "A Vim plugin that always highlights the enclosing html/xml tags
+      call dein#add('vingorius/pug-beautifier') " Pug(formerly jade) beautify CLI
 
-  call dein#add('Shougo/denite.nvim')
-  call dein#add('jremmen/vim-ripgrep')
-  " call dein#add('ctrlpvim/ctrlp.vim')
+    "CSS
+      call dein#add('hail2u/vim-css3-syntax')
+      call dein#add('ap/vim-css-color')
 
-  call dein#add('Shougo/neomru.vim')
-  call dein#add('Shougo/context_filetype.vim')
-  call dein#add('chemzqm/denite-git')
-  call dein#add('ternjs/tern_for_vim', {'build': 'npm install'})
-  call dein#add('carlitux/deoplete-ternjs')
-  call dein#add('artur-shaik/vim-javacomplete2')
-  call dein#add('Shougo/neco-vim')
-  call dein#add('Shougo/neoinclude.vim')
-  "  dein#add('ujihisa/neco-look')
-  call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
-  call dein#add('zchee/deoplete-jedi')
-  " call dein#add('zchee/nvim-go', {'build': 'gb build', 'on_ft': 'go'})
-  call dein#add('zchee/deoplete-go', {'build': 'make'})
-  " call dein#add('nsf/gocode')
-  call dein#add('junegunn/limelight.vim')
-  call dein#add('Konfekt/FastFold')
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/echodoc.vim')
-  call dein#add('honza/vim-snippets')
-  call dein#add('mhinz/vim-sayonara')
-  call dein#add('mattn/webapi-vim')
-  call dein#add('mattn/gist-vim')
-  call dein#add('pocari/vim-denite-gists')
-  call dein#add('vim-scripts/SyntaxRange')
-  call dein#add('terryma/vim-multiple-cursors')
-  call dein#add('MartinLafreniere/vim-PairTools')
-  call dein#add('Shougo/vimfiler.vim')
-  call dein#add('Shougo/unite.vim')
-  call dein#add('junegunn/gv.vim')
-  call dein#local('~/GitHub', {},['vim-folds'])
-  call dein#local('~/GitHub', {},['oceanic-next'])
-  " call dein#local('~/GitHub', {},['operator-next'])
-  call dein#local('~/GitHub', {},['nvim-typescript'])
-  call dein#add('chemzqm/denite-git')
-  call dein#add('sjl/vitality.vim')
-  call dein#add('ryanoasis/vim-devicons')
-  call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
-  " call dein#add('suan/vim-instant-markdown')
-  call dein#add('JamshedVesuna/vim-markdown-preview')
-  call dein#add('vingorius/pug-beautifier')
-  call dein#add("flowtype/vim-flow")
+    "English
+      call dein#add('rhysd/vim-grammarous') "vim-grammarous is a powerful grammar checker for Vim. Simply do :GrammarousCheck
 
-  call dein#add('rizzatti/dash.vim')
+
+    "Markdown
+      call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
+      call dein#add('nelstrom/vim-markdown-folding', {'on_ft': 'markdown'})
+      call dein#add('JamshedVesuna/vim-markdown-preview') " Preview Markdown File in Browser
+
+    "Python
+      call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'}) "No-BS Python code folding for Vim
+      call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'}) "Python autocompletion with VIM
+      call dein#add('zchee/deoplete-jedi') "deoplete.nvim source for Python
+
+      " GO
+      call dein#add('zchee/deoplete-go', {'build': 'make'}) "deoplete.nvim source for Go. Asynchronous Go completion for Neovim
+      " call dein#add('zchee/nvim-go', {'build': 'gb build', 'on_ft': 'go'}) " Go development plugin for Neovim written in pure Go
+      " call dein#add('nsf/gocode') " An autocompletion daemon for the Go programming language
+
+
+      "Java
+      call dein#add('artur-shaik/vim-javacomplete2') "Updated javacomplete plugin for vim.
+
+  " BOLT-ON PLUGINS
+      " Add-on Features
+      call dein#add('tmux-plugins/vim-tmux')
+      call dein#add('tpope/vim-surround')
+      call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
+      call dein#add('sbdchd/neoformat')
+      call dein#add('vim-airline/vim-airline')
+      call dein#add('tomtom/tcomment_vim') "An extensible & universal comment vim-plugin
+      call dein#add('rizzatti/dash.vim') " Search Dash.app from Vim
+      call dein#add('mattn/gist-vim') "This is a vimscript for creating gists
+      call dein#add('mattn/webapi-vim') " vim interface to Web API
+      " call dein#add('ctrlpvim/ctrlp.vim')
+
+      "Movement
+      call dein#add('christoomey/vim-tmux-navigator')
+      call dein#add('terryma/vim-multiple-cursors') " Multiple Cursors as described
+      call dein#add('itmammoth/doorboy.vim') "Vim plugin for auto closing brackets ( => (|) and quotations
+      call dein#add('sjl/vitality.vim') " (Vit)ality is a plugin that makes (V)im play nicely with (i)Term 2 and (t)mux.
+
+      "Formatting
+      call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
+      call dein#add('dhruvasagar/vim-table-mode') "An awesome automatic table creator & formatter allowing one to create neat tables as you type.
+      call dein#add('godlygeek/tabular') " Vim script for text filtering and alignment
+      call dein#add('AndrewRadev/switch.vim')
+      call dein#add('vim-scripts/SyntaxRange') "Define a different filetype syntax on regions of a buffer
+
+      "Default Behavior Modifiers
+      call dein#add('editorconfig/editorconfig-vim')
+      call dein#add('jremmen/vim-ripgrep')
+      call dein#add('tpope/vim-repeat') "Repeat.vim remaps . in a way that plugins can tap into it.
+      call dein#add('junegunn/limelight.vim') "Dim text code blocks not being focused upon by cursor
+      call dein#add('Konfekt/FastFold') "Speed up Vim by updating folds only when called-for.
+      call dein#add('mhinz/vim-sayonara') " Basically you don't have to think in terms of :bdelete, :close, :quit etc. anymore.
+      " call dein#add('MartinLafreniere/vim-PairTools') Pairing Punctuationa and
+      " grammer pairs
+      " call dein#local('~/GitHub', {},['vim-folds'])
+      " call dein#local('~/GitHub', {},['oceanic-next'])
+      " " call dein#local('~/GitHub', {},['operator-next'])
+      " call dein#local('~/GitHub', {},['nvim-typescript'])
+      " call dein#add('ujihisa/neco-look') " A neocomplcache plugin for English, using look command
+
+
+      "NERDTree
+      call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
+      call dein#add('scrooloose/nerdtree')
+      call dein#add('ryanoasis/vim-devicons') " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, and more
+      call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " Extra syntax and highlight for nerdtree files
+
+      "Git
+      call dein#add('tpope/vim-fugitive')
+      call dein#add('tpope/vim-rhubarb')
+      call dein#add('chemzqm/vim-easygit')
+      call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
+      call dein#add('sgeb/vim-diff-fold')
+      call dein#add('airblade/vim-gitgutter')
+      call dein#add('junegunn/gv.vim') "A git commit browser. ':GV'
+      call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
+
+  " THEMES
+      call dein#add('rhysd/vim-color-spring-night')
+      call dein#add('bluz71/vim-moonfly-colors')
+      call dein#add('smancill/darkglass')
+      call dein#add('roosta/vim-srcery')
+      call dein#add('sonjapeterson/1989.vim')
+      call dein#add('vim-scripts/turbo.vim')
+      call dein#add('stulzer/heroku-colorscheme')
+      call dein#add('vim-scripts/proton')
+      call dein#add('MaxSt/FlatColor')
+      call dein#add('vim-scripts/pink')
+      call dein#add('vim-scripts/synic.vim')
+      call dein#add('vim-airline/vim-airline-themes')
+
+  " I WANT TO DECLARE A TOAST TO THE NEOVIM KING SHOUGO
+
+      " deoplete stuff
+      call dein#add('Shougo/deoplete.nvim')
+      call dein#add('Shougo/deol.nvim')
+
+
+      "Denite stuff
+      call dein#add('Shougo/denite.nvim') " Denite is a dark powered plugin for Neovim/Vim to unite all interfaces
+      call dein#add('Shougo/neomru.vim') " MRU plugin includes unite.vim/denite.nvim MRU sources
+      call dein#add('Shougo/context_filetype.vim') " Context filetype library for Vim script
+      call dein#add('chemzqm/denite-git') " gitlog, gitstatus and gitchanged source for denite.nvim
+      call dein#add('pocari/vim-denite-gists') " denite.nvim plugin for show and browse Gist
+      call dein#add('chemzqm/denite-git') "gitlog, gitstatus and gitchanged source for denite.nvim
+      call dein#add('Shougo/vimfiler.vim') " Powerful file explorer implemented by Vim script
+      call dein#add('Shougo/unite.vim') " Unite and create user interfaces
+
+      "Snippet and Completions
+      call dein#add('Shougo/neco-vim') "The vim source for neocomplete/deoplete
+      call dein#add('Shougo/neoinclude.vim') "Include completion framework for neocomplete/deoplete
+      call dein#add('Shougo/neosnippet.vim') "The Neosnippet plug-In adds snippet support to Vim. Snippets
+      call dein#add('Shougo/neosnippet-snippets') " The standard snippets repository for neosnippet
+      call dein#add('Shougo/echodoc.vim') " Displays function signatures from completions in the command line.
+      call dein#add('honza/vim-snippets') " vim-snipmate default snippets (Previously snipmate-snippets)
+
+
 
   if dein#check_install()
     call dein#install()
@@ -164,6 +203,8 @@
   set wildmode=full
   set autoread
   set smartcase
+  set splitbelow
+  set splitright
   set ignorecase
 " leader is ,
   let mapleader = ';'
@@ -206,18 +247,17 @@
   nnoremap Q <nop>
   vnoremap // y/<C-R>"<CR>
 
-
 " Use enter to make new lines
   nmap <CR> o<Esc>
   nmap <S-CR> O<Esc>
 
 " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
-  nmap ø o<esc>
-  nmap Ø O<esc>
+  nmap <M-o> o<esc>
+  nmap <M-O> O<esc>
 
 " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
-  inoremap ø <cr>
-  inoremap Ø <esc>O
+  inoremap <M-o> <cr>
+  inoremap <M-O> <esc>O
 
 " Pressing ,ss will toggle and untoggle spell checking
   map <leader>ss :setlocal spell!<cr>
@@ -229,7 +269,7 @@
   inoremap ii <esc>
 
 " Select all
-  nnoremap å ggVG
+  nnoremap <M-a> ggVG
 
 " Navigate between display lines
   noremap  <silent> <Up>   gk
@@ -240,20 +280,29 @@
   noremap  <silent> <End>  g<End>
   inoremap <silent> <Home> <C-o>g<Home>
   inoremap <silent> <End>  <C-o>g<End>
-  inoremap ∆ <Down>
-  inoremap ˚ <Up>
-  inoremap ¬ <Right>
-  inoremap ˙ <Left>
+  inoremap <M-j> <Down>
+  inoremap <M-k> <Up>
+  inoremap <M-l> <Right>
+  inoremap <M-h> <Left>
 
   " Page wide find and replace
   nnoremap <leader><leader>s :%s/
   nnoremap <leader><leader>S :s/
 
 " Add semicolon to end of line
-  nnoremap … A;<esc>
+  nnoremap <M-;> A;<esc>
 
 " Toggle Neomake globally
   nnoremap <leader>nt :NeomakeToggle<cr>
+  " Trigger Neomake linter
+  nnoremap <leader>nn :Neomake<CR>
+
+    if exists(":Tabularize")
+      nmap <Leader>a= :Tabularize /=<CR>
+      vmap <Leader>a= :Tabularize /=<CR>
+      nmap <Leader>a: :Tabularize /:\zs<CR>
+      vmap <Leader>a: :Tabularize /:\zs<CR>
+    endif
 
 " Vertical Split
   nnoremap <leader>sp :sp<CR>
@@ -391,7 +440,17 @@
 " Javascript ----------------------------------------------------------------{{{
 
   " Formatting
+ let g:neoformat_javascript_prettier = {
+            \ 'exe': 'prettier-eslint',
+            \ 'args': ['--use-tabs', '--parser flow', '--tab-width 4'],
+            \ 'replace': 1,
+            \ 'stdin': 1,
+            \ 'no_append': 1,
+            \ }
+
   let g:neoformat_enabled_javascript = ['prettier']
+
+ autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
 
     " The command :Prettier by default is synchronous but can also be forced async
     let g:prettier#exec_cmd_async = 1
@@ -406,10 +465,10 @@
     let g:prettier#config#use_tabs = 'true'
 
     " print semicolons
-    let g:prettier#config#semi = 'true'
+    let g:prettier#config#semi = 'false'
 
     " single quotes over double quotes
-    let g:prettier#config#single_quote = 'false'
+    let g:prettier#config#single_quote = 'true'
 
     " print spaces between brackets
     let g:prettier#config#bracket_spacing = 'false'
@@ -591,7 +650,8 @@
 
 " Git -----------------------------------------------------------------------{{{
 
-  let g:gitgutter_sign_column_always = 1
+  " let g:gitgutter_sign_column_always = 1
+  set signcolumn=yes
 
 " }}}
 
@@ -723,8 +783,6 @@
 " enable deoplete
   let g:deoplete#enable_at_startup = 1
   let g:echodoc_enable_at_startup=1
-  set splitbelow
-  set splitright
   set completeopt+=noselect
   set completeopt-=preview
   autocmd CompleteDone * pclose
@@ -844,7 +902,7 @@
   " nnoremap <silent> <c-p> :Denite file_rec<CR>
   nnoremap <silent> <leader>j :Denite file_rec<CR>
   nnoremap <silent> <leader>h :Denite  help<CR>
-  nnoremap <silent> <leader>c :Denite colorscheme<CR>
+  nnoremap <silent> <leader>th :Denite colorscheme<CR>
   nnoremap <silent> <leader>b :Denite buffer<CR>
   nnoremap <silent> <leader>a :Denite grep:::!<CR>
   nnoremap <silent> <leader>u :call dein#update()<CR>
