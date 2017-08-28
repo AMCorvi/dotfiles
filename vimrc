@@ -20,57 +20,65 @@
   call dein#begin(expand('~/.config/nvim'))
   call dein#add('Shougo/dein.vim')
   call dein#add('haya14busa/dein-command.vim')
-" SYNTAX
+" SYNTAX"{{{
 
-    " Javascript
-      call dein#add('elzr/vim-json')
-      call dein#add('heavenshell/vim-jsdoc')
-      call dein#add('othree/jsdoc-syntax.vim')
-      call dein#add('prettier/vim-prettier')
-      call dein#add('pangloss/vim-javascript') "Vastly improved Javascript indentation and syntax support in Vim.
-      call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
-      call dein#add("flowtype/vim-flow") " A vim plugin for Flow
-      call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
-      call dein#add('carlitux/deoplete-ternjs') "deoplete.nvim source for javascript
-      call dein#add('ternjs/tern_for_vim', {'build': 'npm install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
+    " Javascript"{{{
+        call dein#add('elzr/vim-json')
+        call dein#add('heavenshell/vim-jsdoc')
+        call dein#add('othree/jsdoc-syntax.vim')
+        call dein#add('prettier/vim-prettier')
+        call dein#add('pangloss/vim-javascript') "Vastly improved Javascript indentation and syntax support in Vim.
+        call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
+        call dein#add("flowtype/vim-flow") " A vim plugin for Flow
+        call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
+        call dein#add('carlitux/deoplete-ternjs') "deoplete.nvim source for javascript
+        call dein#add('ternjs/tern_for_vim', {'build': 'npm install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
+"}}}
 
-    "HTML
-      call dein#add('digitaltoad/vim-pug')
-      call dein#add('mattn/emmet-vim')
-      call dein#add('othree/html5.vim')
-      call dein#add('skwp/vim-html-escape')
-      call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'}) "A Vim plugin that always highlights the enclosing html/xml tags
-      call dein#add('vingorius/pug-beautifier') " Pug(formerly jade) beautify CLI
+    "HTML"{{{
+        call dein#add('digitaltoad/vim-pug')
+        call dein#add('mattn/emmet-vim')
+        call dein#add('othree/html5.vim')
+        call dein#add('skwp/vim-html-escape')
+        call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'}) "A Vim plugin that always highlights the enclosing html/xml tags
+        call dein#add('vingorius/pug-beautifier') " Pug(formerly jade) beautify CLI
+"}}}
 
-    "CSS
-      call dein#add('hail2u/vim-css3-syntax')
-      call dein#add('ap/vim-css-color')
+    "CSS"{{{
+        call dein#add('hail2u/vim-css3-syntax')
+        call dein#add('ap/vim-css-color')
+"}}}
 
-    "English
-      call dein#add('rhysd/vim-grammarous') "vim-grammarous is a powerful grammar checker for Vim. Simply do :GrammarousCheck
+    "English"{{{
+        call dein#add('rhysd/vim-grammarous') "vim-grammarous is a powerful grammar checker for Vim. Simply do :GrammarousCheck
+"}}}
 
+    "Markdown"{{{
+        call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
+        call dein#add('nelstrom/vim-markdown-folding', {'on_ft': 'markdown'})
+        call dein#add('JamshedVesuna/vim-markdown-preview') " Preview Markdown File in Browser
+"}}}
 
-    "Markdown
-      call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
-      call dein#add('nelstrom/vim-markdown-folding', {'on_ft': 'markdown'})
-      call dein#add('JamshedVesuna/vim-markdown-preview') " Preview Markdown File in Browser
+    "Python"{{{
+        call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'}) "No-BS Python code folding for Vim
+        call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'}) "Python autocompletion with VIM
+        call dein#add('zchee/deoplete-jedi') "deoplete.nvim source for Python
+"}}}
 
-    "Python
-      call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'}) "No-BS Python code folding for Vim
-      call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'}) "Python autocompletion with VIM
-      call dein#add('zchee/deoplete-jedi') "deoplete.nvim source for Python
+    " GO"{{{
+        call dein#add('zchee/deoplete-go', {'build': 'make'}) "deoplete.nvim source for Go. Asynchronous Go completion for Neovim
+        " call dein#add('zchee/nvim-go', {'build': 'gb build', 'on_ft': 'go'}) " Go development plugin for Neovim written in pure Go
+        " call dein#add('nsf/gocode') " An autocompletion daemon for the Go programming language
+"}}}
 
-      " GO
-      call dein#add('zchee/deoplete-go', {'build': 'make'}) "deoplete.nvim source for Go. Asynchronous Go completion for Neovim
-      " call dein#add('zchee/nvim-go', {'build': 'gb build', 'on_ft': 'go'}) " Go development plugin for Neovim written in pure Go
-      " call dein#add('nsf/gocode') " An autocompletion daemon for the Go programming language
+    "Java"{{{
+    call dein#add('artur-shaik/vim-javacomplete2') "Updated javacomplete plugin for vim.
+"}}}
 
+"}}}
 
-      "Java
-      call dein#add('artur-shaik/vim-javacomplete2') "Updated javacomplete plugin for vim.
-
-  " BOLT-ON PLUGINS
-      " Add-on Features
+  " BOLT-ON PLUGINS"{{{
+      " Add-on Features"{{{
       call dein#add('tmux-plugins/vim-tmux')
       call dein#add('tpope/vim-surround')
       call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
@@ -80,44 +88,47 @@
       call dein#add('rizzatti/dash.vim') " Search Dash.app from Vim
       call dein#add('mattn/gist-vim') "This is a vimscript for creating gists
       call dein#add('mattn/webapi-vim') " vim interface to Web API
-      " call dein#add('ctrlpvim/ctrlp.vim')
+      call dein#add('ctrlpvim/ctrlp.vim')
+"}}}
 
-      "Movement
+      "Movement"{{{
       call dein#add('christoomey/vim-tmux-navigator')
       call dein#add('terryma/vim-multiple-cursors') " Multiple Cursors as described
       call dein#add('itmammoth/doorboy.vim') "Vim plugin for auto closing brackets ( => (|) and quotations
       call dein#add('sjl/vitality.vim') " (Vit)ality is a plugin that makes (V)im play nicely with (i)Term 2 and (t)mux.
+"}}}
 
-      "Formatting
+     "Formatting"{{{
       call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
       call dein#add('dhruvasagar/vim-table-mode') "An awesome automatic table creator & formatter allowing one to create neat tables as you type.
       call dein#add('godlygeek/tabular') " Vim script for text filtering and alignment
       call dein#add('AndrewRadev/switch.vim')
       call dein#add('vim-scripts/SyntaxRange') "Define a different filetype syntax on regions of a buffer
+"}}}
 
-      "Default Behavior Modifiers
+      "Default Behavior Modifiers"{{{
       call dein#add('editorconfig/editorconfig-vim')
       call dein#add('jremmen/vim-ripgrep')
       call dein#add('tpope/vim-repeat') "Repeat.vim remaps . in a way that plugins can tap into it.
       call dein#add('junegunn/limelight.vim') "Dim text code blocks not being focused upon by cursor
       call dein#add('Konfekt/FastFold') "Speed up Vim by updating folds only when called-for.
       call dein#add('mhinz/vim-sayonara') " Basically you don't have to think in terms of :bdelete, :close, :quit etc. anymore.
-      " call dein#add('MartinLafreniere/vim-PairTools') Pairing Punctuationa and
-      " grammer pairs
-      " call dein#local('~/GitHub', {},['vim-folds'])
-      " call dein#local('~/GitHub', {},['oceanic-next'])
-      " " call dein#local('~/GitHub', {},['operator-next'])
-      " call dein#local('~/GitHub', {},['nvim-typescript'])
+      call dein#add('MartinLafreniere/vim-PairTools') "Pairing Punctuationa and grammer pairs
+      call dein#local('~/GitHub', {},['vim-folds'])
+      call dein#local('~/GitHub', {},['oceanic-next'])
+      call dein#local('~/GitHub', {},['operator-next'])
+      call dein#local('~/GitHub', {},['nvim-typescript'])
       " call dein#add('ujihisa/neco-look') " A neocomplcache plugin for English, using look command
+"}}}
 
-
-      "NERDTree
-      call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
+      "NERDTree"{{{
       call dein#add('scrooloose/nerdtree')
+      call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
       call dein#add('ryanoasis/vim-devicons') " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, and more
       call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " Extra syntax and highlight for nerdtree files
+"}}}
 
-      "Git
+      "Git"{{{
       call dein#add('tpope/vim-fugitive')
       call dein#add('tpope/vim-rhubarb')
       call dein#add('chemzqm/vim-easygit')
@@ -126,8 +137,9 @@
       call dein#add('airblade/vim-gitgutter')
       call dein#add('junegunn/gv.vim') "A git commit browser. ':GV'
       call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
+"}}}
 
-  " THEMES
+  " THEMES"{{{
       call dein#add('rhysd/vim-color-spring-night')
       call dein#add('bluz71/vim-moonfly-colors')
       call dein#add('smancill/darkglass')
@@ -140,15 +152,17 @@
       call dein#add('vim-scripts/pink')
       call dein#add('vim-scripts/synic.vim')
       call dein#add('vim-airline/vim-airline-themes')
+"}}}
 
-  " I WANT TO DECLARE A TOAST TO THE NEOVIM KING SHOUGO
 
-      " deoplete stuff
+  " I WANT TO DECLARE A TOAST TO THE NEOVIM KING SHOUGO"{{{
+
+      " deoplete stuff"{{{
       call dein#add('Shougo/deoplete.nvim')
       call dein#add('Shougo/deol.nvim')
+"}}}
 
-
-      "Denite stuff
+      "Denite stuff"{{{
       call dein#add('Shougo/denite.nvim') " Denite is a dark powered plugin for Neovim/Vim to unite all interfaces
       call dein#add('Shougo/neomru.vim') " MRU plugin includes unite.vim/denite.nvim MRU sources
       call dein#add('Shougo/context_filetype.vim') " Context filetype library for Vim script
@@ -157,15 +171,19 @@
       call dein#add('chemzqm/denite-git') "gitlog, gitstatus and gitchanged source for denite.nvim
       call dein#add('Shougo/vimfiler.vim') " Powerful file explorer implemented by Vim script
       call dein#add('Shougo/unite.vim') " Unite and create user interfaces
+"}}}
 
-      "Snippet and Completions
+      "Snippet and Completions"{{{
       call dein#add('Shougo/neco-vim') "The vim source for neocomplete/deoplete
       call dein#add('Shougo/neoinclude.vim') "Include completion framework for neocomplete/deoplete
       call dein#add('Shougo/neosnippet.vim') "The Neosnippet plug-In adds snippet support to Vim. Snippets
       call dein#add('Shougo/neosnippet-snippets') " The standard snippets repository for neosnippet
       call dein#add('Shougo/echodoc.vim') " Displays function signatures from completions in the command line.
-      call dein#add('honza/vim-snippets') " vim-snipmate default snippets (Previously snipmate-snippets)
+      call dein#add('honza/vim-snippets') " vim-snipmate default snippets (Previously snipmate-snippets)"}}}
+"}}}
 
+
+"}}}
 
 
   if dein#check_install()
@@ -294,7 +312,7 @@
 
 " Toggle Neomake globally
   nnoremap <leader>nt :NeomakeToggle<cr>
-  " Trigger Neomake linter
+" Trigger Neomake linter
   nnoremap <leader>nn :Neomake<CR>
 
     if exists(":Tabularize")
@@ -387,7 +405,7 @@
 
 " , Commands, etc  ----------------------------------------------------{{{
   syntax on
-  colorscheme heroku
+  colorscheme flatcolor
   " let g:OceanicNext_italic = 1
 
   "Colorscheme
@@ -395,11 +413,11 @@
 
   " Remove '|' character fom split window border (note blank space after
   " back slash)
-  set fillchars+=vert:\
+  set fillchars+=vert:.
 
   " Change split window bar color
   hi VertSplit ctermfg=NONE ctermbg=NONE cterm=NONE
-  hi VertSplit guifg=NONE guibg=NONE gui=NONE
+  hi VertSplit guifg=bg guibg=bg gui=NONE
 
 
   " Change color of Search Highlight
@@ -423,7 +441,6 @@
 
   noremap <leader>TM :TableModeToggle<CR>
   let g:table_mode_corner="|"
-
   let g:neomake_markdown_proselint_maker = {
       \ 'errorformat': '%W%f:%l:%c: %m',
       \ 'postprocess': function('neomake#postprocess#GenericLengthPostprocess'),
@@ -599,7 +616,7 @@
 
 " Fold, gets it's own section  ----------------------------------------------{{{
 
-  function! MyFoldText() " {{{
+  function! MyFoldText() "
       let line = getline(v:foldstart)
       let nucolwidth = &fdc + &number * &numberwidth
       let windowwidth = winwidth(0) - nucolwidth - 3
@@ -615,7 +632,7 @@
       let fillcharcount = windowwidth - len(line)
       " return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines'
       return line . '…' . repeat(" ",fillcharcount)
-  endfunction " }}}
+  endfunction "
 
 
   set foldtext=MyFoldText()
@@ -700,10 +717,10 @@
   " let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
   let g:webdevicons_enable_vimfiler = 0
   let g:vimfiler_no_default_key_mappings=1
-  function! NerdUnite() abort "{{{
+  function! NerdUnite() abort
     let marked_files =  vimfiler#get_file(b:vimfiler)
     call unite#start(['nerd'], {'file': marked_files})
-	endfunction "}}}
+	endfunction
 
   map <silent> - :NERDTreeToggle<CR>
   augroup ntinit
@@ -734,6 +751,7 @@
   let g:NERDTreeDirArrowExpandable = ''
   let g:NERDTreeDirArrowCollapsible = ''
   let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+
 "}}}
 
 " Nvim terminal -------------------------------------------------------------{{{
@@ -970,9 +988,9 @@
     endif
   endfunction
 
-  function ExitHandle()
-    echom self
-  endfunction
+  " function ExitHandle()
+  "   echom self
+  " endfunction
 
   let s:menus.ionic = {
     \ 'description' : 'some rando ionic stuff',
