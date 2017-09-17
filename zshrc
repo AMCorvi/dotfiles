@@ -5,6 +5,7 @@ for file in ~/.{keys,prompt}; do
 done
 source ~/.bash_profile
 
+set -o vi
 unset file
 bindkey -v
 # Disable zsh autocorrect
@@ -13,7 +14,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 setopt completeinword
 zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
 
-set editing-mode vi
 set blink-matching-paren on
 
 fpath=(/usr/local/share/zsh-completions $fpath)

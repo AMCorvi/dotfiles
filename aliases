@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -o vi
+
 # Some aliases for Homebrew
 alias bup='brew update && brew upgrade'
 alias bout='brew outdated'

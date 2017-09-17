@@ -2,6 +2,7 @@
 
 source ~/.profile
 
+set -o vi
 # Exports
 # This is for android crap
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
@@ -49,6 +50,7 @@ alias dsclean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
 # Flush your dns cache
 alias flush='dscacheutil -flushcache'
 
+alias dlv='youtube-dl'
 alias arc.bash='nvim ~/.bash_profile'
 alias arc.bashrc='cd ~/.dotfiles/ && nvim bashrc'
 alias arc.boxes='cd ~code/sandbox/vagrant\ boxes'
