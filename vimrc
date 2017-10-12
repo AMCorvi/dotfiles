@@ -30,11 +30,11 @@
         call dein#add('othree/jsdoc-syntax.vim', {'on_ft': 'javscript'})
         call dein#add('pangloss/vim-javascript',  {'on_ft': 'javascript'}) "Vastly improved Javascript indentation and syntax support in Vim.
         call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
-        " call dein#add("flowtype/vim-flow") " A vim plugin for Flow
-        call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
+        call dein#add("flowtype/vim-flow") " A vim plugin for Flow
         call dein#add('ternjs/tern_for_vim', { 'build': 'yarn install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
-        " call dein#add('carlitux/deoplete-ternjs') "deoplete.nvim source for javascript{'build': ' sudo yarn global add tern '}
+        call dein#add('carlitux/deoplete-ternjs') "deoplete.nvim source for javascript{'build': ' sudo yarn global add tern '}
         call dein#add('1995eaton/vim-better-javascript-completion') "An expansion of Vim's current JavaScript syntax file.
+        " call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
     "}}}
 
     "HTML"------------{{{
@@ -70,7 +70,6 @@
     " GO"-------------{{{
         call dein#add('zchee/deoplete-go', {'build': 'make'}) "deoplete.nvim source for Go. Asynchronous Go completion for Neovim
         " call dein#add('zchee/nvim-go', {'build': 'gb build', 'on_ft': 'go'}) " Go development plugin for Neovim written in pure Go
-        " call dein#add('nsf/gocode') " An autocompletion daemon for the Go programming language
     "}}}
 
     "Java"---------------------------------{{{
@@ -81,72 +80,78 @@
         call dein#add('ekalinin/Dockerfile.vim') " Docker syntx highlisting
     "}}}
 
+    "R(lang)"---------------------------------{{{
+        call dein#add('jalvesaq/Nvim-R') " Vim plugin to work with R
+    "}}}
+
 
 "}}}
 
   " BOLT-ON PLUGINS"---------------------------------{{{
       " Add-on Features"-----------{{{
-      call dein#add('tmux-plugins/vim-tmux')
-      call dein#add('tpope/vim-surround')
-      call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
-      call dein#add('sbdchd/neoformat')
-      call dein#add('vim-airline/vim-airline')
-      call dein#add('tomtom/tcomment_vim') " An extensible & universal comment vim-plugin
-      call dein#add('rizzatti/dash.vim') " Search Dash.app from Vim
-      call dein#add('mattn/gist-vim') " This is a vimscript for creating gists
-      call dein#add('mattn/webapi-vim') " vim interface to Web API
-      call dein#add('danro/rename.vim') " Rename the current file in the vim buffer + retain relative path.
-      call dein#add('ctrlpvim/ctrlp.vim')
-      " call dein#add('justinmk/vim-sneak')
+          call dein#add('tmux-plugins/vim-tmux')
+          call dein#add('tpope/vim-surround')
+          call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
+          call dein#add('sbdchd/neoformat')
+          call dein#add('vim-airline/vim-airline')
+          call dein#add('majutsushi/tagbar') " Vim plugin that displays tags in a window, ordered by scope
+          call dein#add('tomtom/tcomment_vim') " An extensible & universal comment vim-plugin
+          call dein#add('rizzatti/dash.vim') " Search Dash.app from Vim
+          call dein#add('mattn/gist-vim') " This is a vimscript for creating gists
+          call dein#add('mattn/webapi-vim') " vim interface to Web API
+          call dein#add('danro/rename.vim') " Rename the current file in the vim buffer + retain relative path.
+          call dein#add('rhysd/vim-grammarous') " A powerful grammar checker for Vim using LanguageTool.
+          call dein#add('ctrlpvim/ctrlp.vim')
+          " call dein#add('justinmk/vim-sneak')
 
       "}}}
 
       "Movement"-----------{{{
-      call dein#add('christoomey/vim-tmux-navigator')
-      call dein#add('terryma/vim-multiple-cursors') " Multiple Cursors as described
-      call dein#add('itmammoth/doorboy.vim') "Vim plugin for auto closing brackets ( => (|) and quotations
-      call dein#add('sjl/vitality.vim') " (Vit)ality is a plugin that makes (V)im play nicely with (i)Term 2 and (t)mux.
+          call dein#add('christoomey/vim-tmux-navigator')
+          call dein#add('terryma/vim-multiple-cursors') " Multiple Cursors as described
+          call dein#add('itmammoth/doorboy.vim') "Vim plugin for auto closing brackets ( => (|) and quotations
+          call dein#add('sjl/vitality.vim') " (Vit)ality is a plugin that makes (V)im play nicely with (i)Term 2 and (t)mux.
       "}}}
 
       "Formatting"-----------{{{
-      call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
-      call dein#add('dhruvasagar/vim-table-mode') "An awesome automatic table creator & formatter allowing one to create neat tables as you type.
-      call dein#add('godlygeek/tabular') " Vim script for text filtering and alignment
-      call dein#add('AndrewRadev/switch.vim')
-      call dein#add('vim-scripts/SyntaxRange') "Define a different filetype syntax on regions of a buffer
+          call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
+          call dein#add('dhruvasagar/vim-table-mode') "An awesome automatic table creator & formatter allowing one to create neat tables as you type.
+          call dein#add('godlygeek/tabular') " Vim script for text filtering and alignment
+          call dein#add('AndrewRadev/switch.vim')
+          call dein#add('vim-scripts/SyntaxRange') "Define a different filetype syntax on regions of a buffer
       "}}}
 
       "Default Behavior Modifiers"-----------{{{
-      call dein#add('editorconfig/editorconfig-vim')
-      call dein#add('jremmen/vim-ripgrep')
-      call dein#add('tpope/vim-repeat') "Repeat.vim remaps . in a way that plugins can tap into it.
-      call dein#add('junegunn/limelight.vim') "Dim text code blocks not being focused upon by cursor
-      call dein#add('Konfekt/FastFold') "Speed up Vim by updating folds only when called-for.
-      call dein#add('mhinz/vim-sayonara') " Basically you don't have to think in terms of :bdelete, :close, :quit etc. anymore.
-      call dein#add('MartinLafreniere/vim-PairTools') "Pairing Punctuationa and grammer pairs
-      " call dein#local('~/GitHub', {},['vim-folds'])
-      " call dein#local('~/GitHub', {},['oceanic-next'])
-      " call dein#local('~/GitHub', {},['operator-next'])
-      " call dein#local('~/GitHub', {},['nvim-typescript'])
-      " call dein#add('ujihisa/neco-look') " A neocomplcache plugin for English, using look command
+          call dein#add('editorconfig/editorconfig-vim')
+          call dein#add('jremmen/vim-ripgrep')
+          call dein#add('tpope/vim-repeat') "Repeat.vim remaps . in a way that plugins can tap into it.
+          call dein#add('junegunn/limelight.vim') "Dim text code blocks not being focused upon by cursor
+          call dein#add('Konfekt/FastFold') "Speed up Vim by updating folds only when called-for.
+          call dein#add('mhinz/vim-sayonara') " Basically you don't have to think in terms of :bdelete, :close, :quit etc. anymore.
+          call dein#add('MartinLafreniere/vim-PairTools') "Pairing Punctuationa and grammer pairs
+          " call dein#local('~/GitHub', {},['vim-folds'])
+          " call dein#local('~/GitHub', {},['oceanic-next'])
+          " call dein#local('~/GitHub', {},['operator-next'])
+          " call dein#local('~/GitHub', {},['nvim-typescript'])
+          " call dein#add('ujihisa/neco-look') " A neocomplcache plugin for English, using look command
       "}}}
 
       "NERDTree"-----------{{{
-      call dein#add('scrooloose/nerdtree')
-      call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
-      call dein#add('ryanoasis/vim-devicons') " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, and more
-      call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " Extra syntax and highlight for nerdtree files
+          call dein#add('scrooloose/nerdtree')
+          call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
+          call dein#add('ryanoasis/vim-devicons') " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, and more
+          call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " Extra syntax and highlight for nerdtree files
       "}}}
 
       "Git"-----------{{{
-      call dein#add('tpope/vim-fugitive')
-      call dein#add('tpope/vim-rhubarb')
-      call dein#add('chemzqm/vim-easygit')
-      call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
-      call dein#add('sgeb/vim-diff-fold')
-      call dein#add('airblade/vim-gitgutter')
-      call dein#add('junegunn/gv.vim') "A git commit browser. ':GV'
-      call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
+          call dein#add('tpope/vim-fugitive')
+          call dein#add('tpope/vim-rhubarb')
+          call dein#add('chemzqm/vim-easygit')
+          call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
+          call dein#add('sgeb/vim-diff-fold')
+          call dein#add('airblade/vim-gitgutter')
+          call dein#add('junegunn/gv.vim') "A git commit browser. ':GV'
+          call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
       "}}}
 
       " THEMES"-----------{{{
@@ -305,6 +310,9 @@
 
       " Select all
       nnoremap <M-a> ggVG
+
+      " Repeat latest f, t, F or T [count] times
+      nnoremap <M-,> ;
 
       " Navigate between display lines
       noremap  <silent> <Up>   gk
@@ -543,7 +551,7 @@
       " let g:javascript_plugin_flow = 1
       "
       " " To disable flow from running in background by default, set to 0 in your ~/.vimrc, like so:
-      " let g:flow#enable = 0
+      let g:flow#enable = 0
 
       let g:jsx_ext_required = 1
       let g:jsdoc_allow_input_prompt = 1
