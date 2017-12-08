@@ -5,7 +5,6 @@ for file in ~/.{keys,prompt}; do
 done
 source ~/.bash_profile
 
-set -o vi
 unset file
 bindkey -v
 # Disable zsh autocorrect

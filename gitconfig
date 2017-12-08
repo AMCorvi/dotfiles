@@ -1,6 +1,6 @@
 [user]
-	email = amcorvi@icloud.com\n
-	name = A M Corvi
+	email = am@corvi.com
+	name = AMCorvi
 [core]
 	editor = nvim
 	excludesfile = .gitignore

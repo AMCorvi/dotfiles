@@ -2,7 +2,6 @@
 
 source ~/.profile
 
-set -o vi
 # Exports
 # This is for android crap
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
@@ -12,6 +11,7 @@ export PATH=${PATH}:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/t
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=${JAVA_HOME}/bin:$PATH
 export PATH=/usr/local/bin:$PATH
+export PATH=~/npm-global/bin:$PATH
 
 # MacPorts Installer addition on 2017-05-09_at_05:19:45: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
@@ -50,7 +50,6 @@ alias dsclean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
 # Flush your dns cache
 alias flush='dscacheutil -flushcache'
 
-alias dlv='youtube-dl'
 alias arc.bash='nvim ~/.bash_profile'
 alias arc.bashrc='cd ~/.dotfiles/ && nvim bashrc'
 alias arc.boxes='cd ~code/sandbox/vagrant\ boxes'
@@ -66,21 +65,33 @@ alias arc.portf='arc.code && cd portfolio/'
 alias arc.portfp='arc.code && cd portfolio/\#practice'
 alias arc.sobp='source ~/.bash_profile'
 alias arc.vimrc='v ~/.vim/init.vim'
+alias bbcnews="termsaver rssfeed --url=http://newsrss.bbc.co.uk/rss/newsonline_world_edition/americas/rss.xml"
 alias code='open -a "Code" '
 alias corvi.code='cd ~/Desktop/.Corvi-APPS'
 alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
+alias dlv='youtube-dl'
 alias dotfiles='cd ~/.dotfiles'
 alias frammed='alias'
+alias hacknode='termsaver programmer --path ~/.config/yarn/global/node_modules/ --delay 0.020'
 alias la='ls -a'
 alias ll='ls -l'
 alias ls='ls -G'
 alias lsa='ls -alt'
 alias news='newsbeuter'
 alias nodeenv='NODE_ENV='
+alias nprart="termsaver rssfeed --url=http://www.npr.org/rss/rss.php?id=1008"
+alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage"
 alias py3='python3'
 alias redcheck='ls'
+alias reutersnews="termsaver rssfeed --url=http://feeds.reuters.com/reuters/topNews"
+alias sei="set -o emacs"
 alias shiva.enters='cat ~/.shiva_net_title'
+alias svi="set -o vi"
 alias vimruntime='cd ~/.vim_runtime/'
+alias wirednews="termsaver rssfeed --url=http://feeds.wired.com/wired/index"
+alias worklog='nvim ~/.worklog'
+alias worklogs='termsaver programmer -p ~/.worklog -d .04'
+alias runvice='termsaver rssfeed --url=https://www.vice.com/en_us/rss'
 
 # Useful blah blah blah
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
