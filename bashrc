@@ -10,6 +10,7 @@ export USER='Star'
 export PATH=${PATH}:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=${JAVA_HOME}/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/npm-global/bin:$PATH
 
@@ -44,11 +45,16 @@ alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && 
 alias showall='defaults write com.apple.finder AppleShowAllFiles YES && killall Finder'
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
+#Hide Dock
+alias hidedock="defaults write com.apple.dock autohide -bool true && killall Dock && defaults write com.apple.dock autohide-delay -float 1000 && killall Dock && defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock"
+
+#Restore Dock
+alias restoredock="defaults write com.apple.dock autohide -bool false && killall Dock && defaults delete com.apple.dock autohide-delay && killall Dock && defaults write com.apple.dock no-bouncing -bool FALSE && killall Dock"
+
 # Get rid of those pesky .DS_Store files recursively
 alias dsclean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
 
 # Flush your dns cache
-alias flush='dscacheutil -flushcache'
 
 alias arc.bash='nvim ~/.bash_profile'
 alias arc.bashrc='cd ~/.dotfiles/ && nvim bashrc'
@@ -63,20 +69,26 @@ alias arc.nsplash='arc.pic && cd unsplash'
 alias arc.pic='cd ~/Pictures'
 alias arc.portf='arc.code && cd portfolio/'
 alias arc.portfp='arc.code && cd portfolio/\#practice'
-alias arc.sobp='source ~/.bash_profile'
+alias arc.sourceb='source ~/.bash_profile'
+alias arc.sourcez='source ~/.zshenv'
 alias arc.vimrc='v ~/.vim/init.vim'
 alias bbcnews="termsaver rssfeed --url=http://newsrss.bbc.co.uk/rss/newsonline_world_edition/americas/rss.xml"
+alias clear-zsh-hist="echo '' > ~/.zsh_history"
 alias code='open -a "Code" '
 alias corvi.code='cd ~/Desktop/.Corvi-APPS'
 alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
+alias creatern="react-native init"
 alias dlv='youtube-dl'
 alias dotfiles='cd ~/.dotfiles'
+alias flush='dscacheutil -flushcache'
 alias frammed='alias'
+alias hacknode2='termsaver programmer --path ~/go --delay 0.020'
 alias hacknode='termsaver programmer --path ~/.config/yarn/global/node_modules/ --delay 0.020'
 alias la='ls -a'
 alias ll='ls -l'
 alias ls='ls -G'
 alias lsa='ls -alt'
+alias maintain-brew="brew update; brew upgrade; brew prune; brew cleanup; brew doctor"
 alias news='newsbeuter'
 alias nodeenv='NODE_ENV='
 alias nprart="termsaver rssfeed --url=http://www.npr.org/rss/rss.php?id=1008"
@@ -84,14 +96,15 @@ alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage
 alias py3='python3'
 alias redcheck='ls'
 alias reutersnews="termsaver rssfeed --url=http://feeds.reuters.com/reuters/topNews"
+alias runvice='termsaver rssfeed --url=https://www.vice.com/en_us/rss'
 alias sei="set -o emacs"
 alias shiva.enters='cat ~/.shiva_net_title'
 alias svi="set -o vi"
+alias trm="trash"
 alias vimruntime='cd ~/.vim_runtime/'
 alias wirednews="termsaver rssfeed --url=http://feeds.wired.com/wired/index"
 alias worklog='nvim ~/.worklog'
 alias worklogs='termsaver programmer -p ~/.worklog -d .04'
-alias runvice='termsaver rssfeed --url=https://www.vice.com/en_us/rss'
 
 # Useful blah blah blah
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

@@ -115,10 +115,6 @@ function ghPages(){
   alias k='clear'
   alias cls='clear'
 
-# presentation crap
-  # alias whoamireally='echo "Mike Hartington
-  # Dev Advocate for Ionic
-  # Beer lover and Cat lover" '
 
 # archive file or folder
   function compress()

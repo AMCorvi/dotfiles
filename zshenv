@@ -38,7 +38,7 @@ export KEYTIMEOUT=1
         # export BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 
     # Spaceship Theme
-        export SPACESHIP_PROMPT_SYMBOL=$
+        export SPACESHIP_PROMPT_SYMBOL=•
         export SPACESHIP_HOST_PREFIX=@
         export SPACESHIP_USER_COLOR=red
         export SPACESHIP_PROMPT_PREFIXES_SHOW=false
@@ -193,10 +193,6 @@ function ghPages(){
   alias k='clear'
   alias cls='clear'
 
-# presentation crap
-  alias whoamireally='echo "Alistar Mazzella Corvi
-  Full Stack Developer and CEO of Corvidae
-  Music lover and Kristen lover" '
 
 # archive file or folder
   function compress()

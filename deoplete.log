@@ -1,0 +1,407 @@
+2017-10-26 12:50:54,339 INFO     (deoplete.logging) --- Deoplete Log Start ---
+2017-10-26 12:50:54,401 INFO     (deoplete.logging) NVIM v0.2.1-dev, Python 3.5.1, neovim client 0.1.13
+2017-10-26 12:50:55,730 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:55,730 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:55,730 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:55,742 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:55,743 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:55,743 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:55,765 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:50:55,803 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:50:55,858 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:55,858 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:55,858 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:55,858 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:55,859 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:55,859 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:55,859 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:55,859 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:56,387 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:56,387 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:56,387 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:56,407 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:56,408 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:56,408 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:56,418 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:50:56,461 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:50:56,519 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:56,520 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:56,520 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:56,523 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:56,523 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:56,523 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:56,539 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:50:56,585 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:56,585 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:56,585 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:56,585 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:56,586 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:56,586 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:56,586 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:56,586 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:56,590 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:50:56,625 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:56,625 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:56,626 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:56,648 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:56,649 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:56,649 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:56,697 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:50:56,776 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:56,777 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:56,777 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:56,777 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:56,778 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:56,778 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:56,778 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:56,778 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:56,781 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:50:56,795 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:56,795 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:56,796 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:56,796 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:56,797 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:56,797 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:56,797 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:56,797 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:58,504 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:58,505 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:58,505 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:58,515 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:50:58,515 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:50:58,515 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:50:58,525 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:50:58,541 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:50:58,607 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:58,607 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:58,607 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:58,607 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:50:58,608 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:50:58,608 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:50:58,609 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:50:58,609 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:04,656 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:04,656 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:04,656 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:04,674 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:04,675 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:04,675 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:04,693 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:04,780 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:04,813 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:04,814 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:04,814 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:04,817 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:04,818 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:04,818 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:04,829 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:04,873 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:04,873 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:04,873 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:04,873 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:04,874 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:04,874 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:04,874 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:04,874 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:04,877 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:04,890 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:04,890 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:04,890 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:04,890 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:04,916 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:04,916 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:04,917 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:04,917 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:07,805 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:07,805 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:07,805 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:07,816 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:07,817 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:07,817 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:07,826 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:07,874 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:07,908 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:07,908 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:07,909 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:07,912 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:07,912 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:07,912 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:07,926 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:07,941 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:07,941 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:07,942 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:07,942 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:07,948 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:07,949 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:07,949 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:07,949 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:07,951 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:07,998 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:07,998 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:07,998 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:07,999 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:07,999 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:08,000 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:08,000 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:08,000 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:09,413 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:09,414 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:09,414 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:09,433 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:09,434 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:09,434 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:09,458 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:09,518 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:09,556 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:09,556 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:09,556 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:09,556 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:09,557 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:09,557 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:09,557 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:09,558 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:09,999 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:09,999 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:09,999 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:10,008 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:10,008 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:10,008 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:10,247 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:10,354 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:10,366 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:10,367 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:10,367 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:10,378 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:10,379 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:10,379 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:10,404 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:10,430 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:10,431 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:10,431 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:10,437 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:10,437 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:10,437 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:10,459 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:10,482 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:10,483 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:10,483 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:10,483 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:10,484 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:10,524 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:10,524 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:10,524 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:10,524 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:10,585 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:10,599 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:10,599 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:10,599 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:10,599 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:10,601 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:10,601 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:10,601 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:10,602 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:10,605 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:10,605 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:10,606 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:10,606 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:10,607 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:10,607 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:10,607 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:10,607 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:12,924 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:12,924 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:12,924 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:12,938 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:12,938 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:12,938 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:12,949 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:12,964 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:13,156 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:13,156 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:13,157 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:13,157 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:13,165 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:13,165 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:13,166 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:13,166 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:18,382 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:18,382 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:18,383 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:18,393 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:18,394 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:18,394 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:18,405 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:18,425 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:18,532 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:18,532 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:18,532 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:18,533 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:18,534 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:18,534 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:18,534 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:18,534 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:22,307 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:22,307 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:22,307 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:22,323 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:22,323 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:22,323 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:22,333 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:22,350 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:22,421 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:22,421 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:22,421 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:22,421 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:22,422 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:22,422 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:22,422 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:22,423 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:27,371 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:27,371 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:27,371 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:27,396 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:27,396 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:27,396 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:27,409 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:27,442 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:27,486 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:27,487 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:27,487 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:27,491 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:27,491 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:27,491 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:27,506 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:27,560 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:27,560 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:27,560 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:27,560 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:27,561 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:27,561 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:27,561 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:27,561 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:27,564 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:27,585 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:27,586 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:27,586 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:27,586 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:27,592 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:27,592 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:27,592 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:27,592 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:28,419 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:28,420 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:28,421 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:28,431 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:28,432 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:28,432 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:28,442 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:28,460 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:28,560 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:28,560 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:28,560 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:28,560 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:28,561 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:28,561 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:28,561 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:28,561 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:36,412 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:36,412 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:36,412 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:36,443 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:36,443 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:36,443 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:36,452 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:36,467 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:36,519 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:36,519 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:36,519 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:36,519 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:36,520 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:36,520 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:36,520 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:36,521 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:36,869 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:36,869 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:36,869 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:36,890 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:36,890 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:36,891 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:36,914 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:37,004 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:37,353 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:37,353 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:37,371 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:37,386 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:37,386 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:37,386 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:37,442 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:37,467 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:37,467 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:37,467 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:37,467 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:37,469 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:37,469 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:37,469 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:37,470 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:37,472 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:37,486 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:37,486 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:37,486 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:37,487 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:37,487 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:37,488 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:37,488 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:37,488 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:38,379 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:38,379 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:38,379 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:38,390 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:38,390 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:38,391 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:38,402 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:38,454 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:38,485 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:38,485 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:38,485 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:38,492 DEBUG    (deoplete.core) on_event: DirChanged
+2017-10-26 12:51:38,492 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:51:38,492 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:51:38,516 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:51:38,532 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:38,532 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:38,532 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:38,532 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:38,534 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:38,534 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:38,534 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:38,535 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:38,536 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:51:38,600 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:38,600 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:38,600 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:38,600 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:51:38,601 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:51:38,602 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:51:38,603 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:51:38,603 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:52:35,190 DEBUG    (deoplete.core) on_event: BufWritePost
+2017-10-26 12:52:35,190 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:52:35,191 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:52:35,314 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:52:35,331 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:52:35,352 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:52:35,353 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:52:35,353 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:52:35,375 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:52:46,972 DEBUG    (deoplete.core) on_event: BufWritePost
+2017-10-26 12:52:46,973 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:52:46,973 DEBUG    (deoplete.core) on_event: Source: neosnippet
+2017-10-26 12:52:47,032 DEBUG    (deoplete.core) on_event: Source: file
+2017-10-26 12:52:47,240 DEBUG    (deoplete.core) on_event: Source: tag
+2017-10-26 12:52:47,290 DEBUG    (deoplete.core) on_event: Source: dictionary
+2017-10-26 12:52:47,290 DEBUG    (deoplete.core) on_event: Source: file/include
+2017-10-26 12:52:47,291 DEBUG    (deoplete.core) on_event: Source: buffer
+2017-10-26 12:52:47,327 DEBUG    (deoplete.core) on_event: Source: member
+2017-10-26 12:52:49,178 DEBUG    (deoplete.core) on_event: VimLeavePre
+2017-10-26 12:52:49,178 DEBUG    (deoplete.core) on_event: Source: omni
+2017-10-26 12:52:49,178 DEBUG    (deoplete.core) on_event: Source: neosnippet

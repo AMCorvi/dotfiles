@@ -13,6 +13,9 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 setopt completeinword
 zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
 
+# Remove commands leading with space
+setopt HIST_IGNORE_SPACE
+
 set blink-matching-paren on
 
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -39,6 +42,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle marzocchi/zsh-notify
 antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+antigen bundle unixorn/git-extra-commands
 # antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 # antigen bundle https://github.com/Valodim/zsh-capture-completion
 # antigen theme bureau
@@ -62,3 +66,8 @@ zstyle ':notify:*' success-title "very #success. wow"
 # else
 #     eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
 # fi
+
+# Set vim editing mode
+set -o vi
+
+export PATH=/Users/AMC/.local/bin/luna-studio:$PATH
