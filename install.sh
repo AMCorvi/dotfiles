@@ -31,23 +31,24 @@ packages=(
 )
 
 apps=(
-  "postgress"
-  "hammerspoon"
-  "opera"
   "alfred"
   "deluge"
-  "keybase"
+  "fzf" #  vim ReasonML dependency
+  "hammerspoon"
+  "hyper"
+  "image2icon"
   "iterm2"
+  "keybase"
+  "liteicon"
+  "openemu"
+  "opera"
   "plug"
+  "postgress"
   "skype"
   "spotify"
   "tableplus"
-  "torbrowser"
   "the-unarchiver"
-  "openemu"
-  "image2icon"
-  "liteicon"
-  "hyper"
+  "torbrowser"
 )
 
 for i in "${packages[@]}"

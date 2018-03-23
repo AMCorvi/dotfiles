@@ -74,7 +74,6 @@ function send_window_next_monitor()
   win:moveToScreen(nextScreen)
 end
 
-
 function send_window_prev_monitor()
   hs.alert.show("Prev Monitor")
   local win = hs.window.focusedWindow()

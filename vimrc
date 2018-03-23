@@ -23,93 +23,101 @@
 
 " SYNTAX"---------------------------------{{{
 
-" Javascript"------------{{{
+    " Javascript"------------{{{
 
-    call dein#add('elzr/vim-json')
-    call dein#add('prettier/vim-prettier')
-    call dein#add('heavenshell/vim-jsdoc', {'on_ft': 'javascript'})
-    call dein#add('othree/jsdoc-syntax.vim', {'on_ft': 'javascript'})
-    call dein#add('pangloss/vim-javascript',  {'on_ft': 'javascript'}) "Vastly improved Javascript indentation and syntax support in Vim.
-    call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
-    call dein#add("flowtype/vim-flow") " A vim plugin for Flow
-    call dein#add('carlitux/deoplete-ternjs',  {'on_ft': 'javascript'}) "deoplete.nvim source for javascript{'build': ' sudo yarn global add tern '}
-    call dein#add('ternjs/tern_for_vim', { 'build': 'yarn install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
-    call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
-    call dein#add('mxw/vim-jsx') "YATS: Yet Another TypeScript Syntax
-    " call dein#add('1995eaton/vim-better-javascript-completion') "An expansion of Vim's current JavaScript syntax file.
+        call dein#add('elzr/vim-json')
+        call dein#add('prettier/vim-prettier')
+        call dein#add('heavenshell/vim-jsdoc', {'on_ft': 'javascript'})
+        call dein#add('othree/jsdoc-syntax.vim', {'on_ft': 'javascript'})
+        call dein#add('pangloss/vim-javascript',  {'on_ft': 'javascript'}) "Vastly improved Javascript indentation and syntax support in Vim.
+        call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
+        call dein#add("flowtype/vim-flow") " A vim plugin for Flow
+        call dein#add('carlitux/deoplete-ternjs',  {'on_ft': 'javascript'}) "deoplete.nvim source for javascript{'build': ' sudo yarn global add tern '}
+        call dein#add('ternjs/tern_for_vim', { 'build': 'yarn install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
+        call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
+        call dein#add('mxw/vim-jsx') "YATS: Yet Another TypeScript Syntax
+        " call dein#add('1995eaton/vim-better-javascript-completion') "An expansion of Vim's current JavaScript syntax file.
 
-"}}}
+    "}}}
 
-"HTML"------------{{{
-    call dein#add('digitaltoad/vim-pug')
-    call dein#add('mattn/emmet-vim')
-    call dein#add('othree/html5.vim')
-    call dein#add('skwp/vim-html-escape')
-    call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'}) "A Vim plugin that always highlights the enclosing html/xml tags
-    call dein#add('vingorius/pug-beautifier') " Pug(formerly jade) beautify CLI
-"}}}
+    "HTML"------------{{{
+        call dein#add('digitaltoad/vim-pug')
+        call dein#add('mattn/emmet-vim')
+        call dein#add('othree/html5.vim')
+        call dein#add('skwp/vim-html-escape')
+        call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'}) "A Vim plugin that always highlights the enclosing html/xml tags
+        call dein#add('vingorius/pug-beautifier') " Pug(formerly jade) beautify CLI
+    "}}}
 
-"CSS"------------{{{
-    call dein#add('hail2u/vim-css3-syntax')
-    call dein#add('ap/vim-css-color')
-"}}}
+    "CSS"------------{{{
+        call dein#add('hail2u/vim-css3-syntax')
+        call dein#add('ap/vim-css-color')
+    "}}}
 
-"English"------------{{{
-    call dein#add('rhysd/vim-grammarous') "vim-grammarous is a powerful grammar checker for Vim. Simply do :GrammarousCheck
-"}}}
+    "English"------------{{{
+        call dein#add('rhysd/vim-grammarous') "vim-grammarous is a powerful grammar checker for Vim. Simply do :GrammarousCheck
+    "}}}
 
-"Markdown"------------{{{
-    call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
-    call dein#add('nelstrom/vim-markdown-folding', {'on_ft': 'markdown'})
-    call dein#add('JamshedVesuna/vim-markdown-preview') " Preview Markdown File in Browser
-"}}}
+    "Markdown"------------{{{
+        call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
+        call dein#add('nelstrom/vim-markdown-folding', {'on_ft': 'markdown'})
+        call dein#add('JamshedVesuna/vim-markdown-preview') " Preview Markdown File in Browser
+    "}}}
 
-"Python"------------{{{
-    call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'}) "No-BS Python code folding for Vim
-    call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'}) "Python autocompletion with VIM
-    call dein#add('zchee/deoplete-jedi') "deoplete.nvim source for Python
-    call dein#add('lepture/vim-jinja') " jinja plugins for vim (syntax and indent)
-    call dein#add('hdima/python-syntax') " Python syntax highlighting script for Vim http://www.vim.org/scripts/script.php…
-"}}}
+    "Python"------------{{{
+        call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'}) "No-BS Python code folding for Vim
+        call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'}) "Python autocompletion with VIM
+        call dein#add('zchee/deoplete-jedi') "deoplete.nvim source for Python
+        call dein#add('lepture/vim-jinja') " jinja plugins for vim (syntax and indent)
+        call dein#add('hdima/python-syntax') " Python syntax highlighting script for Vim http://www.vim.org/scripts/script.php…
+    "}}}
 
-" GO"-------------{{{
-    " call dein#add('zchee/nvim-go', {'build': 'make'}) " Go development plugin for Neovim written in pure Go
-    call dein#add('fatih/vim-go') " Go development plugin for Neovim written in pure Go
-    call dein#add('zchee/deoplete-go', {'build': 'make'}) "deoplete.nvim source for Go. Asynchronous Go completion for Neovim
-    call dein#add('nsf/gocode') " A Go bundle for Vundle or Pathogen
-    call dein#add('neovim/go-client')
-"}}}
+    " GO"-------------{{{
+        " call dein#add('zchee/nvim-go', {'build': 'make'}) " Go development plugin for Neovim written in pure Go
+        call dein#add('fatih/vim-go') " Go development plugin for Neovim written in pure Go
+        call dein#add('zchee/deoplete-go', {'build': 'make'}) "deoplete.nvim source for Go. Asynchronous Go completion for Neovim
+        call dein#add('nsf/gocode') " A Go bundle for Vundle or Pathogen
+        call dein#add('neovim/go-client')
+    "}}}
 
-"Java"---------------------------------{{{
-    call dein#add('artur-shaik/vim-javacomplete2') "Updated javacomplete plugin for vim.
-"}}}
+    "Java"---------------------------------{{{
+        call dein#add('artur-shaik/vim-javacomplete2') "Updated javacomplete plugin for vim.
+    "}}}
 
-"Docker"---------------------------------{{{
-    call dein#add('ekalinin/Dockerfile.vim') " Docker syntx highlisting
-"}}}
+    "Docker"---------------------------------{{{
+        call dein#add('ekalinin/Dockerfile.vim') " Docker syntx highlisting
+    "}}}
 
-"LaTeX"---------------------------------{{{
-    call dein#add('lervag/vimtex') " A modern vim plugin for editing LaTeX files.
-"}}}
+    "LaTeX"---------------------------------{{{
+        call dein#add('lervag/vimtex') " A modern vim plugin for editing LaTeX files.
+    "}}}
 
-"Solidty"---------------------------------{{{
-call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
-"}}}
+    "Solidty"---------------------------------{{{
+    call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
+    "}}}
 
-"R(lang)"---------------------------------{{{
-    call dein#add('jalvesaq/Nvim-R') " Vim plugin to work with R
-"}}}
+    "R(lang)"---------------------------------{{{
+        call dein#add('jalvesaq/Nvim-R') " Vim plugin to work with R
+    "}}}
+
+    "ReasonML"---------------------------------{{{
+      call dein#add('reasonml-editor/vim-reason-plus') " Reason Vim editor integration
+    "}}}
+
 
 
 "}}}
 
 " BOLT-ON PLUGINS"---------------------------------{{{
+
   " Add-on Features"-----------{{{
       call dein#add('tmux-plugins/vim-tmux')
       call dein#add('tpope/vim-surround')
       call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
       call dein#add('sbdchd/neoformat')
       call dein#add('vim-airline/vim-airline')
+      call dein#add('junegunn/fzf') " A command-line fuzzy finder REASON DEPENDENCY
+      call dein#add('autozimu/LanguageClient-neovim') " Language Server Protocol (LSP) support for vim and neovim.
       call dein#add('tpope/vim-jdaddy') " jdaddy.vim: JSON manipulation and pretty printing
       call dein#add('vim-scripts/CycleColor') " Cycles through available colorschemes
       call dein#add('TheZoq2/neovim-auto-autoread') "Plugin that makes autoread actually work as expected in neovim
@@ -556,6 +564,274 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
 
   "}}}
 
+  " Javascript ----------------------------------------------------------------{{{
+
+  autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
+
+  " Node File Execution
+  au Filetype javascript nmap =oee :!node %<CR>
+  " Formatting
+
+  autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+  autocmd FileType json set formatprg=prettier-eslint\ --stdin
+  let g:neoformat_try_formatprg = 1
+  let g:neoformat_enabled_javascript = ['prettier-eslint']
+  let g:neoformat_enabled_json = ['prettier']
+
+  " The command :Prettier by default is synchronous but can also be forced async
+  let g:prettier#exec_cmd_async = 1
+
+  " " max line lengh that prettier will wrap on
+  " let g:prettier#config#print_width = 80
+  "
+  " " number of spaces per indentation level
+  " let g:prettier#config#tab_width = 2
+  "
+  " " use tabs over spaces
+  " let g:prettier#config#use_tabs = 'false'
+  "
+  " " print semicolons
+  " let g:prettier#config#semi = 'true'
+  "
+  " " single quotes over double quotes
+  " let g:prettier#config#single_quote = 'false'
+  "
+  " " print spaces between brackets
+  " let g:prettier#config#bracket_spacing = 'false'
+  "
+  " " put > on the last line instead of new line
+  " let g:prettier#config#jsx_bracket_same_line = 'false'
+  "
+  " " none|es5|all
+  " let g:prettier#config#trailing_comma = 'none'
+  "
+  " " flow|babylon|typescript|postcss|json|graphql
+  " let g:prettier#config#parser = 'babylon'
+
+  " cli-override|file-override|prefer-file
+  let g:prettier#config#config_precedence = 'prefer-file'
+
+
+  " Linting
+
+  " let g:neomake_highlight_columns = 1
+  " let g:neomake_open_list = 1
+  let g:neomake_javascript_enabled_makers = ['eslint']
+  let g:neomake_verbose = 1
+  let g:neomake_javascript_eslint_maker = {
+        \ 'args': ['--no-color', '--format', 'compact'],
+        \ 'errorformat': '%f: line %l\, col %c\, %m'
+        \ }
+  let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+  let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+
+
+  " Autocompletion
+  " Mapping for jsdoc Documentation
+  autocmd FileType javascript nnoremap <leader>dc :JsDoc<CR>
+
+
+  " let g:javascript_plugin_flow = 1
+  "
+  " " To disable flow from running in background by default, set to 0 in your ~/.vimrc, like so:
+  let g:flow#enable = 0
+
+  let g:jsx_ext_required = 1
+  let g:jsdoc_allow_input_prompt = 1
+  let g:jsdoc_input_description = 1
+  let g:vim_json_syntax_conceal = 0
+
+
+  "Typescript
+
+  let g:nvim_typescript#signature_complete=1
+  let g:nvim_typescript#type_info_on_hold=1
+  let g:nvim_typescript#max_completion_detail=100
+  "
+  let g:neomake_typescript_tsc_maker = {
+        \ 'append_file': 0,
+        \ 'args': ['--project', getcwd() . '/tsconfig.json', '--noEmit'],
+        \ 'errorformat':
+        \   '%E%f %#(%l\,%c): error %m,' .
+        \   '%E%f %#(%l\,%c): %m,' .
+        \   '%Eerror %m,' .
+        \   '%C%\s%\+%m'
+        \}
+
+  let g:neomake_typescript_enabled_makers = ['tsc']
+  map <silent> <leader>gd :TSDoc <cr>
+  map <silent> <leader>gt :TSType <cr>
+  map <silent> <leader>@ :Denite -buffer-name=TSDocumentSymbol TSDocumentSymbol <cr>
+  " autocmd FileType typescript setl omnifunc=TSComplete
+  let g:nvim_typescript#kind_symbols = {
+        \ 'keyword': 'keyword',
+        \ 'class': '',
+        \ 'interface': 'interface',
+        \ 'script': 'script',
+        \ 'module': '',
+        \ 'local class': 'local class',
+        \ 'type': 'type',
+        \ 'enum': '',
+        \ 'enum member': '',
+        \ 'alias': '',
+        \ 'type parameter': 'type param',
+        \ 'primitive type': 'primitive type',
+        \ 'var': '',
+        \ 'local var': '',
+        \ 'property': '',
+        \ 'let': '',
+        \ 'const': '',
+        \ 'label': 'label',
+        \ 'parameter': 'param',
+        \ 'index': 'index',
+        \ 'function': '',
+        \ 'local function': 'local function',
+        \ 'method': '',
+        \ 'getter': '',
+        \ 'setter': '',
+        \ 'call': 'call',
+        \ 'constructor': '',
+        \}
+
+
+
+
+  " let g:javascript_conceal_arrow_function       = "⇒"
+  " let g:javascript_conceal_function             = "ƒ"
+  " let g:javascript_conceal_null                 = "ø"
+  " let g:javascript_conceal_this                 = "@"
+  " let g:javascript_conceal_return               = "⇚"
+  " let g:javascript_conceal_undefined            = "¿"
+  " let g:javascript_conceal_NaN                  = "ℕ"
+  " let g:javascript_conceal_prototype            = "¶"
+  " let g:javascript_conceal_static               = "•"
+  " let g:javascript_conceal_super                = "Ω"
+  " let g:javascript_conceal_noarg_arrow_function = "🞅"
+  " let g:javascript_conceal_underscore_arrow_function = "🞅"
+
+
+  " Tern Configuration{{{
+
+
+
+
+  autocmd FileType javascript nmap <leader>k :TernDef<CR>
+  " Use tern_for_vim.
+  let g:tern#command = ["tern"]
+  let g:tern#arguments = ["--persistent"]
+  let g:tern_show_argument_hints=1
+
+  " " Set bin if you have many installations
+  let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
+  " let g:deoplete#sources#ternjs#timeout = 1
+  "
+  " " Whether to include the types of the completions in the result data. Default: 0
+  let g:deoplete#sources#ternjs#types = 1
+  "
+  " " Whether to include the distance (in scopes for variables, in prototypes for
+  " " properties) between the completions and the origin position in the result
+  " " data. Default: 0
+  let g:deoplete#sources#ternjs#depths = 1
+  "
+  " " Whether to include documentation strings (if found) in the result data.
+  " " Default: 0
+  let g:deoplete#sources#ternjs#docs = 1
+  "
+  " " When on, only completions that match the current word at the given point will
+  " " be returned. Turn this off to get all results, so that you can filter on the
+  " " client side. Default: 1
+  "     let g:deoplete#sources#ternjs#filter = 0
+  "
+  " " Whether to use a case-insensitive compare between the current word and
+  " " potential completions. Default 0
+  let g:deoplete#sources#ternjs#case_insensitive = 1
+  "
+  " " When completing a property and no completions are found, Tern will use some
+  " " heuristics to try and return some properties anyway. Set this to 0 to
+  " " turn that off. Default: 1
+  "     let g:deoplete#sources#ternjs#guess = 0
+  "
+  " " Determines whether the result set will be sorted. Default: 1
+  let g:deoplete#sources#ternjs#sort = 0
+  "
+  " " When disabled, only the text before the given position is considered part of
+  " " the word. When enabled (the default), the whole variable name that the cursor
+  " " is on will be included. Default: 1
+  "     let g:deoplete#sources#ternjs#expand_word_forward = 0
+  "
+  " " Whether to ignore the properties of Object.prototype unless they have been
+  " " spelled out by at least to characters. Default: 1
+  "     let g:deoplete#sources#ternjs#omit_object_prototype = 0
+  "
+  " " Whether to include JavaScript keywords when completing something that is not
+  " " a property. Default: 0
+  let g:deoplete#sources#ternjs#include_keywords = 1
+  "
+  " " If completions should be returned when inside a literal. Default: 1
+  " let g:deoplete#sources#ternjs#in_literal = 0
+
+
+  " " Add extra filetypes
+  let g:deoplete#sources#ternjs#filetypes = [
+        \ 'js',
+        \ 'jsx',
+        \ 'javascript.jsx',
+        \ 'vue',
+        \ '...'
+        \ ]
+
+
+  "}}}
+
+
+
+
+  " }}}
+
+  " Reason ------------------------------------------------------------------------{{{
+
+      let g:LanguageClient_serverCommands = {
+          \ 'reason': ['ocaml-language-server', '--stdio'],
+          \ 'ocaml': ['ocaml-language-server', '--stdio'],
+          \ }
+
+  "}}}
+
+  " Go ------------------------------------------------------------------------{{{
+
+  " Go File Execution
+  au Filetype go nmap =oee :!go run %<CR>
+
+  "}}}
+
+  " Python --------------------------------------------------------------------{{{
+
+  " let g:python_host_prog = '/usr/local/bin/python2'
+  let g:python3_host_prog = '/usr/local/bin/python3'
+  " let $NVIM_PYTHON_LOG_FILE='nvim-python.log'
+
+  let g:jedi#auto_vim_configuration = 0
+  let g:jedi#documentation_command = "<leader>k"
+
+  let g:neomake_python_enabled_makers = ['flake8']
+
+
+  " Keymappings - python
+  "
+
+  autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
+
+  au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
+
+  au Filetype python nmap <M-;> A:<ESC>
+  au Filetype python nmap =oee :!python %<cr>
+
+
+
+  " let g:neoformat_enabled_htmldjango = ['html-beautify']
+
+  " }}}
+
   " MarkDown ------------------------------------------------------------------{{{
 
       noremap <leader>TM :TableModeToggle<CR>
@@ -574,230 +850,6 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       let vim_markdown_preview_github=1
   "}}}
 
-  " Javascript ----------------------------------------------------------------{{{
-
-      autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
-
-      " Node File Execution
-      au Filetype javascript nmap =oee :!node %<CR>
-      " Formatting
-
-      autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
-      autocmd FileType json set formatprg=prettier-eslint\ --stdin
-      let g:neoformat_try_formatprg = 1
-      let g:neoformat_enabled_javascript = ['prettier-eslint']
-      let g:neoformat_enabled_json = ['prettier']
-
-      " The command :Prettier by default is synchronous but can also be forced async
-      let g:prettier#exec_cmd_async = 1
-
-      " " max line lengh that prettier will wrap on
-      " let g:prettier#config#print_width = 80
-      "
-      " " number of spaces per indentation level
-      " let g:prettier#config#tab_width = 2
-      "
-      " " use tabs over spaces
-      " let g:prettier#config#use_tabs = 'false'
-      "
-      " " print semicolons
-      " let g:prettier#config#semi = 'true'
-      "
-      " " single quotes over double quotes
-      " let g:prettier#config#single_quote = 'false'
-      "
-      " " print spaces between brackets
-      " let g:prettier#config#bracket_spacing = 'false'
-      "
-      " " put > on the last line instead of new line
-      " let g:prettier#config#jsx_bracket_same_line = 'false'
-      "
-      " " none|es5|all
-      " let g:prettier#config#trailing_comma = 'none'
-      "
-      " " flow|babylon|typescript|postcss|json|graphql
-      " let g:prettier#config#parser = 'babylon'
-
-      " cli-override|file-override|prefer-file
-      let g:prettier#config#config_precedence = 'prefer-file'
-
-
-      " Linting
-
-      " let g:neomake_highlight_columns = 1
-      " let g:neomake_open_list = 1
-      let g:neomake_javascript_enabled_makers = ['eslint']
-      let g:neomake_verbose = 1
-      let g:neomake_javascript_eslint_maker = {
-            \ 'args': ['--no-color', '--format', 'compact'],
-            \ 'errorformat': '%f: line %l\, col %c\, %m'
-            \ }
-      let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
-      let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-
-
-      " Autocompletion
-      " Mapping for jsdoc Documentation
-      autocmd FileType javascript nnoremap <leader>dc :JsDoc<CR>
-
-
-      " let g:javascript_plugin_flow = 1
-      "
-      " " To disable flow from running in background by default, set to 0 in your ~/.vimrc, like so:
-      let g:flow#enable = 0
-
-      let g:jsx_ext_required = 1
-      let g:jsdoc_allow_input_prompt = 1
-      let g:jsdoc_input_description = 1
-      let g:vim_json_syntax_conceal = 0
-
-
-      "Typescript
-
-      let g:nvim_typescript#signature_complete=1
-      let g:nvim_typescript#type_info_on_hold=1
-      let g:nvim_typescript#max_completion_detail=100
-      "
-      let g:neomake_typescript_tsc_maker = {
-            \ 'append_file': 0,
-            \ 'args': ['--project', getcwd() . '/tsconfig.json', '--noEmit'],
-            \ 'errorformat':
-            \   '%E%f %#(%l\,%c): error %m,' .
-            \   '%E%f %#(%l\,%c): %m,' .
-            \   '%Eerror %m,' .
-            \   '%C%\s%\+%m'
-            \}
-
-      let g:neomake_typescript_enabled_makers = ['tsc']
-      map <silent> <leader>gd :TSDoc <cr>
-      map <silent> <leader>gt :TSType <cr>
-      map <silent> <leader>@ :Denite -buffer-name=TSDocumentSymbol TSDocumentSymbol <cr>
-      " autocmd FileType typescript setl omnifunc=TSComplete
-      let g:nvim_typescript#kind_symbols = {
-            \ 'keyword': 'keyword',
-            \ 'class': '',
-            \ 'interface': 'interface',
-            \ 'script': 'script',
-            \ 'module': '',
-            \ 'local class': 'local class',
-            \ 'type': 'type',
-            \ 'enum': '',
-            \ 'enum member': '',
-            \ 'alias': '',
-            \ 'type parameter': 'type param',
-            \ 'primitive type': 'primitive type',
-            \ 'var': '',
-            \ 'local var': '',
-            \ 'property': '',
-            \ 'let': '',
-            \ 'const': '',
-            \ 'label': 'label',
-            \ 'parameter': 'param',
-            \ 'index': 'index',
-            \ 'function': '',
-            \ 'local function': 'local function',
-            \ 'method': '',
-            \ 'getter': '',
-            \ 'setter': '',
-            \ 'call': 'call',
-            \ 'constructor': '',
-            \}
-
-
-
-
-        " let g:javascript_conceal_arrow_function       = "⇒"
-        " let g:javascript_conceal_function             = "ƒ"
-        " let g:javascript_conceal_null                 = "ø"
-        " let g:javascript_conceal_this                 = "@"
-        " let g:javascript_conceal_return               = "⇚"
-        " let g:javascript_conceal_undefined            = "¿"
-        " let g:javascript_conceal_NaN                  = "ℕ"
-        " let g:javascript_conceal_prototype            = "¶"
-        " let g:javascript_conceal_static               = "•"
-        " let g:javascript_conceal_super                = "Ω"
-        " let g:javascript_conceal_noarg_arrow_function = "🞅"
-        " let g:javascript_conceal_underscore_arrow_function = "🞅"
-
-
-      " Tern Configuration{{{
-
-
-
-
-          autocmd FileType javascript nmap <leader>k :TernDef<CR>
-          " Use tern_for_vim.
-          let g:tern#command = ["tern"]
-          let g:tern#arguments = ["--persistent"]
-          let g:tern_show_argument_hints=1
-
-          " " Set bin if you have many installations
-          let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
-          " let g:deoplete#sources#ternjs#timeout = 1
-          "
-          " " Whether to include the types of the completions in the result data. Default: 0
-          let g:deoplete#sources#ternjs#types = 1
-          "
-          " " Whether to include the distance (in scopes for variables, in prototypes for
-          " " properties) between the completions and the origin position in the result
-          " " data. Default: 0
-          let g:deoplete#sources#ternjs#depths = 1
-          "
-          " " Whether to include documentation strings (if found) in the result data.
-          " " Default: 0
-          let g:deoplete#sources#ternjs#docs = 1
-          "
-          " " When on, only completions that match the current word at the given point will
-          " " be returned. Turn this off to get all results, so that you can filter on the
-          " " client side. Default: 1
-          "     let g:deoplete#sources#ternjs#filter = 0
-          "
-          " " Whether to use a case-insensitive compare between the current word and
-          " " potential completions. Default 0
-          let g:deoplete#sources#ternjs#case_insensitive = 1
-          "
-          " " When completing a property and no completions are found, Tern will use some
-          " " heuristics to try and return some properties anyway. Set this to 0 to
-          " " turn that off. Default: 1
-          "     let g:deoplete#sources#ternjs#guess = 0
-          "
-          " " Determines whether the result set will be sorted. Default: 1
-          let g:deoplete#sources#ternjs#sort = 0
-          "
-          " " When disabled, only the text before the given position is considered part of
-          " " the word. When enabled (the default), the whole variable name that the cursor
-          " " is on will be included. Default: 1
-          "     let g:deoplete#sources#ternjs#expand_word_forward = 0
-          "
-          " " Whether to ignore the properties of Object.prototype unless they have been
-          " " spelled out by at least to characters. Default: 1
-          "     let g:deoplete#sources#ternjs#omit_object_prototype = 0
-          "
-          " " Whether to include JavaScript keywords when completing something that is not
-          " " a property. Default: 0
-              let g:deoplete#sources#ternjs#include_keywords = 1
-          "
-          " " If completions should be returned when inside a literal. Default: 1
-              " let g:deoplete#sources#ternjs#in_literal = 0
-
-
-          " " Add extra filetypes
-          let g:deoplete#sources#ternjs#filetypes = [
-                \ 'js',
-                \ 'jsx',
-                \ 'javascript.jsx',
-                \ 'vue',
-                \ '...'
-                \ ]
-
-
-        "}}}
-
-
-
-
-  " }}}
-
   " Java ----------------------------------------------------------------------{{{
 
       autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -815,13 +867,6 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       autocmd FileType html nnoremap <silent> <leader>f :Neoformat htmlbeautify<CR>
   " }}}
 
-  " Go ------------------------------------------------------------------------{{{
-
-    " Go File Execution
-    au Filetype go nmap =oee :!go run %<CR>
-
-  "}}}
-
   " CSS -----------------------------------------------------------------------{{{
 
   "}}}
@@ -829,34 +874,6 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
   " Lua -----------------------------------------------------------------------{{{
 
   "}}}
-
-  " Python --------------------------------------------------------------------{{{
-
-    " let g:python_host_prog = '/usr/local/bin/python2'
-    let g:python3_host_prog = '/usr/local/bin/python3'
-    " let $NVIM_PYTHON_LOG_FILE='nvim-python.log'
-
-    let g:jedi#auto_vim_configuration = 0
-    let g:jedi#documentation_command = "<leader>k"
-
-    let g:neomake_python_enabled_makers = ['flake8']
-
-
-    " Keymappings - python
-    "
-
-    autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
-
-    au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
-
-    au Filetype python nmap <M-;> A:<ESC>
-    au Filetype python nmap =oee :!python %<cr>
-
-
-
-    " let g:neoformat_enabled_htmldjango = ['html-beautify']
-
-  " }}}
 
   " Fold, gets it's own section  ----------------------------------------------{{{
 
@@ -1028,41 +1045,41 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
 
   " }}}
 
-" Snippets -----------------------------------------------------------------{{{
+  " Snippets -----------------------------------------------------------------{{{
 
-      " Enable snipMate compatibility feature.
-      " let g:neosnippet#enable_snipmate_compatibility = 1
-      " let g:neosnippet#expand_word_boundary = 1
-      let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
-      imap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
-      smap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
-      xmap <leader><leader><leader> <Plug>(neosnippet_expand_target)
+        " Enable snipMate compatibility feature.
+        " let g:neosnippet#enable_snipmate_compatibility = 1
+        " let g:neosnippet#expand_word_boundary = 1
+        let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
+        imap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
+        smap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
+        xmap <leader><leader><leader> <Plug>(neosnippet_expand_target)
 
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <expr><Tab>
-          \ pumvisible() ?
-          \ "\<C-n>" : "\<TAB>"
-    imap <expr><S-Tab>
-          \ pumvisible() ?
-          \ "\<C-p>" : "\<S-Tab>"
-    imap <expr><m-j>
-          \ neosnippet#expandable_or_jumpable() ?
-          \ "\<C-n>" : "\<C-n>"
-    smap <expr><m-j> neosnippet#expandable_or_jumpable() ?
-        \ "\<C-n>" : "\<ESC>"
-    imap <expr><m-k>
-          \ neosnippet#expandable_or_jumpable() ?
-          \ "\<C-p>" : "\<C-p>"
-    smap <expr><m-k> neosnippet#expandable_or_jumpable() ?
-          \ "\<C-p>" : "\<ESC>"
+      " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+      imap <expr><Tab>
+            \ pumvisible() ?
+            \ "\<C-n>" : "\<TAB>"
+      imap <expr><S-Tab>
+            \ pumvisible() ?
+            \ "\<C-p>" : "\<S-Tab>"
+      imap <expr><m-j>
+            \ neosnippet#expandable_or_jumpable() ?
+            \ "\<C-n>" : "\<C-n>"
+      smap <expr><m-j> neosnippet#expandable_or_jumpable() ?
+          \ "\<C-n>" : "\<ESC>"
+      imap <expr><m-k>
+            \ neosnippet#expandable_or_jumpable() ?
+            \ "\<C-p>" : "\<C-p>"
+      smap <expr><m-k> neosnippet#expandable_or_jumpable() ?
+            \ "\<C-p>" : "\<ESC>"
 
 
-    " For conceal markers.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
+      " For conceal markers.
+      if has('conceal')
+        set conceallevel=2 concealcursor=niv
+      endif
 
-  "}}}
+    "}}}
 
   " Deoplete ------------------------------------------------------------------{{{
 
@@ -1175,56 +1192,56 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       autocmd FileType html,css,scss EmmetInstall
       "}}}
 
-      " Denite --------------------------------------------------------------------{{{
+  " Denite --------------------------------------------------------------------{{{
 
-      let g:webdevicons_enable_denite = 0
-      let s:menus = {}
+    let g:webdevicons_enable_denite = 0
+    let s:menus = {}
 
-      call denite#custom#option('_', {
-                  \ 'prompt': '❯',
-                  \ 'winheight': 10,
-                  \ 'reversed': 1,
-                  \ 'highlight_matched_char': 'Underlined',
-                  \ 'highlight_mode_normal': 'CursorLine',
-                  \ 'updatetime': 1,
-                  \ 'auto_resize': 1,
-                  \})
-      call denite#custom#option('TSDocumentSymbol', {
-                  \ 'prompt': ' @' ,
-                  \ 'reversed': 0,
-                  \})
-      call denite#custom#var('file_rec', 'command',
-                  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-      call denite#custom#source('file_rec', 'vars', {
-                  \ 'command': [
-                  \ 'ag', '--follow','--nogroup','--hidden', '--column', '-g', '', '--ignore', '.git', '--ignore', '*.png'
-                  \] })
+    call denite#custom#option('_', {
+                \ 'prompt': '❯',
+                \ 'winheight': 10,
+                \ 'reversed': 1,
+                \ 'highlight_matched_char': 'Underlined',
+                \ 'highlight_mode_normal': 'CursorLine',
+                \ 'updatetime': 1,
+                \ 'auto_resize': 1,
+                \})
+    call denite#custom#option('TSDocumentSymbol', {
+                \ 'prompt': ' @' ,
+                \ 'reversed': 0,
+                \})
+    call denite#custom#var('file_rec', 'command',
+                \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+    call denite#custom#source('file_rec', 'vars', {
+                \ 'command': [
+                \ 'ag', '--follow','--nogroup','--hidden', '--column', '-g', '', '--ignore', '.git', '--ignore', '*.png'
+                \] })
 
-      call denite#custom#var('grep', 'command', ['ag'])
-      call denite#custom#var('grep', 'default_opts',
-                  \ ['-i', '--vimgrep'])
-      call denite#custom#var('grep', 'recursive_opts', [])
-      call denite#custom#var('grep', 'pattern_opt', [])
-      call denite#custom#var('grep', 'separator', ['--'])
-      call denite#custom#var('grep', 'final_opts', [])
+    call denite#custom#var('grep', 'command', ['ag'])
+    call denite#custom#var('grep', 'default_opts',
+                \ ['-i', '--vimgrep'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', [])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
 
 
-      " nnoremap <silent> <c-p> :Denite file_rec<CR>
-      nnoremap <silent> <leader>j :Denite file_rec<CR>
-      nnoremap <silent> <leader>? :Denite  help<CR>
-      nnoremap <silent> <leader>th :Denite colorscheme<CR>
-      nnoremap <silent> <leader>b :Denite buffer<CR>
-      nnoremap <silent> <leader>a :Denite grep:::!<CR>
-      nnoremap <silent> <leader>u :call dein#update()<CR>
-      nnoremap <silent> <Leader>i :Denite menu:ionic <CR>
-      call denite#custom#map('insert','<M-j>','<denite:move_to_next_line>','noremap')
-      call denite#custom#map('insert','<M-k>','<denite:move_to_previous_line>','noremap')
-      call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-                  \ [ '.git/', '.ropeproject/', '__pycache__/',
-                  \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-      call denite#custom#var('menu', 'menus', s:menus)
+    " nnoremap <silent> <c-p> :Denite file_rec<CR>
+    nnoremap <silent> <leader>j :Denite file_rec<CR>
+    nnoremap <silent> <leader>? :Denite  help<CR>
+    nnoremap <silent> <leader>th :Denite colorscheme<CR>
+    nnoremap <silent> <leader>b :Denite buffer<CR>
+    nnoremap <silent> <leader>a :Denite grep:::!<CR>
+    nnoremap <silent> <leader>u :call dein#update()<CR>
+    nnoremap <silent> <Leader>i :Denite menu:ionic <CR>
+    call denite#custom#map('insert','<M-j>','<denite:move_to_next_line>','noremap')
+    call denite#custom#map('insert','<M-k>','<denite:move_to_previous_line>','noremap')
+    call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+                \ [ '.git/', '.ropeproject/', '__pycache__/',
+                \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+    call denite#custom#var('menu', 'menus', s:menus)
 
-  "}}}
+"}}}
 
   " Git from denite...ERMERGERD -----------------------------------------------{{{
       let s:menus.git = {
@@ -1261,56 +1278,56 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
                   \] " Append ' --' after log to get commit info commit buffers
       "}}}
 
-      " Ionic denite source -------------------------------------------------------{{{
+  " Ionic denite source -------------------------------------------------------{{{
 
-      function! Ionic(job) abort
-          if a:job ==# "serve"
-              enew!
-              let filename = 'Ionic:\ '. a:job
-              call termopen('ionic '. a:job)
-              exe 'file 'filename
-              startinsert
-          else
-              let platform = input('platform: ')
-              enew!
-              let filename = 'Ionic:\ '. a:job
-              call termopen('ionic '. a:job . ' ' . platform)
-              exe 'file 'filename
-              startinsert
-          endif
-      endfunction
+    function! Ionic(job) abort
+        if a:job ==# "serve"
+            enew!
+            let filename = 'Ionic:\ '. a:job
+            call termopen('ionic '. a:job)
+            exe 'file 'filename
+            startinsert
+        else
+            let platform = input('platform: ')
+            enew!
+            let filename = 'Ionic:\ '. a:job
+            call termopen('ionic '. a:job . ' ' . platform)
+            exe 'file 'filename
+            startinsert
+        endif
+    endfunction
 
-      " function ExitHandle()
-      "   echom self
-      " endfunction
+    " function ExitHandle()
+    "   echom self
+    " endfunction
 
-      let s:menus.ionic = {
-                  \ 'description' : 'some rando ionic stuff',
-                  \}
-      let s:menus.ionic.command_candidates = [
-                  \[' serve', 'call Ionic("serve")' ],
-                  \[' run device', 'call Ionic("run")'],
-                  \[' emulate device', 'call Ionic("emulate")'],
-                  \]
-      "}}}
+    let s:menus.ionic = {
+                \ 'description' : 'some rando ionic stuff',
+                \}
+    let s:menus.ionic.command_candidates = [
+                \[' serve', 'call Ionic("serve")' ],
+                \[' run device', 'call Ionic("run")'],
+                \[' emulate device', 'call Ionic("emulate")'],
+                \]
+    "}}}
 
-      " Navigate between vim buffers and tmux panels ------------------------------{{{
+  " Navigate between vim buffers and tmux panels ------------------------------{{{
 
-      let g:tmux_navigator_no_mappings = 1
-      nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-      nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-      nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-      nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
-      nnoremap <silent> <C-;> :TmuxNavigatePrevious<cr>
-      tmap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
-      tmap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
-      tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
-      tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
-      tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
+    let g:tmux_navigator_no_mappings = 1
+    nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+    nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+    nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+    nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+    nnoremap <silent> <C-;> :TmuxNavigatePrevious<cr>
+    tmap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
+    tmap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
+    tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+    tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+    tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
 
 
 
-  "}}}
+"}}}
 
   " vim-airline ---------------------------------------------------------------{{{
 
