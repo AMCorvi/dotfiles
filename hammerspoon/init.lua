@@ -1,17 +1,23 @@
-local modalKey = {"alt"}
+local modalKey = {"cmd", "alt", "ctrl"}
 local resizeMappings = {
   h={x=0, y=0, w=0.5, h=1},
   j={x=0, y=0.5, w=1, h=0.5},
   k={x=0, y=0, w=1, h=0.5},
   l={x=0.5, y=0, w=0.5, h=1},
   m={x=0, y=0, w=1, h=1},
-  u={x=0, y=0, w=0.33, h=1},
-  i={x=0.33, y=0, w=0.33, h=1},
-  o={x=0.66, y=0, w=0.33, h=1},
+  u={x=0.5, y=0.5, w=0.5, h=0.5},
+  i={x=0, y=0.5, w=0.5, h=0.5},
+  o={x=0.5, y=0, w=0.5, h=0.5},
+  p={x=0, y=0, w=0.5, h=0.5},
 
   b={x=0, y=0, w=0.75, h=1},
   n={x=0.75, y=0, w=0.25, h=1},
 }
+
+hs.hotkey.bind(modalKey, "f", function()
+  local win = hs.window.focusedWindow()
+   win:setFullScreen(not win:isFullScreen())
+end)
 
 for key in pairs(resizeMappings) do
   hs.hotkey.bind(modalKey, key, function()
@@ -25,16 +31,16 @@ hs.hotkey.bind(modalKey, "r", function()
 end)
 
 local focusKeys = {
+
   s='Safari',
   -- a='Atom',
-  -- w='Mail',
-  c='Google Chrome',
+  a='Airmail 3',
+  c='Opera',
   -- b='Google Chrome Canary',
   d='Slack',
-  f='iTerm',
+  t='iTerm',
   -- f='Hyper',
   e='Simulator',
-  t='Messages',
   -- v="Visual Studio Code"
 }
 

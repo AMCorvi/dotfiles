@@ -5,7 +5,7 @@ set -o vi
 # Some aliases for Homebrew
 alias bup='brew update && brew upgrade'
 alias bout='brew outdated'
-alias bin='brew install'
+alias bins='brew install'
 alias brm='brew uninstall'
 alias bls='brew list'
 alias bsr='brew search'
@@ -24,7 +24,6 @@ alias l1='ls -1'
 alias v='nvim'
 # alias n="nvim"
 alias s="sudo"
-alias e="open -a /Applications/Emacs.app"
 alias n="open -a /Applications/Neovim.app"
 # Desktop Programs
 alias xcode="open -a '/Applications/XCode.app'"
@@ -51,15 +50,15 @@ alias dsclean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
 alias flush='dscacheutil -flushcache'
 
 function symLink(){
-echo "Creating symlinks"
-cp -f dist/js/ionic.bundle.js tmp/www/lib/ionic/js/ionic.bundle.js
-cp -f dist/css/ionic.css tmp/www/lib/ionic/css/ionic.css
-echo "done"
-  }
+  echo "Creating symlinks"
+  cp -f dist/js/ionic.bundle.js tmp/www/lib/ionic/js/ionic.bundle.js
+  cp -f dist/css/ionic.css tmp/www/lib/ionic/css/ionic.css
+  echo "done"
+}
 
-  # Because Typing python -m SimpleHTTPServer is too Damn Long
-  # Start an HTTP server from a directory, optionally specifying the port
-  function server() {
+# Because Typing python -m SimpleHTTPServer is too Damn Long
+# Start an HTTP server from a directory, optionally specifying the port
+function server() {
   local port="${1:-8000}"
   #    open "http://localhost:${port}/"
   open -a google\ chrome\ canary "http://localhost:${port}/" --args --disable-web-security
@@ -69,36 +68,38 @@ echo "done"
 }
 
 function run(){
-ionic build "$1" && ionic run "$1" --device -lc
+  ionic build "$1" && ionic run "$1" --device -lc
 }
+
 function sim(){
-ionic build "$1" && ionic emulate "$1"
+  ionic build "$1" && ionic emulate "$1"
 }
 
 function download(){
-curl -O "$1"
+  curl -O "$1"
 }
+alias dl=download
 
 function highlight(){
   highlight -O rtf $1 --font-size 25 --style solarized-dark -W -J 50 -j 3 --src-lang $2 | pbcopy
 }
 
-alias dl=download
-function ghUpdate() {
-if git remote | grep upstream > /dev/null;
-then
-  echo "upstream is set"
-else
-  read "?Whats the URl of the original repo? | " answer
-  # Add the remote, call it "upstream":
-  echo $answer
-  git remote add upstream $answer
 
-fi
-git fetch upstream
-git checkout master
-git rebase upstream/master
-  }
+function ghUpdate() {
+  if git remote | grep upstream > /dev/null;
+  then
+    echo "upstream is set"
+  else
+    read "?Whats the URl of the original repo? | " answer
+    # Add the remote, call it "upstream":
+    echo $answer
+    git remote add upstream $answer
+
+  fi
+  git fetch upstream
+  git checkout master
+  git rebase upstream/master
+}
 
 function ghPages(){
   if [ -z "$1" ]
@@ -186,7 +187,7 @@ function ghPages(){
 
   # Extract archives - use: extract <file>
   # Based on http://dotfiles.org/~pseup/.bashrc
-  function extract() {
+function extract() {
   local remove_archive
   local success
   local file_name
@@ -265,3 +266,4 @@ function fixSSH(){
   eval $(ssh-agent);
   ssh-add ~/.ssh/id_rsa
 }
+

@@ -71,3 +71,9 @@ zstyle ':notify:*' success-title "very #success. wow"
 set -o vi
 
 export PATH=/Users/AMC/.local/bin/luna-studio:$PATH
+
+PATH="/Users/AMC/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/AMC/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/AMC/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/AMC/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/AMC/perl5"; export PERL_MM_OPT;

@@ -17,8 +17,37 @@ packages=(
 "node"
 "tmux"
 "lua"
+"termsaver"
 "neovim"
-"weechat --with-lua --with-perl --with-python --with-ruby"
+"irssi"
+"postgresql"
+"hub"
+"yarn"
+"python2"
+"python3"
+"go"
+"casperjs"
+"phantomjs"
+)
+
+apps=(
+  "postgress"
+  "hammerspoon"
+  "opera"
+  "alfred"
+  "deluge"
+  "keybase"
+  "iterm2"
+  "plug"
+  "skype"
+  "spotify"
+  "tableplus"
+  "torbrowser"
+  "the-unarchiver"
+  "openemu"
+  "image2icon"
+  "liteicon"
+  "hyper"
 )
 
 for i in "${packages[@]}"
@@ -26,6 +55,8 @@ do
   brew install $i
   echo "---------------------------------------------------------"
 done
+
+
 
 echo "installing RCM, for dotfiles management"
 brew tap thoughtbot/formulae
@@ -52,7 +83,7 @@ git submodule update --init --recursive
 
 cd $HOME
 echo "running RCM's rcup command"
-echo "This is symlink the rc files in .dofiles"
+echo "This will symlink the rc files in .dofiles"
 echo "with the rc files in $HOME"
 echo "---------------------------------------------------------"
 
@@ -68,15 +99,24 @@ echo "---------------------------------------------------------"
 
 echo "running oxs defaults"
 ~./osx.sh
+echo "---------------------------------------------------------"
 
-echo "---------------------------------------------------------"
-echo "Downloading Hammerspoon"
-cd ~/Downloads
-curl https://github.com/Hammerspoon/hammerspoon/releases/download/0.9.43/Hammerspoon-0.9.43.zip | unzip
-unzip Hammerspoon-0.9.43.zip
-mv Hammerspoon /Applications/
-echo 'done'
-echo "---------------------------------------------------------"
+echo "Would like to install app AMCorvi's Prefered apps yes/n"
+read app_confirm
+
+if [ $app_confirm == 'yes' ]; then
+    # Setup Cask for Homebrew
+    echo "Installing apps via 'Cask' for Homebrew"
+    brew tap caskroom/cask
+
+    for app in "${apps[@]}"
+    do
+      brew cask install $app
+      echo "---------------------------------------------------------"
+    done
+fi
+
+
 echo "All done!"
 echo "and change your terminal font to source code pro"
 echo "Cheers"

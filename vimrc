@@ -69,6 +69,7 @@
     call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'}) "Python autocompletion with VIM
     call dein#add('zchee/deoplete-jedi') "deoplete.nvim source for Python
     call dein#add('lepture/vim-jinja') " jinja plugins for vim (syntax and indent)
+    call dein#add('hdima/python-syntax') " Python syntax highlighting script for Vim http://www.vim.org/scripts/script.php…
 "}}}
 
 " GO"-------------{{{
@@ -109,6 +110,9 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
       call dein#add('sbdchd/neoformat')
       call dein#add('vim-airline/vim-airline')
+      call dein#add('tpope/vim-jdaddy') " jdaddy.vim: JSON manipulation and pretty printing
+      call dein#add('vim-scripts/CycleColor') " Cycles through available colorschemes
+      call dein#add('TheZoq2/neovim-auto-autoread') "Plugin that makes autoread actually work as expected in neovim
       call dein#add('metakirby5/codi.vim') "The interactive scratchpad for hackers.
       call dein#add('majutsushi/tagbar') " Vim plugin that displays tags in a window, ordered by scope
       call dein#add('tomtom/tcomment_vim') " An extensible & universal comment vim-plugin
@@ -201,14 +205,14 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
   "}}}
 
   "Denite stuff"-----------{{{
-  call dein#add('Shougo/denite.nvim') " Denite is a dark powered plugin for Neovim/Vim to unite all interfaces
-  call dein#add('Shougo/neomru.vim') " MRU plugin includes unite.vim/denite.nvim MRU sources
-  call dein#add('Shougo/context_filetype.vim') " Context filetype library for Vim script
-  call dein#add('chemzqm/denite-git') " gitlog, gitstatus and gitchanged source for denite.nvim
-  call dein#add('pocari/vim-denite-gists') " denite.nvim plugin for show and browse Gist
-  call dein#add('chemzqm/denite-git') "gitlog, gitstatus and gitchanged source for denite.nvim
-  call dein#add('Shougo/vimfiler.vim') " Powerful file explorer implemented by Vim script
-  call dein#add('Shougo/unite.vim') " Unite and create user interfaces
+    call dein#add('Shougo/denite.nvim') " Denite is a dark powered plugin for Neovim/Vim to unite all interfaces
+    call dein#add('Shougo/neomru.vim') " MRU plugin includes unite.vim/denite.nvim MRU sources
+    call dein#add('Shougo/context_filetype.vim') " Context filetype library for Vim script
+    call dein#add('chemzqm/denite-git') " gitlog, gitstatus and gitchanged source for denite.nvim
+    call dein#add('pocari/vim-denite-gists') " denite.nvim plugin for show and browse Gist
+    call dein#add('chemzqm/denite-git') "gitlog, gitstatus and gitchanged source for denite.nvim
+    call dein#add('Shougo/vimfiler.vim') " Powerful file explorer implemented by Vim script
+    call dein#add('Shougo/unite.vim') " Unite and create user interfaces
   "}}}
 
   "Snippet and Completions"-----------{{{
@@ -261,7 +265,6 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
   set laststatus=2
   set wrap linebreak nolist
   set wildmode=full
-  set autoread
   set smartcase
   set splitbelow
   set splitright
@@ -295,6 +298,12 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
   " Default to search highlighting being turned off.
   set nohlsearch
 
+  "Autoreload files when changed externally
+  " set autoread
+  " if has('nvim') "Prevent errors when using standard vim
+  "   autocmd VimEnter * AutoreadLoop
+  " endif
+
   set formatoptions+=t
   set inccommand=nosplit
   set shortmess=atIc
@@ -310,16 +319,24 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
   " System mappings  ----------------------------------------------------------{{{
 
 
-      "Refresh vim
+
+      "Refresh .vimrc
       nnoremap <f5> :so $MYVIMRC<CR>
+
+      " Open .vimrc
+      noremap <leader>, :e ~/.vimrc<CR>
 
       " No need for ex mode
       nnoremap Q <nop>
       vnoremap // y/<C-R>"<CR>
 
+      " Cycle thru colorschemes
+      nmap + :CycleColorNext<CR>
+      nmap _ :CycleColorPrev<CR>
+
       " Use enter to make new lines
-      nmap <CR> o<Esc>
-      nmap <S-CR> O<Esc>
+      " nmap <CR> o<Esc>
+      " nmap <S-CR> O<Esc>
 
       " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
       nmap <M-o> o<esc>
@@ -333,7 +350,7 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       nnoremap <leader>ss :setlocal spell!<cr>
 
       " Save via leader+w
-      nnoremap <leader>w :w<cr>
+      nnoremap <leader>w :up<cr>
 
       " press i twice for normal mode
       inoremap ii <esc>
@@ -380,16 +397,25 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
 
       " Vertical Split
       nnoremap <leader>sp :sp<CR>
+
       " Horizontal Split
       nnoremap <leader>vs :vs<CR>
+
       " Close All Window Except Current
       nnoremap <leader>on :on<CR>
+
       " Close Current Window
       nnoremap <leader>cl :clo<CR>
+
       " Close current buffer
-      nnoremap <leader>bd :bd<CR>
+      nnoremap <leader>bd :Sayonara<CR>
+
       " Update Buffer
       noremap <leader>ct :checktime<CR>
+
+      " Go back to previous opened file in Vim
+      noremap <leader>l <C-6>
+
 
       " copy current files path to clipboard
       nmap cp :let @+= expand("%") <cr>
@@ -404,13 +430,13 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       nnoremap K 5k
 
       " Quickfix Navigations Shortcut
-      nmap =oqll :ll<CR>
-      nmap =oqlf :lf<CR>
-      nmap =oqla :la<CR>
-      nmap =oqln :lne<CR>
-      nmap =oqlp :lp<CR>
-      nmap =oqcn :cn<CR>
-      nmap =oqcc :cc<CR>
+      nmap <leader><leader>ll :ll<CR>
+      nmap <leader><leader>lf :lf<CR>
+      nmap <leader><leader>la :la<CR>
+      nmap <leader><leader>lne :lne<CR>
+      nmap <leader><leader>lp :lp<CR>
+      nmap <leader><leader>cn :cn<CR>
+      nmap <leader><leader>cc :cc<CR>
 
       "Permit rapid scrolling in visualmode
       vnoremap J 5j
@@ -418,7 +444,7 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
 
       " join/split short cut
       nmap =oj :join<CR>
-      nmap =ok a<CR><ESC>
+      nmap <CR> i<CR><ESC>
 
 
       " " replace f and/or t with one-character Sneak
@@ -451,10 +477,13 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       " let g:multi_cursor_quit_key='<Esc>'
 
       " Commenting
-      nnoremap =oml :TComment<cr>
-      vnoremap =oml :TComment<cr>
-      vnoremap =omm :TCommentBlock<cr>
-      vnoremap =omi :TCommentInline<cr>
+      " nnoremap =oml :TComment<cr>
+      " vnoremap =oml :TComment<cr>
+      " vnoremap =omm :TCommentBlock<cr>
+      " vnoremap =omi :TCommentInline<cr>
+      nmap gcb :TCommentBlock<CR>
+
+
 
       " Codi interactive REPL
       nmap =oer :Codi!!<CR>
@@ -489,7 +518,7 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
   " , Commands, etc  ----------------------------------------------------{{{
 
       syntax on
-      colorscheme spring-night
+      colorscheme base16-phd
 
       " let g:OceanicNext_italic = 1
 
@@ -503,8 +532,8 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       " Change split window bar color
       hi VertSplit ctermfg=NONE ctermbg=NONE cterm=NONE
       hi VertSplit guifg=bg guibg=bg gui=NONE
-      hi Normal guibg=NONE
-      hi LineNr guibg=NONE
+      " hi Normal guibg=NONE
+      " hi LineNr guibg=NONE
       nnoremap =otb :hi Normal guibg=NONE<CR>
       nnoremap =otn :hi LineNr guibg=NONE<CR>
 
@@ -554,8 +583,10 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       " Formatting
 
       autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+      autocmd FileType json set formatprg=prettier-eslint\ --stdin
       let g:neoformat_try_formatprg = 1
       let g:neoformat_enabled_javascript = ['prettier-eslint']
+      let g:neoformat_enabled_json = ['prettier']
 
       " The command :Prettier by default is synchronous but can also be forced async
       let g:prettier#exec_cmd_async = 1
@@ -675,7 +706,7 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
 
 
 
-        let g:javascript_conceal_arrow_function       = "⇒"
+        " let g:javascript_conceal_arrow_function       = "⇒"
         " let g:javascript_conceal_function             = "ƒ"
         " let g:javascript_conceal_null                 = "ø"
         " let g:javascript_conceal_this                 = "@"
@@ -802,19 +833,23 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
   " Python --------------------------------------------------------------------{{{
 
     " let g:python_host_prog = '/usr/local/bin/python2'
-    " let g:python3_host_prog = '/usr/local/bin/python3'
-    " let g:python_host_prog = '/usr/bin/python2.7'
-    let g:python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.5/bin/python3'
+    let g:python3_host_prog = '/usr/local/bin/python3'
     " let $NVIM_PYTHON_LOG_FILE='nvim-python.log'
 
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#documentation_command = "<leader>k"
 
+    let g:neomake_python_enabled_makers = ['flake8']
+
+
+    " Keymappings - python
+    "
+
     autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
 
     au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
 
-    au Filetype python nmap <M-;> A:
+    au Filetype python nmap <M-;> A:<ESC>
     au Filetype python nmap =oee :!python %<cr>
 
 
@@ -999,9 +1034,9 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       " let g:neosnippet#enable_snipmate_compatibility = 1
       " let g:neosnippet#expand_word_boundary = 1
       let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
-      imap <leader><leader> <Plug>(neosnippet_expand_or_jump)
-      smap <leader><leader> <Plug>(neosnippet_expand_or_jump)
-      xmap <leader><leader> <Plug>(neosnippet_expand_target)
+      imap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
+      smap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
+      xmap <leader><leader><leader> <Plug>(neosnippet_expand_target)
 
     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
     imap <expr><Tab>
@@ -1176,7 +1211,7 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
 
       " nnoremap <silent> <c-p> :Denite file_rec<CR>
       nnoremap <silent> <leader>j :Denite file_rec<CR>
-      nnoremap <silent> <leader>h :Denite  help<CR>
+      nnoremap <silent> <leader>? :Denite  help<CR>
       nnoremap <silent> <leader>th :Denite colorscheme<CR>
       nnoremap <silent> <leader>b :Denite buffer<CR>
       nnoremap <silent> <leader>a :Denite grep:::!<CR>
@@ -1273,9 +1308,6 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
       tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
 
-      " Cycle between vim buffer
-      map <silent> <leader>h :bp<CR>
-      map <silent> <leader>l :bn<CR>
 
 
   "}}}
@@ -1294,13 +1326,11 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       let g:airline#extensions#neomake#error_symbol='• '
       let g:airline#extensions#neomake#warning_symbol='•  '
       let g:airline_symbols.branch = ''
-      let g:airline_theme='solarized'
+      let g:airline_theme='serene'
       cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
       tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
       nmap <leader>t :term<cr>
-      nmap <leader>, :bnext<CR>
       tmap <leader>, <C-\><C-n>:bnext<cr>
-      nmap <leader>. :bprevious<CR>
       tmap <leader>. <C-\><C-n>:bprevious<CR>
       tmap <leader>1  <C-\><C-n><Plug>AirlineSelectTab1
       tmap <leader>2  <C-\><C-n><Plug>AirlineSelectTab2
@@ -1333,6 +1363,52 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
                   \ '9': '9 ',
                   \}
 
+
+
+
+      if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+      endif
+
+      " unicode symbols
+      let g:airline_left_alt_sep = ''
+      let g:airline_left_sep = ''
+      let g:airline_right_alt_sep = ''
+      let g:airline_right_sep = ''
+      let g:airline_symbols.crypt = '🔒'
+      let g:airline_symbols.linenr = '☰'
+      let g:airline_symbols.linenr = '␊'
+      let g:airline_symbols.linenr = '␤'
+      let g:airline_symbols.linenr = '¶'
+      let g:airline_symbols.maxlinenr = ''
+      let g:airline_symbols.maxlinenr = '㏑'
+      let g:airline_symbols.branch = '⎇'
+      let g:airline_symbols.paste = 'ρ'
+      let g:airline_symbols.paste = 'Þ'
+      let g:airline_symbols.paste = '∥'
+      let g:airline_symbols.spell = 'Ꞩ'
+      let g:airline_symbols.notexists = '∄'
+      let g:airline_symbols.whitespace = 'Ξ'
+
+      " powerline symbols
+      " let g:airline_left_sep = ''
+      " let g:airline_left_alt_sep = ''
+      " let g:airline_right_sep = ''
+      " let g:airline_right_alt_sep = ''
+      " let g:airline_symbols.branch = ''
+      " let g:airline_symbols.readonly = ''
+      " let g:airline_symbols.linenr = '☰'
+      " let g:airline_symbols.maxlinenr = ''
+
+      " old vim-powerline symbols
+      " let g:airline_left_sep = '⮀'
+      " let g:airline_left_alt_sep = '⮁'
+      " let g:airline_right_sep = '⮂'
+      " let g:airline_right_alt_sep = '⮃'
+      " let g:airline_symbols.branch = '⭠'
+      " let g:airline_symbols.readonly = '⭤'
+      " let g:airline_symbols.linenr = '⭡'
+
   "}}}
 
   " Linting -------------------------------------------------------------------{{{
@@ -1343,4 +1419,3 @@ call dein#add('tomlion/vim-solidity') " Vim syntax file for solidity
       let g:neomake_error_sign = {'text': 'X'}
 
   "}}}
-

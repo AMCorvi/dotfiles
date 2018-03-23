@@ -3,23 +3,27 @@
 source ~/.profile
 
 # Exports
-# This is for android crap
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
 export PS1='hack:/$(pwd) \n\n=> '
 export USER='Star'
 export PATH=${PATH}:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools
+
+# This is for android crap
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=${JAVA_HOME}/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
+
+# This is for node crap
 export PATH=/usr/local/bin:$PATH
 export PATH=~/npm-global/bin:$PATH
+export PATH="/usr/local/opt/node@8/bin:$PATH"
 
 # MacPorts Installer addition on 2017-05-09_at_05:19:45: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
 # Setting PATH for Python 3.5
 # The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 export PATH
 
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
@@ -365,6 +369,16 @@ while (( $# > 0 )); do
     shift
   done
 }
+
+#--- Usage: d-machine-static new_dm_name new_dm_ip [new_dm_memory]
+function d-machine-static {
+  new_dm_name="${1}"
+  new_dm_ip="${2:-192.168.90.100}"
+  new_dm_memory="${3:-1024}"
+  docker-machine create -d virtualbox --virtualbox-hostonly-cidr "${new_dm_ip}/24" --virtualbox-memory "${new_dm_memory}" "${new_dm_name}"
+  echo -e "\033[1;34m${new_dm_name}\033[0m = \033[0;32m$(/usr/local/bin/docker-machine ip ${new_dm_name})\033[0m"
+}
+
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
