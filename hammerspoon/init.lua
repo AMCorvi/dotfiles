@@ -10,6 +10,8 @@ local resizeMappings = {
   o={x=0.5, y=0, w=0.5, h=0.5},
   p={x=0, y=0, w=0.5, h=0.5},
 
+  c={x=0.25, y=0.25, w=0.5, h=0.5},
+
   b={x=0, y=0, w=0.75, h=1},
   n={x=0.75, y=0, w=0.25, h=1},
 }
@@ -32,15 +34,14 @@ end)
 
 local focusKeys = {
 
-  s='Safari',
   -- a='Atom',
   a='Airmail 3',
-  c='Opera',
+  e='Opera',
   -- b='Google Chrome Canary',
   d='Slack',
   t='iTerm',
   -- f='Hyper',
-  e='Simulator',
+  s='Simulator',
   -- v="Visual Studio Code"
 }
 
