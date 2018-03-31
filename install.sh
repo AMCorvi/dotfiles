@@ -25,6 +25,8 @@ packages=(
 "yarn"
 "python2"
 "python3"
+"ocaml"
+"opam"
 "go"
 "casperjs"
 "phantomjs"
@@ -40,6 +42,7 @@ apps=(
   "iterm2"
   "keybase"
   "liteicon"
+  "macdown" # GUI Markdown editor
   "openemu"
   "opera"
   "plug"
