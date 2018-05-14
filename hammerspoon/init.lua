@@ -10,7 +10,6 @@ local resizeMappings = {
   o={x=0.5, y=0, w=0.5, h=0.5}, -- right left corner
   p={x=0, y=0, w=0.5, h=0.5}, -- top left corner
 
-  c={x=0.25, y=0.25, w=0.5, h=0.5}, -- center screen
 
   b={x=0, y=0, w=0.75, h=1}, -- 3/4 screen width
   n={x=0.75, y=0, w=0.25, h=1}, -- 1/4 Screen width
@@ -30,6 +29,11 @@ hs.hotkey.bind(modalKey, "f", function()
    win:setFullScreen(not win:isFullScreen())
 end)
 
+-- set app to center of screen
+hs.hotkey.bind(modalKey, "c", function()
+  local win = hs.window.focusedWindow()
+  win:centerOnScreen(not win:isFullScreen())
+end)
 
 
 -- refresh hammerspoon with this file(init.lua)

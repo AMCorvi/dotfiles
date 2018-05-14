@@ -1,0 +1,6 @@
+termsaver
+neovim
+flake8
+autopep8
+python-language-server
+

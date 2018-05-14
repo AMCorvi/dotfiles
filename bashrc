@@ -35,6 +35,9 @@ export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
 export PS1='hack:/$(pwd) \n\n=> '
 export USER='Star'
 
+# Helper Variables
+#TODO
+
 # Aliases
 # incase i forget how to clear
 alias c='clear'
@@ -58,6 +61,9 @@ alias restoredock="defaults write com.apple.dock autohide -bool false && killall
 # Get rid of those pesky .DS_Store files recursively
 alias dsclean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
 
+# Reset Launchpad
+defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+
 # Flush your dns cache
 
 alias arc.bash='nvim ~/.bash_profile'
@@ -77,7 +83,7 @@ alias arc.sourceb='source ~/.bash_profile'
 alias arc.sourcez='source ~/.zshenv'
 alias arc.vimrc='v ~/.vim/init.vim'
 alias bbcnews="termsaver rssfeed --url=http://newsrss.bbc.co.uk/rss/newsonline_world_edition/americas/rss.xml"
-alias clear-zsh-hist="echo '' > ~/.zsh_history"
+alias clear.z="echo '' > ~/.zsh_history"
 alias code='open -a "Code" '
 alias corvi.code='cd ~/Desktop/.Corvi-APPS'
 alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
@@ -111,7 +117,7 @@ alias worklog='nvim ~/.worklog'
 alias worklogs='termsaver programmer -p ~/.worklog -d .04'
 
 # Useful blah blah blah
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
@@ -217,16 +223,18 @@ local leading_whitespace=""
 [[ $is_clean -gt 0 ]]            && { printf "%s" "$leading_whitespace$clean_symbol"; leading_whitespace=" "; }
 }
 
-# Because Typing python -m SimpleHTTPServer is too Damn Long
-# Start an HTTP server from a directory, optionally specifying the port
 function server() {
-local port="${1:-8000}"
-#    open "http://localhost:${port}/"
-open -a google\ chrome\ canary "http://localhost:${port}/" --args --disable-web-security
-# Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-# And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
-python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
-  }
+
+  if [ `which browser-sync` -eq "browser-sync not found" ]; then
+    npm install --global browser-sync
+  fi
+
+  local dir=${1:---directory}
+  local files=${1:-"[]"}
+
+  browser-sync start . --server $dir $files
+
+}
 
 
   function download(){
@@ -379,6 +387,21 @@ function d-machine-static {
   echo -e "\033[1;34m${new_dm_name}\033[0m = \033[0;32m$(/usr/local/bin/docker-machine ip ${new_dm_name})\033[0m"
 }
 
+# configure the proxy server
+function setProxy() {
+
+  local port=${1:-9050}
+  local ip=${2:-localhost}
+  local networkservice=${3:-wi-fi}
+  networksetup -setsocksfirewallproxy $networkservice $ip $port
+
+}
+
+function setProxyState() {
+  local state=${1:-off}
+  local networkservice=${2:-wi-fi}
+  networksetup -setsocksfirewallproxystate $networkservice $state
+}
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
