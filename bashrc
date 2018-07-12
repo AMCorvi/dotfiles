@@ -79,16 +79,16 @@ alias arc.nsplash='arc.pic && cd unsplash'
 alias arc.pic='cd ~/Pictures'
 alias arc.portf='arc.code && cd portfolio/'
 alias arc.portfp='arc.code && cd portfolio/\#practice'
-alias arc.sourceb='source ~/.bash_profile'
-alias arc.sourcez='source ~/.zshenv'
 alias arc.vimrc='v ~/.vim/init.vim'
 alias bbcnews="termsaver rssfeed --url=http://newsrss.bbc.co.uk/rss/newsonline_world_edition/americas/rss.xml"
+alias bloomberg=termsaver\ rssfeed\ --url=http://feeds.reuters.com/reuters/topNews
 alias clear.z="echo '' > ~/.zsh_history"
 alias code='open -a "Code" '
 alias corvi.code='cd ~/Desktop/.Corvi-APPS'
 alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
+alias createra="create-react-app"
 alias creatern="react-native init"
-alias dlv='youtube-dl'
+alias desktop=cd\ ~/Desktop
 alias dotfiles='cd ~/.dotfiles'
 alias flush='dscacheutil -flushcache'
 alias frammed='alias'
@@ -103,7 +103,9 @@ alias news='newsbeuter'
 alias nodeenv='NODE_ENV='
 alias nprart="termsaver rssfeed --url=http://www.npr.org/rss/rss.php?id=1008"
 alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage"
+alias project="cd ~/Desktop/projects"
 alias py3='python3'
+alias re.source='source ~/.bash_profile && exec zsh'
 alias redcheck='ls'
 alias reutersnews="termsaver rssfeed --url=http://feeds.reuters.com/reuters/topNews"
 alias runvice='termsaver rssfeed --url=https://www.vice.com/en_us/rss'
@@ -115,6 +117,7 @@ alias vimruntime='cd ~/.vim_runtime/'
 alias wirednews="termsaver rssfeed --url=http://feeds.wired.com/wired/index"
 alias worklog='nvim ~/.worklog'
 alias worklogs='termsaver programmer -p ~/.worklog -d .04'
+alias ytd='youtube-dl'
 
 # Useful blah blah blah
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
@@ -229,13 +232,31 @@ function server() {
     npm install --global browser-sync
   fi
 
-  local dir=${1:---directory}
-  local files=${1:-"[]"}
+  local port=${1:-3000}
+  local dir=${2:---directory}
+  local files=${3:-""}
 
-  browser-sync start . --server $dir $files
+  if [ -z $files ]; then
+    echo "File not info provided"
+    echo "Server is on it way!!"
 
-}
+    browser-sync start . \
+      --server $PWD \
+      --port $port \
+      $dir
+  else
+    echo "File info provided"
+    echo "Server is on it way!!"
 
+    browser-sync start . \
+      --server $PWD \
+      --port $port \
+      $dir \
+      --watch --files $file
+  fi
+
+
+} # server
 
   function download(){
   curl -O "$1"
@@ -387,7 +408,7 @@ function d-machine-static {
   echo -e "\033[1;34m${new_dm_name}\033[0m = \033[0;32m$(/usr/local/bin/docker-machine ip ${new_dm_name})\033[0m"
 }
 
-# configure the proxy server
+# configure the proxy networking
 function setProxy() {
 
   local port=${1:-9050}

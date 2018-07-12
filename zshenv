@@ -38,19 +38,19 @@ export KEYTIMEOUT=1
         # export BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 
     # Spaceship Theme
-        export SPACESHIP_PROMPT_SYMBOL=•
-        export SPACESHIP_HOST_PREFIX=@
-        export SPACESHIP_USER_COLOR=red
-        export SPACESHIP_PROMPT_PREFIXES_SHOW=false
-        export SPACESHIP_PROMPT_ADD_NEWLINE=false
-        export SPACESHIP_DIR_COLOR=green
-        export SPACESHIP_GIT_BRANCH_COLOR=yellow
-        export SPACESHIP_PACKAGE_SHOW=false
-        export SPACESHIP_PACKAGE_SYMBOL="\n"
-        export SPACESHIP_PACKAGE_COLOR=cyan
-        export SPACESHIP_VENV_COLOR=white
-
-
+        # export SPACESHIP_CHAR_SYMBOL=\•
+        # export SPACESHIP_HOST_PREFIX=@
+        # export SPACESHIP_USER_COLOR=red
+        # export SPACESHIP_PROMPT_PREFIXES_SHOW=false
+        # export SPACESHIP_PROMPT_ADD_NEWLINE=false
+        # export SPACESHIP_DIR_COLOR=green
+        # export SPACESHIP_GIT_BRANCH_COLOR=yellow
+        # export SPACESHIP_PACKAGE_SHOW=false
+        # export SPACESHIP_PACKAGE_SYMBOL="\n"
+        # export SPACESHIP_PACKAGE_COLOR=cyan
+        # export SPACESHIP_VENV_COLOR=white
+        # export SPACESHIP_GOLANG_SYMBOL=\🐹
+        #
 
 function strip_diff_leading_symbols(){
     color_code_regex=$'(\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K])'

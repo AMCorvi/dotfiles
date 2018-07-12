@@ -310,3 +310,93 @@ let rec sum_int_list l =
 
 let t = Cons (1, Cons (2, Cons (3, Nil))) ;;
 sum_int_list t ;;
+
+(* Conditionals *)
+(* -------------------- Conditional  -------------------- *)
+
+(* Basic if-else statement *)
+let rec range a b =
+    if a > b then []
+    else a :: range (a+1) b;;
+
+(* Also in Pervasives, the string_of_float function contains a complex pair of nested if expressions: *)
+
+let string_of_float f =
+  let s = format_float "%.12g" f in
+  let l = string_length s in
+  let rec loop i =
+    if i >= l then s ^ "."
+    else if s.[i] = '.' || s.[i] = 'e' then s
+    else loop (i+1) in
+  loop 0
+
+(* begin and end are what is known as syntactic sugar for open and close parentheses. *)
+if GtkBase.Object.is_a obj cls then
+  fun _ -> f obj
+else begin
+  eprintf "Glade-warning: %s expects a %s argument.\n" name cls;
+  raise Not_found
+end
+
+
+if 1 = 0 then
+  print_endline "THEN"
+else begin
+  print_endline "ELSE";
+     failwith "else clause"
+end;;
+
+(* OR *)
+
+(* Exception: Failure "else clause". *)
+if 1 = 0 then
+  print_endline "THEN"
+   else (
+     print_endline "ELSE";
+     failwith "else clause"
+   );;
+
+(* Exception: Failure "else clause". *)
+
+
+(* -------------------- Loops   -------------------- *)
+
+(* For Loop *)
+for variable = start_value to end_value do
+  expression
+done
+
+for variable = start_value downto end_value do
+  expression
+done
+
+(* While Loop *)
+
+(* -------------------- File I/O -------------------- *)
+
+open Printf
+
+let file = "example.dat"
+let message = "Hello!"
+
+let () =
+  (* Write message to file *)
+  let oc = open_out file in    (* create or truncate file, return channel *)
+  fprintf oc "%s\n" message;   (* write something *)
+  close_out oc;                (* flush and close the channel *)
+
+  (* Read file and display the first line *)
+  let ic = open_in file in
+  try
+    let line = input_line ic in  (* read line from in_channel and discard \n *)
+    print_endline line;          (* write the result to stdout *)
+    flush stdout;                (* write on the underlying device now *)
+    close_in ic                  (* close the input channel *)
+
+  with e ->                      (* some unexpected exception occurs *)
+    close_in_noerr ic;           (* emergency closing *)
+    raise e                      (* exit with error: files are closed but
+                                    channels are not flushed *)
+
+    (* normal exit: all channels are flushed and closed *)
+

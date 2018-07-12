@@ -49,6 +49,7 @@ apps=(
   "postgress"
   "skype"
   "spotify"
+  "staruml"
   "tableplus"
   "the-unarchiver"
   "torbrowser"

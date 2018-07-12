@@ -30,26 +30,31 @@ _ANTIGEN_CACHE_ENABLED="true"
 
 source ~/.dotfiles/antigen.zsh
 antigen use oh-my-zsh
+antigen theme bureau
 antigen bundle git
 antigen bundle rsync
 antigen bundle heroku
 antigen bundle pip
 antigen bundle lein
 antigen bundle python
-# antigen bundle history
+antigen bundle history
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle marzocchi/zsh-notify
-antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 antigen bundle unixorn/git-extra-commands
+
+antigen bundle tylerreckart/odin
+antigen theme https://github.com/denysdovhan/tylerreckart/odin odin.zsh-theme
+
+# antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 # antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 # antigen bundle https://github.com/Valodim/zsh-capture-completion
-# antigen theme bureau
 antigen apply
 
 source ~/.z/z.sh
 alias journal=~/.journal.sh
+
 
 zstyle ':notify:*' command-complete-timeout 5
 zstyle ':notify:*' error-icon "https://media3.giphy.com/media/10ECejNtM1GyRy/200_s.gif"

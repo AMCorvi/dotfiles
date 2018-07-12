@@ -1,4 +1,4 @@
-local modalKey = {"cmd", "alt", "ctrl"}
+local modalKey = {"cmd", "alt", "ctrl" }
 local resizeMappings = {
   h={x=0, y=0, w=0.5, h=1}, -- half-screen left
   j={x=0, y=0.5, w=1, h=0.5}, -- half-screen right
@@ -11,8 +11,8 @@ local resizeMappings = {
   p={x=0, y=0, w=0.5, h=0.5}, -- top left corner
 
 
-  b={x=0, y=0, w=0.75, h=1}, -- 3/4 screen width
-  n={x=0.75, y=0, w=0.25, h=1}, -- 1/4 Screen width
+  b={x=.125, y=0.125, w=0.75, h=0.75}, -- 1/4 window and centered
+  n={x=0.19, y=0.19, w=0.62, h=.62}, -- window centered
 }
 
 -- set screen resizing mapping
