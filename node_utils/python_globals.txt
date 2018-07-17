@@ -1,6 +1,1 @@
-termsaver
-neovim
-flake8
-autopep8
-python-language-server
-
+/Users/AMC/.dotfiles/node_utils/python_globals.txt

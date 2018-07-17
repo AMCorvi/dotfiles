@@ -1,1 +1,1 @@
-github.com/sourcegraph/go-langserver
+/Users/AMC/.dotfiles/node_utils/go_globals.txt
