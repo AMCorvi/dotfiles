@@ -47,6 +47,7 @@ antigen bundle unixorn/git-extra-commands
 antigen bundle tylerreckart/odin
 antigen theme https://github.com/denysdovhan/tylerreckart/odin odin.zsh-theme
 
+# antigen bundle denysdovhan/spaceship-zsh-theme
 # antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
 # antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 # antigen bundle https://github.com/Valodim/zsh-capture-completion
