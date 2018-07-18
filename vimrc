@@ -1661,6 +1661,7 @@
   "}}}
 
   " Misc ---------------------------------------------------------------{{{
+
       " Pomdoro------------------------------{{{
 
           " Duration of a pomodoro in minutes (default: 25)
@@ -1687,6 +1688,13 @@
       " Editor Config Plugin ------------------------------{{{
             let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
             let g:EditorConfig_core_mode = 'external_command'
+      " }}}
+
+      " Movement------------------------------ {{{
+          "Clever-F------------------------------{{{
+            let g:clever_f_smart_case = 1
+          "}}}
+
       " }}}
 
   " }}}
