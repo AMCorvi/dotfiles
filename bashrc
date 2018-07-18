@@ -92,7 +92,7 @@ alias desktop=cd\ ~/Desktop
 alias dotfiles='cd ~/.dotfiles'
 alias flush='dscacheutil -flushcache'
 alias frammed='alias'
-alias hackdatabase='termsaver programmer --path ~/rfcs --delay 0.020'
+alias hackdatabase='termsaver programmer --path ~/.rfcs --delay 0.010'
 alias hacknode2='termsaver programmer --path ~/go --delay 0.020'
 alias hacknode='termsaver programmer --path ~/.config/yarn/global/node_modules/ --delay 0.020'
 alias la='ls -a'
@@ -424,6 +424,16 @@ function setProxyState() {
   local state=${1:-off}
   local networkservice=${2:-wi-fi}
   networksetup -setsocksfirewallproxystate $networkservice $state
+}
+
+function gitcover() {
+  local upto=${1:-1}
+
+  for var in {0..$upto};
+  do
+    git commit --all --amend --author "AMCorvi <amcorvi@icloud.com>"  --no-edit && \
+      git rebase --continue
+  done
 }
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
