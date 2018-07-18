@@ -149,6 +149,7 @@
 
       "Movement"-----------{{{
           call dein#add('christoomey/vim-tmux-navigator')
+          call dein#add("rhysd/clever-f.vim") " Extended f, F, t and T key mappings for Vim. https://rhysd.github.io/clever-f.vim
           call dein#add('terryma/vim-multiple-cursors') " Multiple Cursors as described
           call dein#add('itmammoth/doorboy.vim') "Vim plugin for auto closing brackets ( => (|) and quotations
           call dein#add('sjl/vitality.vim') " (Vit)ality is a plugin that makes (V)im play nicely with (i)Term 2 and (t)mux.
