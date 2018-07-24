@@ -1221,9 +1221,9 @@
       " Shortcut for fugitive diffing
       nnoremap gid :Gvdiff
       " Shortcut for fugitivee commiting
-      nnoremap gic :GCommit
+      nnoremap gic :Gcommit
       " Shortcut for fugitive staging
-      nnoremap gis :GStatus
+      nnoremap gis :Gstatus
 
 
 
