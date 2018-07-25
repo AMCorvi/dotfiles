@@ -43,6 +43,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle marzocchi/zsh-notify
 antigen bundle unixorn/git-extra-commands
+antigen bundle tysonwolker/iterm-tab-colors
 
 antigen bundle tylerreckart/odin
 antigen theme https://github.com/denysdovhan/tylerreckart/odin odin.zsh-theme
