@@ -1224,10 +1224,8 @@
       nnoremap gic :Gcommit
       " Shortcut for fugitive staging
       nnoremap gis :Gstatus
-
-
-
-
+      " Shortcut for fugitive pushing
+      nnoremap gip :Gpush
 
   " }}}
 
