@@ -33,8 +33,6 @@ alias chromium="open -a chromium"
 alias f='open -a Finder '
 alias fh='open -a Finder .'
 alias textedit='open -a TextEdit'
-alias hex='open -a "Hex Fiend"'
-alias skype='open -a Skype'
 alias slack="open -a '/Applications/Slack.app'"
 
 # Usefull stuff for presentation and seeing dotfiles

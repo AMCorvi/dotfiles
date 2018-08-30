@@ -359,7 +359,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-porple
+      colorscheme base16-harmonic-dark
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -769,7 +769,7 @@
     let g:jsdoc_input_description = 1
     let g:vim_json_syntax_conceal = 0
 
-    " let g:javascript_conceal_arrow_function       = "⇒"
+    " let g:javascript_conceal_arrow_function       = "➠"
     " let g:javascript_conceal_function             = "ƒ"
     " let g:javascript_conceal_null                 = "ø"
     " let g:javascript_conceal_this                 = "@"
@@ -1036,6 +1036,12 @@
      " ## end of OPAM user-setup addition for vim / base ## keep this line
 
   "}}}
+
+  " Rust------------------------------------------------------------------------{{{
+        let g:neomake_javascript_enabled_makers = ['rustc']
+        let g:neomake_verbose = 1
+        let g:neoformat_enabled_rust = ['rustfmt']
+  " }}}
 
   " Go ------------------------------------------------------------------------{{{
 

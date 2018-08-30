@@ -2,6 +2,8 @@
 
 source ~/.profile
 
+set -o vi
+
 # Exports
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
 export PS1='hack:/$(pwd) \n\n=> '
