@@ -66,7 +66,11 @@ alias dsclean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
 # Reset Launchpad
 defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
-# Flush your dns cache
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+  [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+  eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 alias arc.bash='nvim ~/.bash_profile'
 alias arc.bashrc='cd ~/.dotfiles/ && nvim bashrc'

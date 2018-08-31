@@ -254,20 +254,20 @@
 
       "}}}
 
-
-      if dein#check_install()
-          call dein#install()
-          let pluginsExist=1
-      endif
-
-      call dein#end()
-      filetype plugin indent on
-      filetype plugin on
-
-      " update vim plugins
-      nnoremap <silent> <leader><leader>u :call dein#update()<CR>
-
       " }}}
+
+    if dein#check_install()
+        call dein#install()
+        let pluginsExist=1
+    endif
+
+    call dein#end()
+    filetype plugin indent on
+    filetype plugin on
+
+    " update vim plugins
+    nnoremap <silent> <leader><leader>u :call dein#update()<CR>
+
 
 
 
@@ -359,7 +359,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-harmonic-dark
+      colorscheme base16-google-dark
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
