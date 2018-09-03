@@ -1085,6 +1085,16 @@
 
   " }}}
 
+  " Bash --------------------------------------------------------------------{{{
+
+      " Fold bash file by level of indentation
+      autocmd FileType sh set foldmethod=indent
+
+
+      autocmd FileType sh set tabstop=2|set shiftwidth=2|set expandtab
+
+  "}}}
+
   " MarkDown ------------------------------------------------------------------{{{
 
       noremap <leader>TM :TableModeToggle<CR>
