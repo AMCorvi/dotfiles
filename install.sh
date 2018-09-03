@@ -30,6 +30,7 @@ packages=(
 "go"
 "casperjs"
 "phantomjs"
+"nnn"
 )
 
 apps=(

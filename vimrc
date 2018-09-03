@@ -359,7 +359,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-google-dark
+      colorscheme base16-black-metal-bathory
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -1041,6 +1041,8 @@
         let g:neomake_javascript_enabled_makers = ['rustc']
         let g:neomake_verbose = 1
         let g:neoformat_enabled_rust = ['rustfmt']
+
+        au Filetype rust nmap =oee :!cargo run %<cr>
   " }}}
 
   " Go ------------------------------------------------------------------------{{{

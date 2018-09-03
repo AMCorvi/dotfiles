@@ -4,10 +4,12 @@ source ~/.profile
 
 set -o vi
 
-# Exports
+
+ #Exports
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
 export PS1='hack:/$(pwd) \n\n=> '
 export USER='Star'
+export EDITOR=nvim
 export PATH=${PATH}:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools
 
 # This is for android crap
@@ -36,6 +38,9 @@ export _Z_DATA="$HOME/z-data"
 export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
 export PS1='hack:/$(pwd) \n\n=> '
 export USER='Star'
+
+# Collection of useful bin files
+export PATH=~/.corvi/bin:$PATH
 
 # Helper Variables
 #TODO
@@ -442,5 +447,13 @@ function gitcover() {
   done
 }
 
+function loadconfig () {
+  local config=${1:-"eslint"}
+
+  case "$config" in
+    "eslint") cp ~/.eslintrc.js .eslintrc.js && echo -e "$YELLOW\eslint config written to $PWD/.ieslintrc.js";;
+    *) echo 'configuration file preset not available';;
+  esac
+}
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
