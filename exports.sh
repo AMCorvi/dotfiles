@@ -1,11 +1,11 @@
 #!/bin/sh
 
 #Exports
+  export EDITOR=nvim
   export GOOGLE_APPLICATION_CREDENTIALS='./.AMCORVI-9b571a22b538.json'
+  export PATH=${PATH}:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools
   export PS1='hack:/$(pwd) \n\n=> '
   export USER='Mr. Corvi'
-  export EDITOR=nvim
-  export PATH=${PATH}:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools
 
 # Collection of useful bin files
   export PATH=~/.corvi/bin:$PATH
@@ -14,6 +14,13 @@
   export JAVA_HOME=$(/usr/libexec/java_home)
   export PATH=${JAVA_HOME}/bin:$PATH
   export PATH=$HOME/.local/bin:$PATH
+
+# React Native Android configuration settings
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
 
 # This is for node crap
   export PATH=/usr/local/bin:$PATH
@@ -27,6 +34,9 @@
 # The original version is saved in .bash_profile.pysave
   PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
   export PATH
+
+# State Variable for CD on quit functionality for nnn
+  export NNN_TMPFILE="/tmp/nnn"
 
   export PATH=$PATH:~/.nexustools
   export PATH="$HOME/.cargo/bin:$PATH"
