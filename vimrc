@@ -125,6 +125,7 @@
           call dein#add('tmux-plugins/vim-tmux')
           call dein#add('vim-airline/vim-airline')
           call dein#add('Zuckonit/vim-airline-tomato')
+          call dein#add('tkhren/vim-fake') " Vim plugin to provide a generator of random dummy/filler text.
           call dein#add('rmolin88/pomodoro.vim') " Bring the beauty of the Pomodoro technique to (Neo)Vim
           call dein#add("jpalardy/vim-slime") " SLIME is an Emacs plugin to turn Emacs into a REPL.
           call dein#add('djoshea/vim-autoread') " Have Vim automatically reload a file that has changed externally
@@ -159,6 +160,7 @@
           call dein#add('tpope/vim-surround')
           call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
           call dein#add('sbdchd/neoformat')
+          call dein#add('wincent/scalpel') "Fast within-file word replacement for Vim
           call dein#add('nicwest/vim-camelsnek') " Convert between camel and snek case (and kebab case)
           call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
           call dein#add('dhruvasagar/vim-table-mode') "An awesome automatic table creator & formatter allowing one to create neat tables as you type.
@@ -195,6 +197,7 @@
           call dein#add('chemzqm/vim-easygit')
           call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
           call dein#add('sgeb/vim-diff-fold')
+          call dein#add('gregsexton/gitv') " gitk for Vim.
           call dein#add('airblade/vim-gitgutter')
           call dein#add('junegunn/gv.vim') "A git commit browser. ':GV'
           call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
@@ -359,7 +362,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-black-metal-bathory
+      colorscheme base16-nord
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -397,6 +400,10 @@
   "}}}
 
   " System mappings  ----------------------------------------------------------{{{
+
+      " TODO: remove whenever possible fixed
+      " mapping grave accent(`) to Alt-e do to hardware issue on keyboard
+      imap <M-e> `
 
       "Refresh .vimrc
       nnoremap <f5> :so $MYVIMRC<CR>
@@ -445,6 +452,7 @@
       " Repeat latest f, t, F or T [count] times
       nnoremap <M-,> ;
       vnoremap <M-,> ;
+
 
       " Navigate between display lines
       noremap  <silent> <Up>   gk
@@ -517,6 +525,8 @@
       nnoremap J 5j
       nnoremap K 5k
 
+      " Replace J functionality for joining lines
+      nmap <M-j> :join<CR>
 
       "Permit rapid scrolling in visualmode
       vnoremap J 5j
@@ -751,7 +761,7 @@
       autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
 
       " Node File Execution
-      au Filetype javascript nmap =oee :!node %<CR>
+      au Filetype javascript nmap `run :!node %<CR>
 
 
     " Autocompletion
@@ -989,12 +999,9 @@
      autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
 
      " Node File Execution
-     au Filetype reason nmap =oee :!ocamlrun %<CR>
-     au Filetype ocaml nmap =oee :!ocaml %<CR>
+     au Filetype reason nmap `run :!ocamlrun %<CR>
+     au Filetype ocaml nmap `run :!ocaml %<CR>
 
-     " Formatting
-     autocmd FileType reason set formatprg=refmt\ --Print=ml\ --add-printers
-     autocmd FileType ocaml set formatprg=refmt\ -p\ ml\ --parse=ml
 
      " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
      let g:slime_target = "neovim"
@@ -1035,20 +1042,37 @@
              endfor
      " ## end of OPAM user-setup addition for vim / base ## keep this line
 
+     "Formatting------------------------------{{{
+
+         autocmd FileType reason set formatprg=refmt\ --Print=ml\ --add-printers
+         autocmd FileType ocaml set formatprg=refmt\ -p\ ml\ --parse=ml
+
+         let g:neoformat_ocaml_refmt = {
+               \ 'exe': 'refmt',
+               \ 'args': ['--in-place','--Print=ml', '--parse=ml'],
+               \ 'replace': 0,
+               \ }
+         let g:neoformat_enabled_ocaml = ['refmt']
+         " let g:neoformat_try_formatprg = 1
+
+     "}}}
+
+
+
   "}}}
 
   " Rust------------------------------------------------------------------------{{{
-        let g:neomake_javascript_enabled_makers = ['rustc']
+        let g:neomake_rust_enabled_makers = ['rustc']
         let g:neomake_verbose = 1
         let g:neoformat_enabled_rust = ['rustfmt']
 
-        au Filetype rust nmap =oee :!cargo run %<cr>
+        au Filetype rust nmap `run :!cargo run %<cr>
   " }}}
 
   " Go ------------------------------------------------------------------------{{{
 
       " Go File Execution
-      au Filetype go nmap =oee :!go run %<CR>
+      au Filetype go nmap `run :!go run %<CR>
 
       " Go Format
       let g:neoformat_enabled_go = ['gofmt']
@@ -1077,7 +1101,7 @@
       au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
 
       au Filetype python nmap <M-;> A:<ESC>
-      au Filetype python nmap =oee :!python %<cr>
+      au Filetype python nmap `run :!python %<cr>
 
 
 
@@ -1087,8 +1111,24 @@
 
   " Bash --------------------------------------------------------------------{{{
 
-      " Fold bash file by level of indentation
-      autocmd FileType sh set foldmethod=indent
+
+      function! ShellFold()
+        let currentline = getline(v:lnum)
+        if match(currentline, '}') >= 0
+          return "<1"
+        endif
+        if match(currentline, 'function') >= 0
+          return ">1"
+        endif
+        if match(currentine, '') >=0
+          return "1"
+        endif
+        return "1"
+      endfunction
+      au FileType sh set foldexpr=ShellFold()|set foldmethod=expr|set foldcolumn=3
+
+      " Fold bash file according to above defined fold function
+      " au FileType sh set
 
 
       autocmd FileType sh set tabstop=2|set shiftwidth=2|set expandtab
@@ -1237,13 +1277,17 @@
       " set signcolumn=yes
 
       " Shortcut for fugitive diffing
-      nnoremap gid :Gvdiff
-      " Shortcut for fugitivee commiting
-      nnoremap gic :Gcommit
+      nnoremap gid :Gvdiff<CR>
+      " Shortcut for fugitive commiting
+      nnoremap gic :Gcommit<CR>
       " Shortcut for fugitive staging
-      nnoremap gis :Gstatus
+      nnoremap gis :Gstatus<CR>
       " Shortcut for fugitive pushing
-      nnoremap gip :Gpush
+      nnoremap gip :Gpush<CR>
+
+      "easygit--------------- {{{
+        let g:easygit_enable_command = 1
+      "}}}
 
   " }}}
 

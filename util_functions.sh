@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 function setProxyState() {
@@ -29,43 +29,7 @@ function loadconfig () {
   esac
   }
 
-# Helper Variables for _git_prompt function
-RED="\[\033[0;31m\]"
-YELLOW="\[\033[0;33m\]"
-GREEN="\[\033[0;32m\]"
-NO_COLOUR="\[\033[0m\]"
 
-function _git_prompt {
-  local git_status="`git status -unormal 2>&1`"
-  # Checks to see if we're in a git repo
-  if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
-    # if we're in a repo thats clean, then color it green
-    if [[ "$git_status" =~ nothing\ to\ commit ]]; then
-      local ansi=$GREEN
-      # if the repos dirty, color it red
-    elif [[ "$git_status" =~ nothing\ added\ to\ commit\ but\ untracked\ files\ present ]]; then
-      local ansi=$RED
-    else
-      #Just to be sure, color it red
-      local ansi=$RED
-    fi
-
-    # Get git branch name
-    # checks the output of git status for "On branch " then uses that to set the branch
-    if [[ "$git_status" =~ On\ branch\ ([^[:space:]]+) ]]; then
-      branch=${BASH_REMATCH[1]}
-      #test "$branch" != master || branch=' '
-    else
-      # Detached HEAD.  (branch=HEAD is a faster alternative.)
-      branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null ||
-        echo HEAD`)"
-    fi
-    # prints out " | $branch_name"
-    echo -n '| \['"$ansi"'\]'"$branch"'\[\e[0m\] [$(_git_changes)]'
-  fi
-  }
-export PROMPT_COMMAND='nnn'
-export _PS1="$YELLOW\u$NO_COLOUR:\w$(_git_prompt)"
 
 function _git_changes {
   [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == true ]] || return 1
@@ -309,7 +273,7 @@ function extract() {
 
 ## Uncomment to disable git info
 #POWERLINE_GIT=0
-function __powerline() {
+__powerline() {
     # Colorscheme
     readonly RESET='\[\033[m\]'
     readonly COLOR_CWD='\[\033[0;34m\]' # blue
@@ -401,4 +365,12 @@ function __powerline() {
 
 
 
+function n() {
+    nnn "$@"
+
+    if [ -f $NNN_TMPFILE ]; then
+      . $NNN_TMPFILE
+      rm -f $NNN_TMPFILE > /dev/null
+    fi
+  }
 

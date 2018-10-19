@@ -65,6 +65,7 @@
   alias lsa='ls -alt'
   alias maintain-brew="brew update; brew upgrade; brew prune; brew cleanup; brew doctor"
   alias news='newsbeuter'
+  alias esnode='node --experimental-modules '
   alias nodeenv='NODE_ENV='
   alias nprart="termsaver rssfeed --url=http://www.npr.org/rss/rss.php?id=1008"
   alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage"
@@ -73,6 +74,7 @@
   alias re.source='source ~/.bash_profile'
   alias redcheck='ls'
   alias reutersnews="termsaver rssfeed --url=http://feeds.reuters.com/reuters/topNews"
+  alias rr='ranger'
   alias runvice='termsaver rssfeed --url=https://www.vice.com/en_us/rss'
   alias sei="set -o emacs"
   alias shiva.enters='cat ~/.shiva_net_title'
