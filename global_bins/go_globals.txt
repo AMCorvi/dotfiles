@@ -1,1 +1,0 @@
-/Users/AMC/.dotfiles/node_utils/go_globals.txt

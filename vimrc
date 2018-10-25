@@ -117,6 +117,9 @@
           " call dein#add('facebook/reason', {'rtp': 'editorSupport/VimReason'})
         "}}}
 
+        "C/C++"---------------------------------{{{
+          call dein#add("vhdirk/vim-cmake") " Vim plugin to make working with CMake a little nicer
+        "}}}
     "}}}
 
     " BOLT-ON PLUGINS"---------------------------------{{{
@@ -469,8 +472,12 @@
       inoremap <M-h> <Left>
 
       " Page wide find and replace
-      nnoremap <leader><leader>s :%s/
-      nnoremap <leader><leader>S :s/
+      " nnoremap <leader><leader>s :%s/
+      " nnoremap <leader><leader>S :s/
+
+      " Scalpel
+      nnoremap <leader><leader>s <Plug>Scalpel
+
 
       " Shortcut (/) for commencing search and replace
       " cmap / <CR>

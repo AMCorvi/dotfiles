@@ -362,9 +362,6 @@ __powerline() {
   unset __powerline
 
 
-
-
-
 function n() {
     nnn "$@"
 
@@ -374,3 +371,20 @@ function n() {
     fi
   }
 
+function switch_CCompiler() {
+
+  local to=$1
+  if [ $to == "" ]
+  then
+    echo an available gcc version must be specified;
+    exit 1
+  elif [ `which g++-$to | grep /local` == "" ]
+  then
+    echo an available gcc version must be specified;
+    exit 1
+  fi
+
+  export CC=`which gcc-$to`
+  export CXX=`which g++-$to`
+
+}
