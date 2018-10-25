@@ -1290,7 +1290,7 @@
       " Shortcut for fugitive staging
       nnoremap gis :Gstatus<CR>
       " Shortcut for fugitive pushing
-      nnoremap gip :Gpush<CR>
+      nnoremap gip :Gpush<Space>
 
       "easygit--------------- {{{
         let g:easygit_enable_command = 1
