@@ -12,6 +12,9 @@ else
 
 fi
 
+# Brew taps
+brew tap twlz0ne/homebrew-ccls # require for install ccls (See Below)
+
 packages=(
 "git"
 "node"
@@ -31,6 +34,7 @@ packages=(
 "casperjs"
 "phantomjs"
 "nnn"
+"ccls" # C/C++ Language Server
 )
 
 apps=(

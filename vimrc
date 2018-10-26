@@ -40,25 +40,25 @@
 
         "}}}
 
-        "HTML"------------{{{
+        " HTML"------------{{{
             call dein#add('digitaltoad/vim-pug')
             call dein#add('mattn/emmet-vim')
             call dein#add('othree/html5.vim')
             call dein#add('skwp/vim-html-escape')
-            " call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'}) "A Vim plugin that always highlights the enclosing html/xml tags
             call dein#add('vingorius/pug-beautifier') " Pug(formerly jade) beautify CLI
+            " call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'}) "A Vim plugin that always highlights the enclosing html/xml tags
         "}}}
 
-        "CSS"------------{{{
-            call dein#add('hail2u/vim-css3-syntax')
-            call dein#add('ap/vim-css-color')
-        "}}}
+        " CSS"------------{{{
+        "     call dein#add('hail2u/vim-css3-syntax')
+        "     call dein#add('ap/vim-css-color')
+        " }}}
 
-        "English"------------{{{
+        " English"------------{{{
             call dein#add('rhysd/vim-grammarous') "vim-grammarous is a powerful grammar checker for Vim. Simply do :GrammarousCheck
         "}}}
 
-        "Markdown"------------{{{
+        " Markdown"------------{{{
             call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
             " call dein#add('vimlab/mdown.vim', {'on_ft': 'markdown'})
             " call dein#add('euclio/vim-markdown-composer', {
@@ -262,7 +262,7 @@
 
       " }}}
 
-    if dein#check_install()
+    if dein#check_install()"{{{
         call dein#install()
         let pluginsExist=1
     endif
@@ -272,9 +272,7 @@
     filetype plugin on
 
     " update vim plugins
-    nnoremap <silent> <leader><leader>u :call dein#update()<CR>
-
-
+    nnoremap <silent> <leader><leader>u :call dein#update()<CR>"}}}
 
 
   " }}}
@@ -409,7 +407,7 @@
       imap <M-e> `
 
       "Refresh .vimrc
-      nnoremap <f5> :so $MYVIMRC<CR>
+      nmap <f5> :so $MYVIMRC<CR>
 
       " New File
       nmap <leader><M-n> :new <Space>
@@ -646,6 +644,10 @@
           \ 'python3': ['pyls'],
           \ 'reason': ['ocaml-language-server', '--stdio'],
           \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+          \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
+          \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
+          \ 'cuda': ['ccls', '--log-file=/tmp/cc.log'],
+          \ 'objc': ['ccls', '--log-file=/tmp/cc.log'],
           \ }
 
 
@@ -1074,6 +1076,51 @@
         let g:neoformat_enabled_rust = ['rustfmt']
 
         au Filetype rust nmap `run :!cargo run %<cr>
+  " }}}
+
+  " C/C++ --------------------------------------------------------------------{{{
+
+      " let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+      " let g:LanguageClient_settingsPath = '/home/YOUR_USERNAME/.config/nvim/settings.json'
+        "  |-> https://github.com/autozimu/LanguageClient-neovim/issues/379 LSP snippet is not supported
+      " let g:LanguageClient_hasSnippetSupport = 0
+
+      " $ccls/navigate | Semantic navigation. Roughly, -- {{{
+
+          " "D" => first child declaration "L" => previous declaration "R" => next declaration "U" => parent declaration
+          nn <silent> xh :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'L'})<cr>
+          nn <silent> xj :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'D'})<cr>
+          nn <silent> xk :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'U'})<cr>
+          nn <silent> xl :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'R'})<cr>
+
+      " }}}
+
+      " Cross reference extensions --{{{
+          " bases
+          nn <silent> xb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<cr>
+          " bases of up to 3 levels
+          nn <silent> xB :call LanguageClient#findLocations({'method':'$ccls/inheritance','levels':3})<cr>
+          " derived
+          nn <silent> xd :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<cr>
+          " derived of up to 3 levels
+          nn <silent> xD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true,'levels':3})<cr>
+
+          " caller
+          nn <silent> xc :call LanguageClient#findLocations({'method':'$ccls/call'})<cr>
+          " callee
+          nn <silent> xC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<cr>
+
+          " $ccls/member
+          " nested classes / types in a namespace
+          nn <silent> xs :call LanguageClient#findLocations({'method':'$ccls/member','kind':2})<cr>
+          " member functions / functions in a namespace
+          nn <silent> xf :call LanguageClient#findLocations({'method':'$ccls/member','kind':3})<cr>
+          " member variables / variables in a namespace
+          nn <silent> xm :call LanguageClient#findLocations({'method':'$ccls/member'})<cr>
+
+          nn xx x
+      " }}}
+
   " }}}
 
   " Go ------------------------------------------------------------------------{{{
