@@ -28,6 +28,8 @@
 # Reset Launchpad
   defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
+# Cause ranger to 'quit to' the last(current) viewed was in while the program was active
+  alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 
   alias arc.bash='nvim ~/.bash_profile'
   alias arc.bashrc='cd ~/.dotfiles/ && nvim bashrc'
