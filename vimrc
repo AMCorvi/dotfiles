@@ -1078,6 +1078,7 @@
         au Filetype rust nmap `run :!cargo run %<cr>
         au Filetype rust nmap `clean :!cargo clean %<cr>
         au Filetype rust nmap `build :!cargo build %<cr>
+        au Filetype rust nmap `test :!cargo test %<cr>
   " }}}
 
   " C/C++ --------------------------------------------------------------------{{{
