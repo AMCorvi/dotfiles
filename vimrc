@@ -363,7 +363,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-nord
+      colorscheme base16-material-palenight
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -1076,14 +1076,39 @@
         let g:neoformat_enabled_rust = ['rustfmt']
 
         au Filetype rust nmap `run :!cargo run %<cr>
+        au Filetype rust nmap `clean :!cargo clean %<cr>
+        au Filetype rust nmap `build :!cargo build %<cr>
   " }}}
 
   " C/C++ --------------------------------------------------------------------{{{
 
-      " let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-      " let g:LanguageClient_settingsPath = '/home/YOUR_USERNAME/.config/nvim/settings.json'
-        "  |-> https://github.com/autozimu/LanguageClient-neovim/issues/379 LSP snippet is not supported
-      " let g:LanguageClient_hasSnippetSupport = 0
+      au Filetype cpp nmap `run :mak!<CR><CR>
+
+      let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+      let g:LanguageClient_settingsPath = '~/AMC/.config/nvim/settings.json'
+      " https://github.com/autozimu/LanguageClient-neovim/issues/379 LSP snippet is not supported
+        let g:LanguageClient_hasSnippetSupport = 0
+
+      " Formatting -- {{{
+          fu! C_init()
+            setl formatexpr=LanguageClient#textDocument_rangeFormatting()
+          endf
+          au FileType c,cpp,cuda,objc :call C_init()
+      " }}}
+
+      " textDocument/documentHighlight -- {{{
+
+          " augroup LanguageClient_config
+          "   au!
+          "   au BufEnter * let b:Plugin_LanguageClient_started = 0
+          "   au User LanguageClientStarted setl signcolumn=yes
+          "   au User LanguageClientStarted let b:Plugin_LanguageClient_started = 1
+          "   au User LanguageClientStopped setl signcolumn=auto
+          "   au User LanguageClientStopped let b:Plugin_LanguageClient_stopped = 0
+          "   au CursorMoved * if b:Plugin_LanguageClient_started | sil call LanguageClient#textDocument_documentHighlight() | endif
+          " augroup END
+
+      " }}}
 
       " $ccls/navigate | Semantic navigation. Roughly, -- {{{
 
