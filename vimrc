@@ -470,11 +470,11 @@
       inoremap <M-h> <Left>
 
       " Page wide find and replace
-      " nnoremap <leader><leader>s :%s/
-      " nnoremap <leader><leader>S :s/
+      nnoremap <leader><leader>s :%s/
+      nnoremap <leader><leader>S :s/
 
       " Scalpel
-      nnoremap <leader><leader>s <Plug>Scalpel
+      " nnoremap <leader><leader>s <Plug>Scalpel
 
 
       " Shortcut (/) for commencing search and replace
@@ -597,7 +597,7 @@
       " On highlight search selection
       nnoremap <silent> <esc> :noh<cr>
 
-      nnoremap <leader>e :call <SID>SynStack()<CR>
+      nnoremap <leader>z :call <SID>SynStack()<CR>
       function! <SID>SynStack()
           if !exists("*synstack")
               return
@@ -809,7 +809,7 @@
 
         let g:neoformat_javascript_prettier_eslint = {
               \ 'exe': 'prettier-eslint',
-              \ 'args': ['--stdin'],
+              \ 'args': ['--stdin', '--parser babylon'],
               \ 'replace': 0,
               \ 'stdin': 1,
               \ 'valid_exit_codes': [0, 23],
