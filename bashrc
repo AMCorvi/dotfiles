@@ -27,4 +27,3 @@ if [ -f '/Users/AMC/Desktop/google-cloud-sdk/completion.bash.inc' ]; then source
 source ~/.z/z.sh
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
