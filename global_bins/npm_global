@@ -2,12 +2,15 @@
 bs-platform
 documentation
 editorconfig-cli
+eslint
+eslint-plugin-react
+babylon
 gitignore
 @kgryte/editorconfig
 neovim
 nodemon
-prettier
 prettier-cli
+prettier-eslint-cli
 pug-cli
 webpack-cli
 yo

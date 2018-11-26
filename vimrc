@@ -32,8 +32,8 @@
             call dein#add('pangloss/vim-javascript',  {'on_ft': 'javascript'}) "Vastly improved Javascript indentation and syntax support in Vim.
             call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
             call dein#add("flowtype/vim-flow") " A vim plugin for Flow
-            call dein#add('carlitux/deoplete-ternjs',  {'on_ft': 'javascript'}) "deoplete.nvim source for javascript{'build': ' sudo yarn global add tern '}
-            call dein#add('ternjs/tern_for_vim', { 'build': 'yarn install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
+            " call dein#add('carlitux/deoplete-ternjs',  {'on_ft': 'javascript'}) "deoplete.nvim source for javascript{'build': ' sudo yarn global add tern '}
+            " call dein#add('ternjs/tern_for_vim', { 'build': 'yarn install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
             call dein#add('HerringtonDarkholme/yats.vim') "YATS: Yet Another TypeScript Syntax
             call dein#add('mxw/vim-jsx') "YATS: Yet Another TypeScript Syntax
             " call dein#add('1995eaton/vim-better-javascript-completion') "An expansion of Vim's current JavaScript syntax file.
@@ -363,7 +363,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-material-palenight
+      colorscheme base16-nord
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -770,7 +770,7 @@
       autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
 
       " Node File Execution
-      au Filetype javascript nmap `run :!node %<CR>
+      au Filetype javascript nmap ,run :!node %<CR>
 
 
     " Autocompletion
@@ -803,7 +803,7 @@
 
     "Formatting------------------------------{{{
 
-        autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+        autocmd FileType javascript set formatprg=prettier-eslint\ --stdin\ --parser\ babylon
         autocmd FileType json set formatprg=prettier-eslint\ --stdin
 
 
@@ -820,6 +820,7 @@
 
         " let g:neoformat_try_formatprg = 1
         let g:neoformat_enabled_json = ['prettier']
+        let g:neoformat_enabled_yaml = ['prettier']
 
     "}}}
 
@@ -1008,8 +1009,8 @@
      autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
 
      " Node File Execution
-     au Filetype reason nmap `run :!ocamlrun %<CR>
-     au Filetype ocaml nmap `run :!ocaml %<CR>
+     au Filetype reason nmap ,run :!ocamlrun %<CR>
+     au Filetype ocaml nmap ,run :!ocaml %<CR>
 
 
      " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
@@ -1075,7 +1076,7 @@
         let g:neomake_verbose = 1
         let g:neoformat_enabled_rust = ['rustfmt']
 
-        au Filetype rust nmap `run :!cargo run %<cr>
+        au Filetype rust nmap ,run :!cargo run %<cr>
         au Filetype rust nmap `clean :!cargo clean %<cr>
         au Filetype rust nmap `build :!cargo build %<cr>
         au Filetype rust nmap `test :!cargo test %<cr>
@@ -1083,7 +1084,7 @@
 
   " C/C++ --------------------------------------------------------------------{{{
 
-      au Filetype cpp nmap `run :mak!<CR><CR>
+      au Filetype cpp nmap ,run :mak!<CR><CR>
 
       let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
       let g:LanguageClient_settingsPath = '~/AMC/.config/nvim/settings.json'
@@ -1153,7 +1154,7 @@
   " Go ------------------------------------------------------------------------{{{
 
       " Go File Execution
-      au Filetype go nmap `run :!go run %<CR>
+      au Filetype go nmap ,run :!go run %<CR>
 
       " Go Format
       let g:neoformat_enabled_go = ['gofmt']
@@ -1182,7 +1183,7 @@
       au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
 
       au Filetype python nmap <M-;> A:<ESC>
-      au Filetype python nmap `run :!python %<cr>
+      au Filetype python nmap ,run :!python %<cr>
 
 
 

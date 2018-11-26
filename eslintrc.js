@@ -8,23 +8,22 @@ module.exports = {
   }
   ,parserOptions: {
     ecmaVersion:  8
-    ,ecmaFeatures: {
-      experimentalObjectRestSpread: true
-      ,jsx:                          true
-    }
-    ,sourceType: 'module'
+    ,ecmaFeatures: { jsx: true }
+    ,sourceType:   'module'
   }
   ,plugins: ['react']
   ,rules:   {
     'linebreak-style': [ 'error', 'unix' ]
     ,quotes:            [ 'error', 'single' ]
-    ,semi:              [ 'error', 'never' ]
-    // ,"semi-style":           ["error", "last"]
-    ,'comma-style':          [ 'error', 'first' ]
-    ,'dot-location':         [ 'error', 'property' ]
-    ,'spaced-comment':       [ 'error', 'always' ]
-    ,'object-curly-newline': [ 'warn', { minProperties: 2 } ]
-    ,'key-spacing':          [
+    // ,semi: ["always", { "omitLastInOneLineBlock": true }]
+    ,semi:                       [ 'error', 'never', { beforeStatementContinuationChars: 'always' } ]
+    ,'semi-style':               [ 'error', 'last' ]
+    ,'comma-style':              [ 'error', 'first' ]
+    ,'dot-location':             [ 'error', 'property' ]
+    ,'spaced-comment':           [ 'error', 'always' ]
+    ,'object-curly-newline':     [ 'warn', { minProperties: 2 } ]
+    ,'newline-per-chained-call': [ 'error', { ignoreChainWithDepth: 2 } ]
+    ,'key-spacing':              [
       2
       ,{
         singleLine: {
@@ -131,7 +130,6 @@ module.exports = {
     ,'new-parens':                       'off'
     ,'newline-after-var':                'off'
     ,'newline-before-return':            'off'
-    ,'newline-per-chained-call':         'off'
     ,'no-alert':                         'off'
     ,'no-array-constructor':             'off'
     ,'no-await-in-loop':                 'off'
