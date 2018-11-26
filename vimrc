@@ -1359,13 +1359,13 @@
       " set signcolumn=yes
 
       " Shortcut for fugitive diffing
-      nnoremap gid :Gvdiff<CR>
+      nnoremap ,diff :Gvdiff<CR>
       " Shortcut for fugitive commiting
-      nnoremap gic :Gcommit<CR>
+      nnoremap ,commit :Gcommit<CR>
       " Shortcut for fugitive staging
-      nnoremap gis :Gstatus<CR>
+      nnoremap ,status :Gstatus<CR>
       " Shortcut for fugitive pushing
-      nnoremap gip :Gpush<Space>
+      nnoremap ,push :Gpush<Space>
 
       "easygit--------------- {{{
         let g:easygit_enable_command = 1
