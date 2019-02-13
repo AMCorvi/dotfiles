@@ -388,3 +388,16 @@ function switch_CCompiler() {
   export CXX=`which g++-$to`
 
 }
+
+function dtasking() {
+  local open=$1
+  local taskingFile='~/Desktop/tasking'
+
+  echo $open
+  if [$open == ""]; then
+    lessmd ~/Desktop/tasking; cls;
+  else
+    nvim ~/Desktop/tasking;
+  fi
+}
+
