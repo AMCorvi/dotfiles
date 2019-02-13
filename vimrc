@@ -207,6 +207,7 @@
       "}}}
 
       " THEMES"-----------{{{
+            call dein#add('TroyFletcher/vim-colors-synthwave')
             call dein#add('dennougorilla/azuki.vim')
             call dein#add('jyota/vimColors') " eva
             call dein#add('rhysd/vim-color-spring-night')
@@ -363,7 +364,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-nord
+      colorscheme synthwave
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -613,6 +614,8 @@
       command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
 
       tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
+      " prevent terminal from jumping to the lastt line
+      tnoremap ii <C-\><C-n>G$?<enter>$bl
       nmap <leader>t :term<cr>
   "}}}"
 
@@ -770,7 +773,7 @@
       autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
 
       " Node File Execution
-      au Filetype javascript nmap ,run :!node %<CR>
+      au Filetype javascript nmap "run :!node %<CR>
 
 
     " Autocompletion
@@ -783,7 +786,7 @@
     " " To disable flow from running in background by default, set to 0 in your ~/.vimrc, like so:
     let g:flow#enable = 0
 
-    let g:jsx_ext_required = 1
+    let g:jsx_ext_required = 0
     let g:jsdoc_allow_input_prompt = 1
     let g:jsdoc_input_description = 1
     let g:vim_json_syntax_conceal = 0
@@ -1009,8 +1012,8 @@
      autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
 
      " Node File Execution
-     au Filetype reason nmap ,run :!ocamlrun %<CR>
-     au Filetype ocaml nmap ,run :!ocaml %<CR>
+     au Filetype reason nmap "run :!ocamlrun %<CR>
+     au Filetype ocaml nmap "run :!ocaml %<CR>
 
 
      " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
@@ -1054,12 +1057,12 @@
 
      "Formatting------------------------------{{{
 
-         autocmd FileType reason set formatprg=refmt\ --Print=ml\ --add-printers
-         autocmd FileType ocaml set formatprg=refmt\ -p\ ml\ --parse=ml
+         autocmd FileType reason set formatprg=bsrefmt\ --print=ml\ --add-printers
+         autocmd FileType ocaml set formatprg=bsrefmt\ -p\ ml\ --parse=ml
 
          let g:neoformat_ocaml_refmt = {
-               \ 'exe': 'refmt',
-               \ 'args': ['--in-place','--Print=ml', '--parse=ml'],
+               \ 'exe': 'bsrefmt',
+               \ 'args': ['--print=ml', '--parse=ml', "--recoverable"],
                \ 'replace': 0,
                \ }
          let g:neoformat_enabled_ocaml = ['refmt']
@@ -1076,7 +1079,7 @@
         let g:neomake_verbose = 1
         let g:neoformat_enabled_rust = ['rustfmt']
 
-        au Filetype rust nmap ,run :!cargo run %<cr>
+        au Filetype rust nmap "run :!cargo run %<cr>
         au Filetype rust nmap `clean :!cargo clean %<cr>
         au Filetype rust nmap `build :!cargo build %<cr>
         au Filetype rust nmap `test :!cargo test %<cr>
@@ -1084,12 +1087,14 @@
 
   " C/C++ --------------------------------------------------------------------{{{
 
-      au Filetype cpp nmap ,run :mak!<CR><CR>
+      au Filetype cpp nmap "run :mak!<CR><CR>
+      au Filetype python nmap <M-;> A;<ESC>
 
-      let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-      let g:LanguageClient_settingsPath = '~/AMC/.config/nvim/settings.json'
+      " Use an absolute configuration path if you want system-wide settings
+      " let g:LanguageClient_loadSettings = 1
+      " let g:LanguageClient_settingsPath = '~/AMC/.config/nvim/settings.json'
       " https://github.com/autozimu/LanguageClient-neovim/issues/379 LSP snippet is not supported
-        let g:LanguageClient_hasSnippetSupport = 0
+      let g:LanguageClient_hasSnippetSupport = 0
 
       " Formatting -- {{{
           fu! C_init()
@@ -1154,7 +1159,7 @@
   " Go ------------------------------------------------------------------------{{{
 
       " Go File Execution
-      au Filetype go nmap ,run :!go run %<CR>
+      au Filetype go nmap "run :!go run %<CR>
 
       " Go Format
       let g:neoformat_enabled_go = ['gofmt']
@@ -1183,7 +1188,7 @@
       au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
 
       au Filetype python nmap <M-;> A:<ESC>
-      au Filetype python nmap ,run :!python %<cr>
+      au Filetype python nmap "run :!python %<cr>
 
 
 
@@ -1359,13 +1364,13 @@
       " set signcolumn=yes
 
       " Shortcut for fugitive diffing
-      nnoremap ,diff :Gvdiff<CR>
+      nnoremap gid :Gvdiff<CR>
       " Shortcut for fugitive commiting
-      nnoremap ,commit :Gcommit<CR>
+      nnoremap gic :Gcommit<CR>
       " Shortcut for fugitive staging
-      nnoremap ,status :Gstatus<CR>
+      nnoremap gis :Gstatus<CR>
       " Shortcut for fugitive pushing
-      nnoremap ,push :Gpush<Space>
+      nnoremap gip :Gpush<Space>
 
       "easygit--------------- {{{
         let g:easygit_enable_command = 1
@@ -1462,9 +1467,9 @@
 
   " Nvim terminal -------------------------------------------------------------{{{
 
-      au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-      autocmd BufEnter term://* startinsert
-      autocmd TermOpen * set bufhidden=hide
+      " au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+      " autocmd BufEnter term://* startinsert
+      " autocmd TermOpen * set bufhidden=hide
 
   " }}}
 

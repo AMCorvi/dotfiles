@@ -1,5 +1,7 @@
 @feathersjs/cli
 bs-platform
+commitizen
+cz-conventional-changelog
 documentation
 editorconfig-cli
 eslint
@@ -14,4 +16,5 @@ prettier-eslint-cli
 pug-cli
 webpack-cli
 yo
+
 

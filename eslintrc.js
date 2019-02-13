@@ -23,7 +23,17 @@ module.exports = {
     ,'spaced-comment':           [ 'error', 'always' ]
     ,'object-curly-newline':     [ 'warn', { minProperties: 2 } ]
     ,'newline-per-chained-call': [ 'error', { ignoreChainWithDepth: 2 } ]
-    ,'key-spacing':              [
+    ,'no-console':               [
+      'error'
+      ,{
+        allow:              [ 'warn', 'error' ]
+        ,varsIgnorePattern:  '^_'
+        ,argsIgnorePattern:  '^_'
+        ,ignoreRestSiblings: true
+      }
+    ]
+    ,'no-unused-vars': [ 'error', { vars: 'local' } ]
+    ,'key-spacing':    [
       2
       ,{
         singleLine: {

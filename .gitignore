@@ -3,3 +3,5 @@ vim/bundle/*
 keys
 tmux/plugins/tmux-*
 weechat/
+nvim-python.log_py2_rplugin
+nvim-python.log_py3_rplugin
