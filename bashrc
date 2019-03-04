@@ -27,3 +27,8 @@ if [ -f '/Users/AMC/Desktop/google-cloud-sdk/completion.bash.inc' ]; then source
 source ~/.z/z.sh
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Automate configuration of opam environment
+if ! (command_exists dune); then
+  eval `opam config env`
+fi
