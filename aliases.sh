@@ -53,6 +53,7 @@
   alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
   alias createra="create-react-app"
   alias creatern="react-native init"
+  alias crow="feathers-plus"
   alias desktop=cd\ ~/Desktop
   alias dotfiles='cd ~/.dotfiles'
   alias flush='dscacheutil -flushcache'

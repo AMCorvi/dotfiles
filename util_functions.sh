@@ -401,3 +401,6 @@ function dtasking() {
   fi
 }
 
+command_exists () {
+  type "$1" &> /dev/null;
+}
