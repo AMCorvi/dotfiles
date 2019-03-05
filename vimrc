@@ -1022,6 +1022,9 @@
      let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
      execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
+     " Use the following command to tell Vim to use ocp-indent:
+     autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
+
      " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
              let s:opam_share_dir = system("opam config var share")
              let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
