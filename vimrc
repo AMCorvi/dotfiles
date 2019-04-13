@@ -128,7 +128,6 @@
           call dein#add('vim-airline/vim-airline')
           call dein#add('Zuckonit/vim-airline-tomato')
           call dein#add('previm/previm') "Realtime preview by Vim. (Markdown, reStructuredText, textile)
-          call dein#add('tyru/open-browser') "Open URI with your favorite browser from your most favorite editor (previm dependency)
           call dein#add('kassio/neoterm') " Wrapper of some vim/neovim's :terminal functions.
           call dein#add('tkhren/vim-fake') " Vim plugin to provide a generator of random dummy/filler text.
           call dein#add('rmolin88/pomodoro.vim') " Bring the beauty of the Pomodoro technique to (Neo)Vim
@@ -147,6 +146,7 @@
           call dein#add('mattn/webapi-vim') " vim interface to Web API
           call dein#add('danro/rename.vim') " Rename the current file in the vim buffer + retain relative path.
           call dein#add('rhysd/vim-grammarous') " A powerful grammar checker for Vim using LanguageTool.
+          " call dein#add('tyru/open-browser') "Open URI with your favorite browser from your most favorite editor (previm dependency)
           " call dein#add('vim-scripts/YankRing.vim') " Maintains a history of previous yanks, changes and deletes http://www.vim.org/scripts/script.php�
           " call dein#add('ctrlpvim/ctrlp.vim')
           " call dein#add('justinmk/vim-sneak')
