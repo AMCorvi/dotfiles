@@ -76,6 +76,7 @@
   alias py3='python3'
   alias re.source='source ~/.bash_profile'
   alias redcheck='ls'
+  alias refmt='bsrefmt'
   alias reutersnews="termsaver rssfeed --url=http://feeds.reuters.com/reuters/topNews"
   alias rr='ranger'
   alias runvice='termsaver rssfeed --url=https://www.vice.com/en_us/rss'

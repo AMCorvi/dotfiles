@@ -45,3 +45,9 @@ export PATH=$PATH:$ANDROID_HOME/emulator
   export PATH=$PATH:$GOPATH/bin
   export PATH=$PATH:/usr/local/mysql/bin
   export _Z_DATA="$HOME/z-data"
+
+# To use merlin-locate to go to the source of things installed with opam, you first of all need to keep the source around when installing, and let opam create .cmt files:
+
+  # export OPAMKEEPBUILDDIR=true
+  # export OCAMLPARAM="_,bin-annot=1"
+

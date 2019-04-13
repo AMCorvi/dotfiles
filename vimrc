@@ -9,7 +9,6 @@
 ""                                                         ███    ███              "
 " Author: Mr. Corvi
 "
-
   " Setup dein  ---------------------------------------------------------------{{{
     if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
       call system(expand("mkdir -p $HOME/.config/nvim/repos/github.com"))
@@ -128,6 +127,9 @@
           call dein#add('tmux-plugins/vim-tmux')
           call dein#add('vim-airline/vim-airline')
           call dein#add('Zuckonit/vim-airline-tomato')
+          call dein#add('previm/previm') "Realtime preview by Vim. (Markdown, reStructuredText, textile)
+          call dein#add('tyru/open-browser') "Open URI with your favorite browser from your most favorite editor (previm dependency)
+          call dein#add('kassio/neoterm') " Wrapper of some vim/neovim's :terminal functions.
           call dein#add('tkhren/vim-fake') " Vim plugin to provide a generator of random dummy/filler text.
           call dein#add('rmolin88/pomodoro.vim') " Bring the beauty of the Pomodoro technique to (Neo)Vim
           call dein#add("jpalardy/vim-slime") " SLIME is an Emacs plugin to turn Emacs into a REPL.
@@ -187,7 +189,9 @@
           " call dein#add('ujihisa/neco-look') " A neocomplcache plugin for English, using look command
       "}}}
 
-      "NERDTree"-----------{{{
+      "FileBrowser"-----------{{{
+          call dein#add('rbgrouleff/bclose.vim')
+          call dein#add('francoiscabrol/ranger.vim')
           call dein#add('scrooloose/nerdtree')
           call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
           call dein#add('ryanoasis/vim-devicons') " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, and more
@@ -207,6 +211,7 @@
       "}}}
 
       " THEMES"-----------{{{
+            call dein#add('markvincze/panda-vim')
             call dein#add('TroyFletcher/vim-colors-synthwave')
             call dein#add('dennougorilla/azuki.vim')
             call dein#add('jyota/vimColors') " eva
@@ -364,7 +369,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme synthwave
+      colorscheme base16-chalk
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -1002,7 +1007,7 @@
 
   " }}}
 
-  " Reason ------------------------------------------------------------------------{{{
+  " Ocaml/Reason ------------------------------------------------------------------------{{{
 
      au Filetype reason nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
      au Filetype reason nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
@@ -1012,8 +1017,8 @@
      autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
 
      " Node File Execution
-     au Filetype reason nmap "run :!ocamlrun %<CR>
-     au Filetype ocaml nmap "run :!ocaml %<CR>
+     au Filetype reason nnoremap "run :!ocamlrun %<CR>
+     au Filetype ocaml nnoremap "run :!ocaml %<CR>
 
 
      " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
@@ -1023,7 +1028,7 @@
      execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
      " Use the following command to tell Vim to use ocp-indent:
-     autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
+     "" autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
 
      " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
              let s:opam_share_dir = system("opam config var share")
@@ -1060,20 +1065,25 @@
 
      "Formatting------------------------------{{{
 
-         autocmd FileType reason set formatprg=bsrefmt\ --print=ml\ --add-printers
-         autocmd FileType ocaml set formatprg=bsrefmt\ -p\ ml\ --parse=ml
-
-         let g:neoformat_ocaml_refmt = {
+         " OCaml formating
+         autocmd FileType reason set formatprg=bsrefmt\ --print=ml
+         let g:neoformat_reason_refmt = {
                \ 'exe': 'bsrefmt',
-               \ 'args': ['--print=ml', '--parse=ml', "--recoverable"],
+               \ 'args': ['--print=re', '--parse=re'],
                \ 'replace': 0,
                \ }
-         let g:neoformat_enabled_ocaml = ['refmt']
+         let g:neoformat_enabled_reason = ['refmt']
+         "
+         autocmd FileType ocaml set formatprg=bsrefmt\ -p\ re\ --parse=ml
+         " let g:neoformat_ocaml_refmt = {
+         "       \ 'exe': 'bsrefmt',
+         "       \ 'args': ['--print=ml', '--parse=ml', '--recoverable'],
+         "       \ 'replace': 0,
+         "       \ }
+         " let g:neoformat_enabled_ocaml = ['refmt']
          " let g:neoformat_try_formatprg = 1
 
      "}}}
-
-
 
   "}}}
 
@@ -1280,7 +1290,13 @@
             imap <silent> <F9> <Plug>StopMarkdownPreview
 
       " }}}
+        " open by Firefow Developer Edition
+        au Filetype markdown nmap "run :PrevimOpen
+        let g:previm_open_cmd = 'open -a Firefox\ Developer\ Edition'
 
+      " preview/previm - - - - - - - - - - - - - - - - - - - -  {{{
+
+      " }}}
 
   "}}}
 
@@ -1381,79 +1397,92 @@
 
   " }}}
 
-  " NERDTree ------------------------------------------------------------------{{{
-
-    let g:netrw_liststyle = 3
-    let g:netrw_browse_split = 2
-    let g:netrw_winsize = 25
-    " let g:netrw_banner = 0
+  " FileBrowser ------------------------------------------------------------------{{{
 
 
-      let g:vimfiler_ignore_pattern = ""
-      " map <silent> - :VimFiler<CR>
-      let g:vimfiler_tree_leaf_icon = ''
-      let g:vimfiler_tree_opened_icon = ''
-      let g:vimfiler_tree_closed_icon = ''
-      let g:vimfiler_file_icon = ''
-      let g:vimfiler_marked_file_icon = '*'
-      let g:vimfiler_expand_jump_to_first_child = 0
-      " let g:vimfiler_as_default_explorer = 1
-      call unite#custom#profile('default', 'context', {
-                  \'direction': 'botright',
-                  \ })
-      call vimfiler#custom#profile('default', 'context', {
-                  \ 'explorer' : 1,
-                  \ 'winwidth' : 35,
-                  \ 'winminwidth' : 35,
-                  \ 'toggle' : 1,
-                  \ 'auto_expand': 0,
-                  \ 'parent': 1,
-                  \ 'explorer_columns': 'devicons:git',
-                  \ 'status' : 0,
-                  \ 'safe' : 0,
-                  \ 'split' : 1,
-                  \ 'hidden': 1,
-                  \ 'no_quit' : 1,
-                  \ 'force_hide' : 0,
-                  \ })
-      augroup vfinit
-          autocmd FileType vimfiler call s:vimfilerinit()
-      augroup END
-      function! s:vimfilerinit()
-          set nonumber
-          set norelativenumber
-          nmap <silent><buffer><expr> <CR> vimfiler#smart_cursor_map(
-                      \ "\<Plug>(vimfiler_expand_tree)",
-                      \ "\<Plug>(vimfiler_edit_file)"
-                      \)
-          nmap <silent> m :call NerdUnite()<cr>
-          nmap <silent> r <Plug>(vimfiler_redraw_screen)
-      endf
-      " let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
-      let g:webdevicons_enable_vimfiler = 0
-      let g:vimfiler_no_default_key_mappings=1
-      function! NerdUnite() abort
-          let marked_files =  vimfiler#get_file(b:vimfiler)
-          call unite#start(['nerd'], {'file': marked_files})
-      endfunction
+    "Nerd Tree --------------------------------------------------{{{
+        let g:netrw_liststyle = 3
+        let g:netrw_browse_split = 2
+        let g:netrw_winsize = 25
+        " let g:netrw_banner = 0
 
-      map <silent> - :NERDTreeToggle<CR>
-      augroup ntinit
-          autocmd FileType nerdtree call s:nerdtreeinit()
-      augroup END
-      function! s:nerdtreeinit()
-          nunmap <buffer> K
-          nunmap <buffer> J
-      endf
-      let NERDTreeShowHidden=1
-      let NERDTreeHijackNetrw=1
-      let g:NERDTreeWinSize=30
-      let g:NERDTreeWinPos = 'right'
-      let g:NERDTreeAutoDeleteBuffer=1
-      let g:NERDTreeMinimalUI=1
-      let g:NERDTreeCascadeSingleChildDir=1
-      let g:NERDTreeHeader = 'hello'
 
+          let g:vimfiler_ignore_pattern = ""
+          " map <silent> - :VimFiler<CR>
+          let g:vimfiler_tree_leaf_icon = ''
+          let g:vimfiler_tree_opened_icon = ''
+          let g:vimfiler_tree_closed_icon = ''
+          let g:vimfiler_file_icon = ''
+          let g:vimfiler_marked_file_icon = '*'
+          let g:vimfiler_expand_jump_to_first_child = 0
+          " let g:vimfiler_as_default_explorer = 1
+          call unite#custom#profile('default', 'context', {
+                      \'direction': 'botright',
+                      \ })
+          call vimfiler#custom#profile('default', 'context', {
+                      \ 'explorer' : 1,
+                      \ 'winwidth' : 35,
+                      \ 'winminwidth' : 35,
+                      \ 'toggle' : 1,
+                      \ 'auto_expand': 0,
+                      \ 'parent': 1,
+                      \ 'explorer_columns': 'devicons:git',
+                      \ 'status' : 0,
+                      \ 'safe' : 0,
+                      \ 'split' : 1,
+                      \ 'hidden': 1,
+                      \ 'no_quit' : 1,
+                      \ 'force_hide' : 0,
+                      \ })
+          augroup vfinit
+              autocmd FileType vimfiler call s:vimfilerinit()
+          augroup END
+          function! s:vimfilerinit()
+              set nonumber
+              set norelativenumber
+              nmap <silent><buffer><expr> <CR> vimfiler#smart_cursor_map(
+                          \ "\<Plug>(vimfiler_expand_tree)",
+                          \ "\<Plug>(vimfiler_edit_file)"
+                          \)
+              nmap <silent> m :call NerdUnite()<cr>
+              nmap <silent> r <Plug>(vimfiler_redraw_screen)
+          endf
+          " let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
+          let g:webdevicons_enable_vimfiler = 0
+          let g:vimfiler_no_default_key_mappings=1
+          function! NerdUnite() abort
+              let marked_files =  vimfiler#get_file(b:vimfiler)
+              call unite#start(['nerd'], {'file': marked_files})
+          endfunction
+
+          map <silent> - :NERDTreeToggle<CR>
+          augroup ntinit
+              autocmd FileType nerdtree call s:nerdtreeinit()
+          augroup END
+          function! s:nerdtreeinit()
+              nunmap <buffer> K
+              nunmap <buffer> J
+          endf
+          let NERDTreeShowHidden=1
+          let NERDTreeHijackNetrw=1
+          let g:NERDTreeWinSize=30
+          let g:NERDTreeWinPos = 'right'
+          let g:NERDTreeAutoDeleteBuffer=1
+          let g:NERDTreeMinimalUI=1
+          let g:NERDTreeCascadeSingleChildDir=1
+          let g:NERDTreeHeader = 'hello'
+      "}}}
+
+    " Ranger -------------------------------------------------- {{{
+
+      " let g:NERDTreeHijackNetrw = 0 " add this line if you use NERDTree
+      " let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
+      let g:ranger_map_keys = 0 " To disable the default key mapping
+
+
+
+
+     "}}}
 
 
   "}}}
@@ -1512,8 +1541,8 @@
   " Snippets -----------------------------------------------------------------{{{
 
         " Enable snipMate compatibility feature.
-        " let g:neosnippet#enable_snipmate_compatibility = 1
-        " let g:neosnippet#expand_word_boundary = 1
+        let g:neosnippet#enable_snipmate_compatibility = 1
+        let g:neosnippet#expand_word_boundary = 1
         let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
         imap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
         smap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
