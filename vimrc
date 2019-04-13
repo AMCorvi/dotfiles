@@ -1253,6 +1253,10 @@
       let vim_markdown_preview_github=1
       let vim_markdown_preview_hotkey='<C-p>'
 
+
+      " Markdown preview macro using the 'Typora' (on mac) when installed
+      au Filetype markdown nmap "run :!open -a Typora "%"
+
       " iamcco/markdown-preview.vim ---- {{{{
 
             let g:mkdp_path_to_chrome = "open -a Opera"
@@ -1290,12 +1294,11 @@
             imap <silent> <F9> <Plug>StopMarkdownPreview
 
       " }}}
-        " open by Firefow Developer Edition
-        au Filetype markdown nmap "run :PrevimOpen
-        let g:previm_open_cmd = 'open -a Firefox\ Developer\ Edition'
 
       " preview/previm - - - - - - - - - - - - - - - - - - - -  {{{
-
+          " open by Firefow Developer Edition
+          " au Filetype markdown nmap "run :PrevimOpen
+          " let g:previm_open_cmd = 'open -a Firefox\ Developer\ Edition'
       " }}}
 
   "}}}
