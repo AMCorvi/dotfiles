@@ -56,6 +56,7 @@
   alias crow="feathers-plus"
   alias desktop=cd\ ~/Desktop
   alias dotfiles='cd ~/.dotfiles'
+  alias esnode='node --experimental-modules '
   alias flush='dscacheutil -flushcache'
   alias frammed='alias'
   alias hackdatabase='termsaver programmer --path ~/.rfcs --delay 0.010'
@@ -68,8 +69,8 @@
   alias lsa='ls -alt'
   alias maintain-brew="brew update; brew upgrade; brew prune; brew cleanup; brew doctor"
   alias news='newsbeuter'
-  alias esnode='node --experimental-modules '
   alias nodeenv='NODE_ENV='
+  alias npm="pnpm"
   alias nprart="termsaver rssfeed --url=http://www.npr.org/rss/rss.php?id=1008"
   alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage"
   alias project="cd ~/Desktop/projects"

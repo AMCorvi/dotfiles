@@ -119,6 +119,10 @@
         "C/C++"---------------------------------{{{
           call dein#add("vhdirk/vim-cmake") " Vim plugin to make working with CMake a little nicer
         "}}}
+
+        "PlantUML"---------------------------------{{{
+          call dein#add("aklt/plantuml-syntax") " Vim syntax file for PlantUML
+        "}}}
     "}}}
 
     " BOLT-ON PLUGINS"---------------------------------{{{
@@ -369,7 +373,7 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-chalk
+      colorscheme base16-3024
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -1388,7 +1392,7 @@
       " Shortcut for fugitive diffing
       nnoremap gid :Gvdiff<CR>
       " Shortcut for fugitive commiting
-      nnoremap gic :Gcommit<CR>
+      nnoremap gic :terminal git-cz<CR>
       " Shortcut for fugitive staging
       nnoremap gis :Gstatus<CR>
       " Shortcut for fugitive pushing
