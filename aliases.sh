@@ -49,6 +49,7 @@
   alias bloomberg=termsaver\ rssfeed\ --url=http://feeds.reuters.com/reuters/topNews
   alias clear.z="echo '' > ~/.zsh_history"
   alias code='open -a "Code" '
+  alias compile="ytdl https://www.youtube.com/watch?v=mXRfApkMYZU --filter audio | mpv --no-video -"
   alias corvi.code='cd ~/Desktop/.Corvi-APPS'
   alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
   alias createra="create-react-app"
