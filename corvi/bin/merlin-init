@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ -f .merlin ]; then
+    echo ".merlin already exists"
+    read -p "Overwrite? (y/n) " -n 1
+    echo
+    if [[ $REPLY =~ [Nn] ]]; then
+        echo "Okay, bye."
+        exit 1
+    fi
+fi
+
+echo "Writing .merlin"
+> .merlin
+
+# Source and build directories
+echo "\
+S .
+B _build" >> .merlin
+
+# List of packages
+ocamlfind list | awk '{print "PKG "$1}' >> .merlin
