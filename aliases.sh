@@ -44,7 +44,7 @@
   alias arc.pic='cd ~/Pictures'
   alias arc.portf='arc.code && cd portfolio/'
   alias arc.portfp='arc.code && cd portfolio/\#practice'
-  alias arc.vimrc='v ~/.vim/init.vim'
+  alias arc.vimrc='cd ~/.dotfiles; nvim vimrc'
   alias bbcnews="termsaver rssfeed --url=http://newsrss.bbc.co.uk/rss/newsonline_world_edition/americas/rss.xml"
   alias bloomberg=termsaver\ rssfeed\ --url=http://feeds.reuters.com/reuters/topNews
   alias clear.z="echo '' > ~/.zsh_history"
