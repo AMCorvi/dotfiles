@@ -2,6 +2,7 @@
 @feathers-plus/cli
 @feathersjs/cli
 babylon
+bash-language-server
 bs-platform
 commitizen
 cz-conventional-changelog
