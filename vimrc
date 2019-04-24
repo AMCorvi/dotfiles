@@ -648,18 +648,19 @@
 
 
       let g:LanguageClient_serverCommands = {
+          \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
+          \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
+          \ 'cuda': ['ccls', '--log-file=/tmp/cc.log'],
           \ 'go': ['go-langserver'],
           \ 'javascript': ['javascript-typescript-stdio'],
           \ 'javascript.jsx': ['javascript-typescript-stdio'],
+          \ 'objc': ['ccls', '--log-file=/tmp/cc.log'],
           \ 'ocaml': ['ocaml-language-server', '--stdio'],
           \ 'python': ['pyls'],
           \ 'python3': ['pyls'],
           \ 'reason': ['ocaml-language-server', '--stdio'],
           \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-          \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
-          \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
-          \ 'cuda': ['ccls', '--log-file=/tmp/cc.log'],
-          \ 'objc': ['ccls', '--log-file=/tmp/cc.log'],
+          \ 'sh': ['bash-language-server', 'start'],
           \ }
 
 
@@ -1551,9 +1552,9 @@
         let g:neosnippet#enable_snipmate_compatibility = 1
         let g:neosnippet#expand_word_boundary = 1
         let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
-        imap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
-        smap <leader><leader><leader> <Plug>(neosnippet_expand_or_jump)
-        xmap <leader><leader><leader> <Plug>(neosnippet_expand_target)
+        imap <leader><space> <Plug>(neosnippet_expand_or_jump)
+        smap <leader><space> <Plug>(neosnippet_expand_or_jump)
+        xmap <leader><space> <Plug>(neosnippet_expand_target)
 
       " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
       imap <expr><Tab>
