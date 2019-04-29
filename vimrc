@@ -112,6 +112,7 @@
           call dein#add('reasonml-editor/vim-reason-plus') " Reason Vim editor integration
           call dein#add("OCamlPro/ocp-indent") "Indentation tool for OCaml, to be used from editors like Emacs and Vim.
           call dein#add("ocaml/merlin") "Context sensitive completion for OCaml in Vim and Emacs
+          call dein#add("guns/vim-sexp") " Precision Editing for S-expressions
           " call dein#local('~/.opam/4.04.0/share/merlin/')
           " call dein#add('facebook/reason', {'rtp': 'editorSupport/VimReason'})
         "}}}
@@ -459,6 +460,13 @@
 
       " Select all
       nnoremap <M-a> ggVG
+
+      " Sort all or selection
+      nnoremap "sort ggVG:sort<CR>
+      vnoremap "sort :sort<CR>
+
+      " Suspend Vim
+      nnoremap "out :suspend<CR>
 
       " Repeat latest f, t, F or T [count] times
       nnoremap <M-,> ;
@@ -1025,48 +1033,58 @@
      au Filetype reason nnoremap "run :!ocamlrun %<CR>
      au Filetype ocaml nnoremap "run :!ocaml %<CR>
 
+     " Use 'vim-sexp' syntax package on the dune files
+     augroup dune_ft
+       au!
+       autocmd BufNewFile,BufRead dune set syntax=sexp
+       " autocmd BufNewFile,BufRead dune set filetype=sexp
+     augroup END
 
      " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
      let g:slime_target = "neovim"
 
-     let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-     execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
      " Use the following command to tell Vim to use ocp-indent:
      "" autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
 
-     " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-             let s:opam_share_dir = system("opam config var share")
-             let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
-             let s:opam_configuration = {}
+      "Merlin Configuration ------------------------------ {{{
+           let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+           execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
-             function! OpamConfOcpIndent()
-               execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-             endfunction
-             let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+           " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+                   let s:opam_share_dir = system("opam config var share")
+                   let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
-             function! OpamConfOcpIndex()
-               execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-             endfunction
-             let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+                   let s:opam_configuration = {}
 
-             function! OpamConfMerlin()
-               let l:dir = s:opam_share_dir . "/merlin/vim"
-               execute "set rtp+=" . l:dir
-             endfunction
-             let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+                   function! OpamConfOcpIndent()
+                     execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+                   endfunction
+                   let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
 
-             let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-             let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-             let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-             for tool in s:opam_packages
-               " Respect package order (merlin should be after ocp-index)
-               if count(s:opam_available_tools, tool) > 0
-                 call s:opam_configuration[tool]()
-               endif
-             endfor
-     " ## end of OPAM user-setup addition for vim / base ## keep this line
+                   function! OpamConfOcpIndex()
+                     execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+                   endfunction
+                   let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+                   function! OpamConfMerlin()
+                     let l:dir = s:opam_share_dir . "/merlin/vim"
+                     execute "set rtp+=" . l:dir
+                   endfunction
+                   let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+                   let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+                   let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+                   let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+                   for tool in s:opam_packages
+                     " Respect package order (merlin should be after ocp-index)
+                     if count(s:opam_available_tools, tool) > 0
+                       call s:opam_configuration[tool]()
+                     endif
+                   endfor
+           " ## end of OPAM user-setup addition for vim / base ## keep this line
+      "}}}
 
      "Formatting------------------------------{{{
 

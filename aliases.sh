@@ -38,7 +38,7 @@
   alias arc.course='cd ~/code/Courses'
   alias arc.desk='cd ~/Desktop'
   alias arc.didact='cd ~/code/Didact'
-  alias arc.down='cd ~/Download'
+  alias arc.down='cd ~/Downloads'
   alias arc.muxrc='dotfiles && nvim ./tmux.conf'
   alias arc.nsplash='arc.pic && cd unsplash'
   alias arc.pic='cd ~/Pictures'
@@ -49,7 +49,8 @@
   alias bloomberg=termsaver\ rssfeed\ --url=http://feeds.reuters.com/reuters/topNews
   alias clear.z="echo '' > ~/.zsh_history"
   alias code='open -a "Code" '
-  alias compile="ytdl https://www.youtube.com/watch?v=mXRfApkMYZU --filter audio | mpv --no-video -"
+  alias compile_the_chill="ytdl https://www.youtube.com/watch?v=mXRfApkMYZU --filter audio | mpv --no-video -"
+  alias compile_the_hood="ytdl https://www.youtube.com/watch?v=05689ErDUdM --filter audio | mpv --no-video -"
   alias corvi.code='cd ~/Desktop/.Corvi-APPS'
   alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
   alias createra="create-react-app"

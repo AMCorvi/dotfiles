@@ -16,6 +16,7 @@ ocaml
 opam
 perl
 phantomjs
+pick
 python
 python@2
 rabbitmq
