@@ -1,1 +1,6 @@
-../custom_made_tools/base16_scheme_selector/build/bundled_main-macos
+#! /bin/bash
+
+# base16 Themes Filepath
+base16Path="${HOME}/.config/base16-shell/scripts"
+
+bash ${base16Path}/`ls ${base16Path} | pick`;

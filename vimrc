@@ -466,7 +466,7 @@
       vnoremap "sort :sort<CR>
 
       " Suspend Vim
-      nnoremap "out :suspend<CR>
+      nnoremap 1<ESC> :suspend<CR>
 
       " Repeat latest f, t, F or T [count] times
       nnoremap <M-,> ;
