@@ -77,7 +77,7 @@
   alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage"
   alias project="cd ~/Desktop/projects"
   alias py3='python3'
-  alias re.source='source ~/.bash_profile'
+  alias re.source='source $HOME/.bashrc'
   alias redcheck='ls'
   alias refmt='bsrefmt'
   alias reutersnews="termsaver rssfeed --url=http://feeds.reuters.com/reuters/topNews"
