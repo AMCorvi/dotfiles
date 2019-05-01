@@ -358,8 +358,8 @@ __powerline() {
     PROMPT_COMMAND="ps1${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
   }
 
-  __powerline
-  unset __powerline
+  # __powerline
+  # unset __powerline
 
 
 function n() {

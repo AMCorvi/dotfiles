@@ -6,12 +6,14 @@ set -o vi
 
 # Exports
   source ~/.exports.sh
-#Aliases
+# Aliases
   source ~/.aliases.sh
 # Utility functions
   source ~/.util_functions.sh
 # Shell Addons
   source ~/.addons.sh
+# PS1 Terminal Prompt
+  source ~/.ps1.sh
 
 # Useful blah blah blah
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

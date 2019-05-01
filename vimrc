@@ -539,8 +539,8 @@
       noremap <leader>ct :checktime<CR>
 
       " Go back to previous opened file in Vim
-      nnoremap <leader>l [l
-      nnoremap <leader>L ]l
+      nnoremap <leader>l :lne<CR>
+      nnoremap <leader>L :lp<CR>
 
       " Escape leader(semicolon) in INSERT mode
       inoremap <M-;> ;
