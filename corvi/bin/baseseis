@@ -1,6 +1,47 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # base16 Themes Filepath
 base16Path="${HOME}/.config/base16-shell/scripts"
 
-bash ${base16Path}/`ls ${base16Path} | pick`;
+# source $HOME/.bashrc
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+  [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+  eval "$("$BASE16_SHELL/profile_helper.sh")";
+
+# ls -a $HOME/.config/base16-shell/;
+
+
+# Borrowed from Chris Kempson ( https://github.com/chriskempson/base16-shell );
+_base16()
+{
+  local script=$1
+  local theme=$2
+  [ -f $script ] && . $script
+  ln -fs $script ~/.base16_theme
+  export BASE16_THEME=${theme}
+  echo -e "if \0041exists('g:colors_name') || g:colors_name != 'base16-$theme'\n  colorscheme base16-$theme\nendif" >| ~/.vimrc_background
+  if [ -n ${BASE16_SHELL_HOOKS:+s} ] && [ -d "${BASE16_SHELL_HOOKS}" ]; then
+    for hook in $BASE16_SHELL_HOOKS/*; do
+      [ -f "$hook" ] && [ -x "$hook" ] && "$hook"
+    done
+  fi
+}
+
+# select desired theme
+theme=`ls ${base16Path} | pick | awk '{
+startOfName = (index($0, "-") + 1)
+startOfExt = index($0, ".")
+
+nameLength = (startOfExt - startOfName)
+name = substr($0, startOfName , nameLength)
+
+print name
+}'`
+
+echo SUBSHELL $BASH_SUBSHELL
+
+# Execute them Change
+_base16 $HOME/.config/base16-shell/scripts/base16-${theme}.sh $theme

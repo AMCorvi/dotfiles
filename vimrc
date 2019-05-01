@@ -374,7 +374,13 @@
 
       "Colorscheme
       set background=dark
-      colorscheme base16-3024
+          " Default ColorScheme
+          colorscheme base16-3024
+          " Dynamically set colorscheme to which base16 colorscheme is set in the terminal
+          if filereadable(expand("~/.vimrc_background"))
+            let base16colorspace=256
+            source ~/.vimrc_background
+          endif
 
       " Remove '|' character fom split window border (note blank space after
       " back slash):
@@ -533,8 +539,11 @@
       noremap <leader>ct :checktime<CR>
 
       " Go back to previous opened file in Vim
-      noremap <leader>l <C-6>
+      nnoremap <leader>l [l
+      nnoremap <leader>L ]l
 
+      " Escape leader(semicolon) in INSERT mode
+      inoremap <M-;> ;
 
       " copy current files path to clipboard
       nmap cp :let @+= expand("%") <cr>

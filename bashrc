@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 source ~/.profile
 
@@ -16,7 +16,7 @@ set -o vi
 # Useful blah blah blah
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-# test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/AMC/Desktop/google-cloud-sdk/path.bash.inc' ]; then source '/Users/AMC/Desktop/google-cloud-sdk/path.bash.inc'; fi
