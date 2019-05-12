@@ -27,5 +27,6 @@ prettier-cli
 prettier-eslint-cli
 pug-cli
 qrcode
+sqlectron-term
 webtorrent-cli
 yo
