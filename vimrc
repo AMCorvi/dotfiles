@@ -129,6 +129,7 @@
     " BOLT-ON PLUGINS"---------------------------------{{{
 
       " Add-on Features"-----------{{{
+          call dein#add('vim-scripts/dbext.vim') " Provides database access to many dbms (Oracle, Sybase, Microsoft, MySQL, DBI,..) http://www.vim.org/scripts/script.php…
           call dein#add('tmux-plugins/vim-tmux')
           call dein#add('vim-airline/vim-airline')
           call dein#add('Zuckonit/vim-airline-tomato')
@@ -539,8 +540,8 @@
       noremap <leader>ct :checktime<CR>
 
       " Go back to previous opened file in Vim
-      nnoremap <leader>l :lne<CR>
-      nnoremap <leader>L :lp<CR>
+      nnoremap <M-l> :lne<CR>
+      nnoremap <M-L>L :lp<CR>
 
       " Escape leader(semicolon) in INSERT mode
       inoremap <M-;> ;

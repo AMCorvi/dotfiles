@@ -43,16 +43,11 @@ end)
 
 -- a number of shortcut key used to focus(or open) apps
 local focusKeys = {
-
-  -- a='Atom',
   a='Airmail 3',
-  e='Opera',
-  -- b='Google Chrome Canary',
-  d='Slack',
-  t='iTerm',
-  -- f='Hyper',
+  e='Firefox Developer Edition',
+  d='Dash',
+  t='iTerm 2',
   s='Simulator',
-  -- v="Visual Studio Code"
 }
 
 -- set focus key to hammerspoon
@@ -63,24 +58,24 @@ for key in pairs(focusKeys) do
 end
 
 
-hs.hotkey.bind({"alt","shift"}, "l", function()
-  send_window_next_monitor()
-end)
-
-hs.hotkey.bind({"alt", "shift"}, "h", function()
-  send_window_prev_monitor()
-end)
-
-function send_window_next_monitor()
-  hs.alert.show("Next Monitor")
-  local win = hs.window.focusedWindow()
-  local nextScreen = win:screen():next()
-  win:moveToScreen(nextScreen)
-end
-
-function send_window_prev_monitor()
-  hs.alert.show("Prev Monitor")
-  local win = hs.window.focusedWindow()
-  local nextScreen = win:screen():previous()
-  win:moveToScreen(nextScreen)
-end
+-- hs.hotkey.bind({"alt","shift"}, "l", function()
+--   send_window_next_monitor()
+-- end)
+--
+-- hs.hotkey.bind({"alt", "shift"}, "h", function()
+--   send_window_prev_monitor()
+-- end)
+--
+-- function send_window_next_monitor()
+--   hs.alert.show("Next Monitor")
+--   local win = hs.window.focusedWindow()
+--   local nextScreen = win:screen():next()
+--   win:moveToScreen(nextScreen)
+-- end
+--
+-- function send_window_prev_monitor()
+--   hs.alert.show("Prev Monitor")
+--   local win = hs.window.focusedWindow()
+--   local nextScreen = win:screen():previous()
+--   win:moveToScreen(nextScreen)
+-- end

@@ -61,6 +61,7 @@
   alias esnode='node --experimental-modules '
   alias flush='dscacheutil -flushcache'
   alias frammed='alias'
+  alias hack='cd $DESKTOP/hack; ranger'
   alias hackdatabase='termsaver programmer --path ~/.rfcs --delay 0.010'
   alias hacknode2='termsaver programmer --path ~/go --delay 0.020'
   alias hacknode='termsaver programmer --path ~/.config/yarn/global/node_modules/ --delay 0.020'
