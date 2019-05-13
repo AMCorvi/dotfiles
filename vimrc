@@ -442,7 +442,7 @@
       nmap _ :CycleColorPrev<CR>
 
       "CheatSheets
-      nmap <f2> :e ~/.dotfiles/learnx<CR>
+      nmap <f2> :e ~/.dotfiles/cheatsheets<CR>
 
       " Use enter to make new lines
       " nmap <CR> o<Esc>
