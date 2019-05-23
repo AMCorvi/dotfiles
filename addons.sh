@@ -10,3 +10,9 @@
 # Quick Command-line File Completion
   [[ -s "$HOME/.corvi/bin/qfc/bin/qfc.sh" ]] && source "$HOME/.corvi/bin/qfc/bin/qfc.sh"
 
+# Replace 'ls' command with 'exa' command if available
+  if [[ `command -v exa` ]]; then
+    alias ls='exa';
+  else
+    alias ls='ls';
+  fi
