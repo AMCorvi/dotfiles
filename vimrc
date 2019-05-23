@@ -128,11 +128,12 @@
 
     " BOLT-ON PLUGINS"---------------------------------{{{
 
-      " Add-on Features"-----------{{{
-          call dein#add('vim-scripts/dbext.vim') " Provides database access to many dbms (Oracle, Sybase, Microsoft, MySQL, DBI,..) http://www.vim.org/scripts/script.php…
+      "Add-on Features"-----------{{{
           call dein#add('tmux-plugins/vim-tmux')
           call dein#add('vim-airline/vim-airline')
           call dein#add('Zuckonit/vim-airline-tomato')
+          call dein#add('junegunn/vader.vim') " A simple Vimscript test framework
+          call dein#add('vim-scripts/dbext.vim') " Provides database access to many dbms (Oracle, Sybase, Microsoft, MySQL, DBI,..) http://www.vim.org/scripts/script.php…
           call dein#add('previm/previm') "Realtime preview by Vim. (Markdown, reStructuredText, textile)
           call dein#add('kassio/neoterm') " Wrapper of some vim/neovim's :terminal functions.
           call dein#add('tkhren/vim-fake') " Vim plugin to provide a generator of random dummy/filler text.
@@ -216,7 +217,7 @@
           call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
       "}}}
 
-      " THEMES"-----------{{{
+      "Themes"-----------{{{
             call dein#add('markvincze/panda-vim')
             call dein#add('TroyFletcher/vim-colors-synthwave')
             call dein#add('dennougorilla/azuki.vim')
