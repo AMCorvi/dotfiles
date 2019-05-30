@@ -141,7 +141,7 @@
           call dein#add("jpalardy/vim-slime") " SLIME is an Emacs plugin to turn Emacs into a REPL.
           call dein#add('djoshea/vim-autoread') " Have Vim automatically reload a file that has changed externally
           call dein#add('junegunn/fzf') " A command-line fuzzy finder REASON DEPENDENCY
-          call dein#add('autozimu/LanguageClient-neovim',{'build': 'install.sh', 'rev': 'next'}) " Language Server Protocol (LSP) support for vim and neovim.
+          call dein#add('autozimu/LanguageClient-neovim',{'build': 'bash install.sh', 'rev': 'next'}) " Language Server Protocol (LSP) support for vim and neovim.
           call dein#add('tpope/vim-jdaddy') " jdaddy.vim: JSON manipulation and pretty printing
           call dein#add('vim-scripts/CycleColor') " Cycles through available colorschemes
           call dein#add('TheZoq2/neovim-auto-autoread') "Plugin that makes autoread actually work as expected in neovim
@@ -243,11 +243,15 @@
       "}}}
 
 
-      " I WANT TO DECLARE A TOAST TO THE NEOVIM KING SHOUGO"---------------------------------{{{
+      " SHOUGO Plugins ---------------------------------{{{
 
-      " deoplete stuff"-----------{{{
+      "deoplete stuff"-----------{{{
           call dein#add('Shougo/deoplete.nvim')
           call dein#add('Shougo/deol.nvim')
+          if !has('nvim')
+            call dein#add('roxma/nvim-yarp')
+            call dein#add('roxma/vim-hug-neovim-rpc')
+          endif
       "}}}
 
       "Denite stuff"-----------{{{
@@ -377,7 +381,7 @@
       "Colorscheme
       set background=dark
           " Default ColorScheme
-          colorscheme base16-3024
+          colorscheme base16-summerfruit-dark
           " Dynamically set colorscheme to which base16 colorscheme is set in the terminal
           if filereadable(expand("~/.vimrc_background"))
             let base16colorspace=256
@@ -711,6 +715,11 @@
   " Deoplete ------------------------------------------------------------------{{{
 
 
+      let g:deoplete#enable_at_startup = 1
+      let g:echodoc_enable_at_startup=1
+      set completeopt+=noselect
+      set completeopt-=preview
+      autocmd CompleteDone * pclose
       let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
       call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
       let g:deoplete#enable_ignore_case = 1
@@ -719,6 +728,9 @@
       let g:deoplete#enable_refresh_always = 1
       let g:deoplete#max_abbr_width = 0
       let g:deoplete#max_menu_width = 0
+
+      " no delay before completion
+      let g:deoplete#auto_complete_delay = 0
 
       let g:deoplete#file#enable_buffer_path = 1
       let g:deoplete#auto_complete_start_length = 1
@@ -729,11 +741,6 @@
       " call deoplete#custom#source('typescript', 'debug_enabled', 1)
 
       " enable deoplete
-      let g:deoplete#enable_at_startup = 1
-      let g:echodoc_enable_at_startup=1
-      set completeopt+=noselect
-      set completeopt-=preview
-      autocmd CompleteDone * pclose
 
       let g:deoplete#file#enable_buffer_path=1
 
@@ -743,6 +750,7 @@
 
       " this is the default, make sure it is not set to "omnifunc" somewhere else in your vimrc
       let g:deoplete#complete_method = "complete"
+
 
       let g:deoplete#sources = {}
       let g:deoplete#sources.cpp = ['LanguageClient']
@@ -756,6 +764,9 @@
       let g:deoplete#sources.vim = ['vim']
 
 
+      let g:deoplete#ignore_sources = {}
+      let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
+      let g:deoplete#ignore_sources.javascript = ['buffer', 'around', 'member', 'tag']
 
       call deoplete#custom#source('buffer','mark','')
       call deoplete#custom#source('LanguageClient', 'mark', "")
@@ -768,13 +779,14 @@
       call deoplete#custom#source('typescript','mark','')
       call deoplete#custom#source('neosnippet','mark','')
 
-      call deoplete#custom#source('jedi','rank',999)
-      call deoplete#custom#source('go','rank',998)
-      call deoplete#custom#source('ocaml', 'rank', 997)
-      call deoplete#custom#source('tern','rank',996)
-      call deoplete#custom#source('LanguageClient', 'rank', 995)
-      call deoplete#custom#source('buffer','rank',994)
-      call deoplete#custom#source('neosnippets','rank',993)
+      let ranknumber = 999
+      " call deoplete#custom#source('buffer','rank',ranknumber - 1)
+      call deoplete#custom#source('jedi','rank',ranknumber - 1)
+      call deoplete#custom#source('go','rank',ranknumber - 1)
+      call deoplete#custom#source('ocaml', 'rank', ranknumber - 1)
+      call deoplete#custom#source('tern','rank',ranknumber - 1)
+      call deoplete#custom#source('LanguageClient', 'rank', ranknumber - 1)
+      " call deoplete#custom#source('neosnippets','rank',ranknumber - 1)
       " let g:deoplete#omni_patterns.html = ''
 
       function! Preview_func()
@@ -1057,7 +1069,6 @@
 
      " Use the following command to tell Vim to use ocp-indent:
      "" autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
-
 
       "Merlin Configuration ------------------------------ {{{
            let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
