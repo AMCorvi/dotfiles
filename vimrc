@@ -108,7 +108,7 @@
 
         "ReasonML/OCaml"---------------------------------{{{
           call dein#add('copy/deoplete-ocaml')
-          call dein#add('juanchanco/vim-builder') " Syntax highlighting for jbuilder files
+          call dein#add('juanchanco/vim-jbuilder') " Syntax highlighting for jbuilder files
           call dein#add('rgrinberg/vim-ocaml') " Vim runtime files for OCaml
           call dein#add('reasonml-editor/vim-reason-plus') " Reason Vim editor integration
           call dein#add("OCamlPro/ocp-indent") "Indentation tool for OCaml, to be used from editors like Emacs and Vim.
