@@ -24,6 +24,7 @@ rabbitmq
 ranger
 rcm
 ruby
+shfmt
 sqlite
 tasksh
 tmux
