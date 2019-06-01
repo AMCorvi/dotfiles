@@ -55,6 +55,7 @@
   alias corvi.doc='cd ~/Desktop/.Corvi\ Docs'
   alias createra="create-react-app"
   alias creatern="react-native init"
+  alias crontab="VIM_CRONTAB=true crontab"
   alias crow="feathers-plus"
   alias desktop=cd\ ~/Desktop
   alias dotfiles='cd ~/.dotfiles'

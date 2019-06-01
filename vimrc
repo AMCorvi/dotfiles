@@ -353,6 +353,12 @@
       " Default to search highlighting being turned off.
       set nohlsearch
 
+      " allow edits to crontab file to directly overwrite the file.
+      if $VIM_CRONTAB == "true"
+        set nobackup
+        set nowritebackup
+      endif
+
       "Autoreload files when changed externally
       " set autoread
       " if has('nvim') "Prevent errors when using standard vim
@@ -695,13 +701,12 @@
       nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
 
       " Rename identifier under cursor
-      nnoremap <silent> <leader><leader>rn :call LanguageClient_textDocument_rename()<cr>
+      nnoremap <silent> rn :call LanguageClient_textDocument_rename()<cr>
 
       " Show type info (and short doc) of identifier under cursor.
-      nnoremap <silent> <leader><leader>e :call LanguageClient_textDocument_hover()<cr>
+      nnoremap <silent> ex :call LanguageClient_textDocument_hover()<cr>
 
-      nnoremap <silent> <leader><leader>? :call LanguageClient_textDocument_codeAction()<cr>
-
+      nnoremap <silent> ? :call LanguageClient_textDocument_codeAction()<cr>
 
       augroup LanguageClient_signature
         autocmd!
@@ -1045,10 +1050,6 @@
   " }}}
 
   " Ocaml/Reason ------------------------------------------------------------------------{{{
-
-     au Filetype reason nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-     au Filetype reason nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-     au Filetype reason nnoremap <silent> <leader><leader>e :call LanguageClient_textDocument_hover()<cr>
 
      " Mapping for jsdoc Documentation
      autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
