@@ -1,6 +1,7 @@
 @amcorvi/loadout
 @feathers-plus/cli
 @feathersjs/cli
+add-gitignore
 babylon
 bash-language-server
 bs-platform
@@ -10,6 +11,7 @@ cz-emoji
 esy
 expo-cli
 gitignore
+iponmap
 javascript-typescript-langserver
 json-schema-server
 lessm
