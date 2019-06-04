@@ -133,6 +133,8 @@
           call dein#add('tmux-plugins/vim-tmux')
           call dein#add('vim-airline/vim-airline')
           call dein#add('Zuckonit/vim-airline-tomato')
+          call dein#add('xarthurx/taskwarrior.vim') "A VIM Interface for TaskWarrior
+          call dein#add('antoyo/vim-licenses') " Vim Plugin that Provides Commands to Add Licenses at the Top of the Buffer
           call dein#add('junegunn/vader.vim') " A simple Vimscript test framework
           call dein#add('vim-scripts/dbext.vim') " Provides database access to many dbms (Oracle, Sybase, Microsoft, MySQL, DBI,..) http://www.vim.org/scripts/script.php…
           call dein#add('previm/previm') "Realtime preview by Vim. (Markdown, reStructuredText, textile)
@@ -170,6 +172,7 @@
       "}}}
 
       "Formatting"-----------{{{
+          call dein#add('tpope/vim-speeddating') "speeddating.vim: use CTRL-A/CTRL-X to increment dates, times, and more
           call dein#add('tpope/vim-surround')
           call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
           call dein#add('sbdchd/neoformat')
@@ -325,46 +328,7 @@
       set splitright
       set ignorecase
       set mouse =a
-      " leader is ,
       let mapleader = ';'
-      " set undofile
-      " set undodir="$HOME/.VIM_UNDO_FILES"
-
-      try
-          set undodir=$HOME/undodir
-          set undofile
-      catch
-      endtry
-
-      " Remember cursor position between vim sessions
-      autocmd BufReadPost *
-                  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-                  \   exe "normal! g'\"" |
-                  \ endif
-      " center buffer around cursor when opening files
-      autocmd BufRead * normal zz
-      " set updatetime=500
-      set complete=.,w,b,u,t,k
-
-    " Change Wrk Dir in insert mode for file path names, etc...
-      autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
-      autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
-
-      " Default to search highlighting being turned off.
-      set nohlsearch
-
-      " allow edits to crontab file to directly overwrite the file.
-      if $VIM_CRONTAB == "true"
-        set nobackup
-        set nowritebackup
-      endif
-
-      "Autoreload files when changed externally
-      " set autoread
-      " if has('nvim') "Prevent errors when using standard vim
-      "   autocmd VimEnter * AutoreadLoop
-      " endif
-
       set formatoptions+=t
       set inccommand=nosplit
       set shortmess=atIc
@@ -374,6 +338,42 @@
       set autoindent
       set cindent
       set smartindent
+      set nohlsearch
+      set complete=.,w,b,u,t,k
+      " set updatetime=500
+      " set undofile
+      " set undodir="$HOME/.VIM_UNDO_FILES"
+
+      try
+          set undodir=$HOME/undodir
+          set undofile
+      catch
+      endtry
+
+      " AUTORELOAD FILES WHEN CHANGED EXTERNALLY
+      " set autoread
+      " if has('nvim') "Prevent errors when using standard vim
+      "   autocmd VimEnter * AutoreadLoop
+      " endif
+
+      " Remember cursor position between vim sessions
+      autocmd BufReadPost *
+            \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+            \   exe "normal! g'\"" |
+            \ endif
+
+      " center buffer around cursor when opening files
+      autocmd BufRead * normal zz
+
+      " Change Wrk Dir in insert mode for file path names, etc...
+      autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
+      autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+
+      " allow edits to crontab file to directly overwrite the file.
+      if $VIM_CRONTAB == "true"
+        set nobackup
+        set nowritebackup
+      endif
 
 
   " }}}
@@ -1583,7 +1583,7 @@
 
   " Code formatting -----------------------------------------------------------{{{
 
-      " ,f to format code, requires formatters: read the docs
+      " ;f to format code, requires formatters: read the docs
       nnoremap <silent> <leader>f :Neoformat<CR>
 
   " }}}
@@ -1720,6 +1720,7 @@
 "}}}
 
   " Git from denite...ERMERGERD -----------------------------------------------{{{
+
       let s:menus.git = {
                   \ 'description' : 'Fugitive interface',
                   \}
@@ -1787,7 +1788,7 @@
                 \]
     "}}}
 
-  " Navigate between vim buffers and tmux panels ------------------------------{{{
+  " Buffer and Tmux Panel Navigation ------------------------------{{{
 
     let g:tmux_navigator_no_mappings = 1
     nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
@@ -1801,11 +1802,9 @@
     tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
     tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
 
-
-
 "}}}
 
-  " vim-airline ---------------------------------------------------------------{{{
+  " Vim-Airline ---------------------------------------------------------------{{{
 
       if !exists('g:airline_symbols')
           let g:airline_symbols = {}
@@ -1931,11 +1930,39 @@
       " }}}
 
       " Movement------------------------------ {{{
+
           "Clever-F------------------------------{{{
-            let g:clever_f_smart_case = 1
+              let g:clever_f_smart_case = 1
           "}}}
 
       " }}}
 
+      " Task-Warrior Plugin ------------------------------{{{
+          nmap <leader>tk :TW<CR>
+          nmap <leader>task :TW
+      "}}}
+
+      " Vim-Licenses ------------------------------{{{
+
+            " There are currently more than 10 licenses, and you can add your own. To do so, copy the license text in ~/.vim/licenses/licenseFile.txt. Then add a command for this license:
+            "
+            " command! License call InsertLicense('licenseFile')
+            "
+            " If your license file contains a <year> tag, it will be automatically replaced by the current year.
+            "
+            " The <name of copyright holder> tag will be automatically replaced by the content of the g:licenses_copyright_holders_name variable (if not empty), so that the copyright holder's name will be automatically added to the license. Thus, you may want to add such a line to you .vimrc:
+
+            """" let g:licenses_authors_name = 'Last Name, First Name <my@email.com>'
+            let g:licenses_copyright_holders_name = ' Corvi, Alistar <inquiry@corvi.xyz>'
+
+            " And the <name of author> tag will be automatically replaced by the the content of the g:licenses_authors_name variable (if not empty), so that your name will be automatically added to the license. Thus, you may want to add such a line to you .vimrc:
+
+            """" let g:licenses_authors_name = 'Last Name, First Name <my@email.com>'
+            let g:licenses_authors_name = ' Corvi, Alistar <inquiry@corvi.xyz>'
+
+            " If you do not want this plugin to create all these commands, you may restrict to the licenses you want by using the g:licenses_default_commands option. For instance, to have this plugin add only a command for the GNU GPL, Mit and Foobar licenses, use this:
+
+            " let g:licenses_default_commands = ['gpl', 'mit', 'foobar']
+      "}}}
   " }}}
 
