@@ -59,6 +59,7 @@
 
         " Markdown"------------{{{
             call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
+            call dein#add('jxnblk/vim-mdx-js') " Vim syntax for mdx, heavily based on vim-jsx
             " call dein#add('vimlab/mdown.vim', {'on_ft': 'markdown'})
             " call dein#add('euclio/vim-markdown-composer', {
             "   'build': 'cargo build --release'
@@ -129,159 +130,162 @@
 
     " BOLT-ON PLUGINS"---------------------------------{{{
 
-      "Add-on Features"-----------{{{
-          call dein#add('tmux-plugins/vim-tmux')
-          call dein#add('vim-airline/vim-airline')
-          call dein#add('Zuckonit/vim-airline-tomato')
-          call dein#add('xarthurx/taskwarrior.vim') "A VIM Interface for TaskWarrior
-          call dein#add('antoyo/vim-licenses') " Vim Plugin that Provides Commands to Add Licenses at the Top of the Buffer
-          call dein#add('junegunn/vader.vim') " A simple Vimscript test framework
-          call dein#add('vim-scripts/dbext.vim') " Provides database access to many dbms (Oracle, Sybase, Microsoft, MySQL, DBI,..) http://www.vim.org/scripts/script.php…
-          call dein#add('previm/previm') "Realtime preview by Vim. (Markdown, reStructuredText, textile)
-          call dein#add('kassio/neoterm') " Wrapper of some vim/neovim's :terminal functions.
-          call dein#add('tkhren/vim-fake') " Vim plugin to provide a generator of random dummy/filler text.
-          call dein#add('rmolin88/pomodoro.vim') " Bring the beauty of the Pomodoro technique to (Neo)Vim
-          call dein#add("jpalardy/vim-slime") " SLIME is an Emacs plugin to turn Emacs into a REPL.
-          call dein#add('djoshea/vim-autoread') " Have Vim automatically reload a file that has changed externally
-          call dein#add('junegunn/fzf') " A command-line fuzzy finder REASON DEPENDENCY
-          call dein#add('autozimu/LanguageClient-neovim',{'build': 'bash install.sh', 'rev': 'next'}) " Language Server Protocol (LSP) support for vim and neovim.
-          call dein#add('tpope/vim-jdaddy') " jdaddy.vim: JSON manipulation and pretty printing
-          call dein#add('vim-scripts/CycleColor') " Cycles through available colorschemes
-          call dein#add('TheZoq2/neovim-auto-autoread') "Plugin that makes autoread actually work as expected in neovim
-          call dein#add('metakirby5/codi.vim') "The interactive scratchpad for hackers.
-          call dein#add('majutsushi/tagbar') " Vim plugin that displays tags in a window, ordered by scope
-          call dein#add('tomtom/tcomment_vim') " An extensible & universal comment vim-plugin
-          call dein#add('rizzatti/dash.vim') " Search Dash.app from Vim
-          call dein#add('mattn/gist-vim') " This is a vimscript for creating gists
-          call dein#add('mattn/webapi-vim') " vim interface to Web API
-          call dein#add('danro/rename.vim') " Rename the current file in the vim buffer + retain relative path.
-          call dein#add('rhysd/vim-grammarous') " A powerful grammar checker for Vim using LanguageTool.
-          " call dein#add('tyru/open-browser') "Open URI with your favorite browser from your most favorite editor (previm dependency)
-          " call dein#add('vim-scripts/YankRing.vim') " Maintains a history of previous yanks, changes and deletes http://www.vim.org/scripts/script.php�
-          " call dein#add('ctrlpvim/ctrlp.vim')
-          " call dein#add('justinmk/vim-sneak')
+        "Add-on Features"-----------{{{
+            call dein#add('tmux-plugins/vim-tmux')
+            call dein#add('vim-airline/vim-airline')
+            call dein#add('Zuckonit/vim-airline-tomato')
+            call dein#add('neoclide/coc-neco') "viml completion source for coc.nvim
+            call dein#add('neoclide/coc.nvim', {'on_ft': '*', 'build':'./install.sh'})
+            call dein#add('liuchengxu/vista.vim') " 🌵 Viewer & Finder for LSP symbols and tags in Vim http://liuchengxu.org/vista.vim
+            call dein#add('paroxayte/vwm.vim') " A layout manager for vim and nvim.
+            call dein#add('romgrk/winteract.vim') "An interactive-window mode, where you can resize windows by repeatedly pressing j/k and h/l, amongst other things.
+            call dein#add('xarthurx/taskwarrior.vim') "A VIM Interface for TaskWarrior
+            call dein#add('antoyo/vim-licenses') " Vim Plugin that Provides Commands to Add Licenses at the Top of the Buffer
+            call dein#add('junegunn/vader.vim') " A simple Vimscript test framework
+            call dein#add('vim-scripts/dbext.vim') " Provides database access to many dbms (Oracle, Sybase, Microsoft, MySQL, DBI,..) http://www.vim.org/scripts/script.php…
+            call dein#add('previm/previm') "Realtime preview by Vim. (Markdown, reStructuredText, textile)
+            call dein#add('kassio/neoterm') " Wrapper of some vim/neovim's :terminal functions.
+            call dein#add('tkhren/vim-fake') " Vim plugin to provide a generator of random dummy/filler text.
+            call dein#add('rmolin88/pomodoro.vim') " Bring the beauty of the Pomodoro technique to (Neo)Vim
+            call dein#add("jpalardy/vim-slime") " SLIME is an Emacs plugin to turn Emacs into a REPL.
+            call dein#add('djoshea/vim-autoread') " Have Vim automatically reload a file that has changed externally
+            call dein#add('junegunn/fzf') " A command-line fuzzy finder REASON DEPENDENCY
+            call dein#add('autozimu/LanguageClient-neovim',{'build': 'bash install.sh', 'rev': 'next'}) " Language Server Protocol (LSP) support for vim and neovim.
+            call dein#add('tpope/vim-jdaddy') " jdaddy.vim: JSON manipulation and pretty printing
+            call dein#add('vim-scripts/CycleColor') " Cycles through available colorschemes
+            call dein#add('TheZoq2/neovim-auto-autoread') "Plugin that makes autoread actually work as expected in neovim
+            call dein#add('metakirby5/codi.vim') "The interactive scratchpad for hackers.
+            call dein#add('majutsushi/tagbar') " Vim plugin that displays tags in a window, ordered by scope
+            call dein#add('tomtom/tcomment_vim') " An extensible & universal comment vim-plugin
+            call dein#add('rizzatti/dash.vim') " Search Dash.app from Vim
+            call dein#add('mattn/gist-vim') " This is a vimscript for creating gists
+            call dein#add('mattn/webapi-vim') " vim interface to Web API
+            call dein#add('danro/rename.vim') " Rename the current file in the vim buffer + retain relative path.
+            call dein#add('rhysd/vim-grammarous') " A powerful grammar checker for Vim using LanguageTool.
+            " call dein#add('tyru/open-browser') "Open URI with your favorite browser from your most favorite editor (previm dependency)
+            " call dein#add('vim-scripts/YankRing.vim') " Maintains a history of previous yanks, changes and deletes http://www.vim.org/scripts/script.php�
+            " call dein#add('ctrlpvim/ctrlp.vim')
+            " call dein#add('justinmk/vim-sneak')
+
+        "}}}
+
+        "Movement"-----------{{{
+            call dein#add('christoomey/vim-tmux-navigator')
+            call dein#add("rhysd/clever-f.vim") " Extended f, F, t and T key mappings for Vim. https://rhysd.github.io/clever-f.vim
+            call dein#add('terryma/vim-multiple-cursors') " Multiple Cursors as described
+            call dein#add('itmammoth/doorboy.vim') "Vim plugin for auto closing brackets ( => (|) and quotations
+            call dein#add('sjl/vitality.vim') " (Vit)ality is a plugin that makes (V)im play nicely with (i)Term 2 and (t)mux.
+        "}}}
+
+        "Formatting"-----------{{{
+            call dein#add('tpope/vim-speeddating') "speeddating.vim: use CTRL-A/CTRL-X to increment dates, times, and more
+            call dein#add('tpope/vim-surround')
+            call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
+            call dein#add('sbdchd/neoformat')
+            call dein#add('wincent/scalpel') "Fast within-file word replacement for Vim
+            call dein#add('nicwest/vim-camelsnek') " Convert between camel and snek case (and kebab case)
+            call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
+            call dein#add('dhruvasagar/vim-table-mode') "An awesome automatic table creator & formatter allowing one to create neat tables as you type.
+            call dein#add('godlygeek/tabular') " Vim script for text filtering and alignment
+            call dein#add('AndrewRadev/switch.vim')
+            call dein#add('vim-scripts/SyntaxRange') "Define a different filetype syntax on regions of a buffer
+        "}}}
+
+        "Default Behavior Modifiers"-----------{{{
+            call dein#add('editorconfig/editorconfig-vim')
+            call dein#add('jremmen/vim-ripgrep')
+            call dein#add('tpope/vim-repeat') "Repeat.vim remaps . in a way that plugins can tap into it.
+            call dein#add('junegunn/limelight.vim') "Dim text code blocks not being focused upon by cursor
+            call dein#add('Konfekt/FastFold') "Speed up Vim by updating folds only when called-for.
+            call dein#add('mhinz/vim-sayonara') " Basically you don't have to think in terms of :bdelete, :close, :quit etc. anymore.
+            call dein#add('MartinLafreniere/vim-PairTools') "Pairing Punctuationa and grammer pairs
+            " call dein#local('~/GitHub', {},['vim-folds'])
+            " call dein#local('~/GitHub', {},['oceanic-next'])
+            " call dein#local('~/GitHub', {},['operator-next'])
+            " call dein#local('~/GitHub', {},['nvim-typescript'])
+            " call dein#add('ujihisa/neco-look') " A neocomplcache plugin for English, using look command
+        "}}}
+
+        "FileBrowser"-----------{{{
+            call dein#add('francoiscabrol/ranger.vim')
+            call dein#add('scrooloose/nerdtree')
+            call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
+            call dein#add('ryanoasis/vim-devicons') " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, and more
+            call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " Extra syntax and highlight for nerdtree files
+        "}}}
+
+        "Git"-----------{{{
+            call dein#add('tpope/vim-fugitive')
+            call dein#add('tpope/vim-rhubarb')
+            call dein#add('chemzqm/vim-easygit')
+            call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
+            call dein#add('sgeb/vim-diff-fold')
+            call dein#add('gregsexton/gitv') " gitk for Vim.
+            call dein#add('airblade/vim-gitgutter')
+            call dein#add('junegunn/gv.vim') "A git commit browser. ':GV'
+            call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
+        "}}}
+
+        "Themes"-----------{{{
+              call dein#add('markvincze/panda-vim')
+              call dein#add('TroyFletcher/vim-colors-synthwave')
+              call dein#add('dennougorilla/azuki.vim')
+              call dein#add('jyota/vimColors') " eva
+              call dein#add('rhysd/vim-color-spring-night')
+              call dein#add('bluz71/vim-moonfly-colors')
+              call dein#add('smancill/darkglass')
+              call dein#add('roosta/vim-srcery')
+              call dein#add('sonjapeterson/1989.vim')
+              call dein#add('vim-scripts/turbo.vim')
+              call dein#add('stulzer/heroku-colorscheme')
+              call dein#add('vim-scripts/proton')
+              call dein#add('elmindreda/vimcolors')
+              call dein#add('Zabanaa/neuromancer.vim')
+              call dein#add('jyota/vimColors')
+              call dein#add('MaxSt/FlatColor')
+              call dein#add('vim-scripts/pink')
+              call dein#add('vim-scripts/synic.vim')
+              call dein#add('vim-airline/vim-airline-themes')
+              call dein#add('chriskempson/base16-vim')
+              call dein#add('hauleth/blame.vim')
+              call dein#add('lu-ren/SerialExperimentsLain')
+        "}}}
+
+        "SHOUGO ---------------------------------{{{
+
+            "Deoplete stuff"-----------{{{
+                call dein#add('Shougo/deoplete.nvim')
+                call dein#add('Shougo/deol.nvim')
+                if !has('nvim')
+                  call dein#add('roxma/nvim-yarp')
+                  call dein#add('roxma/vim-hug-neovim-rpc')
+                endif
+            "}}}
+
+            "Denite stuff"-----------{{{
+              call dein#add('Shougo/denite.nvim') " Denite is a dark powered plugin for Neovim/Vim to unite all interfaces
+              call dein#add('Shougo/neomru.vim') " MRU plugin includes unite.vim/denite.nvim MRU sources
+              call dein#add('Shougo/context_filetype.vim') " Context filetype library for Vim script
+              call dein#add('chemzqm/denite-git') " gitlog, gitstatus and gitchanged source for denite.nvim
+              call dein#add('pocari/vim-denite-gists') " denite.nvim plugin for show and browse Gist
+              call dein#add('chemzqm/denite-git') "gitlog, gitstatus and gitchanged source for denite.nvim
+              call dein#add('Shougo/vimfiler.vim') " Powerful file explorer implemented by Vim script
+              call dein#add('Shougo/unite.vim') " Unite and create user interfaces
+            "}}}
+
+            "Snippet and Completions"-----------{{{
+                call dein#add('Shougo/neco-vim') "The vim source for neocomplete/deoplete
+                call dein#add('Shougo/neoinclude.vim') "Include completion framework for neocomplete/deoplete
+                call dein#add('Shougo/echodoc.vim') " Displays function signatures from completions in the command line.
+                call dein#add('honza/vim-snippets') " vim-snipmate default snippets (Previously snipmate-snippets)
+                call dein#add('Shougo/neosnippet.vim') "The Neosnippet plug-In adds snippet support to Vim. Snippets
+                call dein#add('Shougo/neosnippet-snippets') " The standard snippets repository for neosnippet
+            "}}}
+
+
+        "}}}
 
       "}}}
-
-      "Movement"-----------{{{
-          call dein#add('christoomey/vim-tmux-navigator')
-          call dein#add("rhysd/clever-f.vim") " Extended f, F, t and T key mappings for Vim. https://rhysd.github.io/clever-f.vim
-          call dein#add('terryma/vim-multiple-cursors') " Multiple Cursors as described
-          call dein#add('itmammoth/doorboy.vim') "Vim plugin for auto closing brackets ( => (|) and quotations
-          call dein#add('sjl/vitality.vim') " (Vit)ality is a plugin that makes (V)im play nicely with (i)Term 2 and (t)mux.
-      "}}}
-
-      "Formatting"-----------{{{
-          call dein#add('tpope/vim-speeddating') "speeddating.vim: use CTRL-A/CTRL-X to increment dates, times, and more
-          call dein#add('tpope/vim-surround')
-          call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
-          call dein#add('sbdchd/neoformat')
-          call dein#add('wincent/scalpel') "Fast within-file word replacement for Vim
-          call dein#add('nicwest/vim-camelsnek') " Convert between camel and snek case (and kebab case)
-          call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
-          call dein#add('dhruvasagar/vim-table-mode') "An awesome automatic table creator & formatter allowing one to create neat tables as you type.
-          call dein#add('godlygeek/tabular') " Vim script for text filtering and alignment
-          call dein#add('AndrewRadev/switch.vim')
-          call dein#add('vim-scripts/SyntaxRange') "Define a different filetype syntax on regions of a buffer
-      "}}}
-
-      "Default Behavior Modifiers"-----------{{{
-          call dein#add('editorconfig/editorconfig-vim')
-          call dein#add('jremmen/vim-ripgrep')
-          call dein#add('tpope/vim-repeat') "Repeat.vim remaps . in a way that plugins can tap into it.
-          call dein#add('junegunn/limelight.vim') "Dim text code blocks not being focused upon by cursor
-          call dein#add('Konfekt/FastFold') "Speed up Vim by updating folds only when called-for.
-          call dein#add('mhinz/vim-sayonara') " Basically you don't have to think in terms of :bdelete, :close, :quit etc. anymore.
-          call dein#add('MartinLafreniere/vim-PairTools') "Pairing Punctuationa and grammer pairs
-          " call dein#local('~/GitHub', {},['vim-folds'])
-          " call dein#local('~/GitHub', {},['oceanic-next'])
-          " call dein#local('~/GitHub', {},['operator-next'])
-          " call dein#local('~/GitHub', {},['nvim-typescript'])
-          " call dein#add('ujihisa/neco-look') " A neocomplcache plugin for English, using look command
-      "}}}
-
-      "FileBrowser"-----------{{{
-          call dein#add('rbgrouleff/bclose.vim')
-          call dein#add('francoiscabrol/ranger.vim')
-          call dein#add('scrooloose/nerdtree')
-          call dein#add('Xuyuanp/nerdtree-git-plugin') "A plugin of NERDTree showing git status flags.
-          call dein#add('ryanoasis/vim-devicons') " Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, and more
-          call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " Extra syntax and highlight for nerdtree files
-      "}}}
-
-      "Git"-----------{{{
-          call dein#add('tpope/vim-fugitive')
-          call dein#add('tpope/vim-rhubarb')
-          call dein#add('chemzqm/vim-easygit')
-          call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
-          call dein#add('sgeb/vim-diff-fold')
-          call dein#add('gregsexton/gitv') " gitk for Vim.
-          call dein#add('airblade/vim-gitgutter')
-          call dein#add('junegunn/gv.vim') "A git commit browser. ':GV'
-          call dein#add('lambdalisue/gina.vim') "Asynchronously control git repositories in Neovim/Vim 8
-      "}}}
-
-      "Themes"-----------{{{
-            call dein#add('markvincze/panda-vim')
-            call dein#add('TroyFletcher/vim-colors-synthwave')
-            call dein#add('dennougorilla/azuki.vim')
-            call dein#add('jyota/vimColors') " eva
-            call dein#add('rhysd/vim-color-spring-night')
-            call dein#add('bluz71/vim-moonfly-colors')
-            call dein#add('smancill/darkglass')
-            call dein#add('roosta/vim-srcery')
-            call dein#add('sonjapeterson/1989.vim')
-            call dein#add('vim-scripts/turbo.vim')
-            call dein#add('stulzer/heroku-colorscheme')
-            call dein#add('vim-scripts/proton')
-            call dein#add('elmindreda/vimcolors')
-            call dein#add('Zabanaa/neuromancer.vim')
-            call dein#add('jyota/vimColors')
-            call dein#add('MaxSt/FlatColor')
-            call dein#add('vim-scripts/pink')
-            call dein#add('vim-scripts/synic.vim')
-            call dein#add('vim-airline/vim-airline-themes')
-            call dein#add('chriskempson/base16-vim')
-            call dein#add('hauleth/blame.vim')
-            call dein#add('lu-ren/SerialExperimentsLain')
-      "}}}
-
-
-      " SHOUGO Plugins ---------------------------------{{{
-
-      "deoplete stuff"-----------{{{
-          call dein#add('Shougo/deoplete.nvim')
-          call dein#add('Shougo/deol.nvim')
-          if !has('nvim')
-            call dein#add('roxma/nvim-yarp')
-            call dein#add('roxma/vim-hug-neovim-rpc')
-          endif
-      "}}}
-
-      "Denite stuff"-----------{{{
-        call dein#add('Shougo/denite.nvim') " Denite is a dark powered plugin for Neovim/Vim to unite all interfaces
-        call dein#add('Shougo/neomru.vim') " MRU plugin includes unite.vim/denite.nvim MRU sources
-        call dein#add('Shougo/context_filetype.vim') " Context filetype library for Vim script
-        call dein#add('chemzqm/denite-git') " gitlog, gitstatus and gitchanged source for denite.nvim
-        call dein#add('pocari/vim-denite-gists') " denite.nvim plugin for show and browse Gist
-        call dein#add('chemzqm/denite-git') "gitlog, gitstatus and gitchanged source for denite.nvim
-        call dein#add('Shougo/vimfiler.vim') " Powerful file explorer implemented by Vim script
-        call dein#add('Shougo/unite.vim') " Unite and create user interfaces
-      "}}}
-
-      "Snippet and Completions"-----------{{{
-          call dein#add('Shougo/neco-vim') "The vim source for neocomplete/deoplete
-          call dein#add('Shougo/neoinclude.vim') "Include completion framework for neocomplete/deoplete
-          call dein#add('Shougo/echodoc.vim') " Displays function signatures from completions in the command line.
-          call dein#add('honza/vim-snippets') " vim-snipmate default snippets (Previously snipmate-snippets)
-          call dein#add('Shougo/neosnippet.vim') "The Neosnippet plug-In adds snippet support to Vim. Snippets
-          call dein#add('Shougo/neosnippet-snippets') " The standard snippets repository for neosnippet
-      "}}}
-
-
-      "}}}
-
-      " }}}
 
     if dein#check_install()"{{{
         call dein#install()
@@ -302,47 +306,48 @@
 
       " source ~/.local.vim
       " Neovim Settings
-      set termguicolors
-      let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-      set clipboard+=unnamedplus
-      set pastetoggle=<f6>
-      set nopaste
+      " set undodir="$HOME/.VIM_UNDO_FILES"
+      " set undofile
+      " set updatetime=500
       autocmd BufWritePre * %s/\s\+$//e
-      set noshowmode
-      set noswapfile
       filetype on
+      let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+      let mapleader = ';'
       set  number
-      set relativenumber
-      set numberwidth=1
-      set tabstop=2
-      set shiftwidth=2
-      set expandtab
+      set autoindent
+      set breakindent
+      set cindent
+      set clipboard+=unnamedplus
+      set complete=.,w,b,u,t,k
       set conceallevel=0
-      set virtualedit=
-      set wildmenu
+      set expandtab
+      set formatoptions+=t
+      set hidden
+      set ignorecase
+      set inccommand=nosplit
+      set isfname-==
       set laststatus=2
-      set wrap linebreak nolist
-      set wildmode=full
+      set mouse =a
+      set nohlsearch
+      set nopaste
+      set noshowmode
+      set nospell
+      set noswapfile
+      set numberwidth=1
+      set pastetoggle=<f6>
+      set relativenumber
+      set shiftwidth=2
+      set shortmess=atIc
       set smartcase
+      set smartindent
       set splitbelow
       set splitright
-      set ignorecase
-      set mouse =a
-      let mapleader = ';'
-      set formatoptions+=t
-      set inccommand=nosplit
-      set shortmess=atIc
-      set isfname-==
-      set nospell
-      set breakindent
-      set autoindent
-      set cindent
-      set smartindent
-      set nohlsearch
-      set complete=.,w,b,u,t,k
-      " set updatetime=500
-      " set undofile
-      " set undodir="$HOME/.VIM_UNDO_FILES"
+      set tabstop=2
+      set termguicolors
+      set virtualedit=
+      set wildmenu
+      set wildmode=full
+      set wrap linebreak nolist
 
       try
           set undodir=$HOME/undodir
@@ -476,6 +481,8 @@
 
       " press i twice for normal mode
       inoremap ii <esc>
+      inoremap <M-i> i
+
 
       " Select all
       nnoremap <M-a> ggVG
@@ -539,7 +546,7 @@
       " Horizontal Split
       nnoremap <leader>vs :vs<CR>
 
-      " Close All Window Except Current
+      " Close All Window Currently Focused
       nnoremap <leader>on :on<CR>
 
       " Close Current Window
@@ -560,9 +567,7 @@
 
       " copy current files path to clipboard
       nmap cp :let @+= expand("%") <cr>
-      " Neovim terminal mapping
-      " terminal 'normal mode'
-      tmap <esc> <c-\><c-n><esc><cr>
+
       " exit insert, dd line, enter insert
       inoremap <c-d> <esc>ddi
       noremap H ^
@@ -581,6 +586,12 @@
       nmap =j :join<CR>
       nmap <CR> i<CR><ESC>
 
+      " buffer cycling
+      nmap <M-b> :bnext<CR>
+      nmap <M-B> :bprevious<CR>
+
+      " create tab
+      nnoremap <M-t> :tabnew<CR>
 
       " " replace f and/or t with one-character Sneak
       " map t <Plug>Sneak_t
@@ -605,22 +616,18 @@
       " vnoremap y "*y<CR>
       " nnoremap Y "*Y<CR>
       " vnoremap y myy`y
-      vnoremap Y myY`y
+      " vnoremap Y myY`y
+
       let g:multi_cursor_next_key='<C-n>'
       let g:multi_cursor_prev_key='<C-p>'
       let g:multi_cursor_skip_key='<C-x>'
       " let g:multi_cursor_quit_key='<Esc>'
 
       " Commenting
-      " nnoremap =oml :TComment<cr>
-      " vnoremap =oml :TComment<cr>
-      " vnoremap =omm :TCommentBlock<cr>
-      " vnoremap =omi :TCommentInline<cr>
       nmap gcb :TCommentBlock<CR>
 
       " Yank to y register
       nmap <leader>y "yy
-
 
       " Codi interactive REPL
       nmap =oer :Codi!!<CR>
@@ -637,6 +644,23 @@
       " On highlight search selection
       nnoremap <silent> <esc> :noh<cr>
 
+      " Neovim terminal mapping
+        " terminal 'normal mode'
+        tmap <esc> <c-\><c-n>
+        " Disable <ESC> in terminal mode. (Prevents crash)
+        tnoremap <ESC> <ESC>
+
+        " Kill terminal-mode while leaving buffer open
+        tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
+
+        " prevent terminal from jumping to the last line
+        tnoremap ii <C-\><C-n>
+
+        " Prompt command for terminal
+        nmap <leader>com  :term<Space>
+        "Yank visual selection and run on commandline
+        vmap <leader>com yy<esc>:term<Space><C-r>+
+
       nnoremap <leader>z :call <SID>SynStack()<CR>
       function! <SID>SynStack()
           if !exists("*synstack")
@@ -652,10 +676,6 @@
       endfunction
       command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
 
-      tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
-      " prevent terminal from jumping to the lastt line
-      tnoremap ii <C-\><C-n>G$?<enter>$bl
-      nmap <leader>t :term<cr>
   "}}}"
 
   " Linting -------------------------------------------------------------------{{{
@@ -664,7 +684,6 @@
       autocmd! BufWritePost * Neomake
       let g:neomake_warning_sign = {'text': '!!'}
       let g:neomake_error_sign = {'text': 'X'}
-
 
   "}}}
 
@@ -695,18 +714,18 @@
 
 
       " Goto definition of identifier under cursor.
-      nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+      nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<cr>
 
       " Format current document.
-      nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+      nnoremap <silent> <leader>gf :call LanguageClient_textDocument_formatting()<cr>
 
       " Rename identifier under cursor
-      nnoremap <silent> rn :call LanguageClient_textDocument_rename()<cr>
+      nnoremap <silent> <leader>gr :call LanguageClient_textDocument_rename()<cr>
 
       " Show type info (and short doc) of identifier under cursor.
-      nnoremap <silent> ex :call LanguageClient_textDocument_hover()<cr>
+      nnoremap <silent>  <leader>ge :call LanguageClient_textDocument_hover()<cr>
 
-      nnoremap <silent> ? :call LanguageClient_textDocument_codeAction()<cr>
+      nnoremap <silent> <leader>gc :call LanguageClient_textDocument_codeAction()<cr>
 
       augroup LanguageClient_signature
         autocmd!
@@ -1547,14 +1566,6 @@
 
   " }}}
 
-  " Nvim terminal -------------------------------------------------------------{{{
-
-      " au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-      " autocmd BufEnter term://* startinsert
-      " autocmd TermOpen * set bufhidden=hide
-
-  " }}}
-
   " Vim-Devicons --------------------------------------------------------------{{{
 
       " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -1577,6 +1588,7 @@
       let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
       let g:NERDTreeDirArrowExpandable = ''
       let g:NERDTreeDirArrowCollapsible = ''
+            " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
       let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 
   " }}}
@@ -1584,7 +1596,7 @@
   " Code formatting -----------------------------------------------------------{{{
 
       " ;f to format code, requires formatters: read the docs
-      nnoremap <silent> <leader>f :Neoformat<CR>
+      nnoremap  <leader>f :Neoformat<CR>
 
   " }}}
 
@@ -1597,30 +1609,30 @@
         imap <leader><space> <Plug>(neosnippet_expand_or_jump)
         smap <leader><space> <Plug>(neosnippet_expand_or_jump)
         xmap <leader><space> <Plug>(neosnippet_expand_target)
-
-      " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-      imap <expr><Tab>
-            \ pumvisible() ?
-            \ "\<C-n>" : "\<TAB>"
-      imap <expr><S-Tab>
-            \ pumvisible() ?
-            \ "\<C-p>" : "\<S-Tab>"
-      imap <expr><m-j>
-            \ neosnippet#expandable_or_jumpable() ?
-            \ "\<C-n>" : "\<C-n>"
-      smap <expr><m-j> neosnippet#expandable_or_jumpable() ?
-          \ "\<C-n>" : "\<ESC>"
-      imap <expr><m-k>
-            \ neosnippet#expandable_or_jumpable() ?
-            \ "\<C-p>" : "\<C-p>"
-      smap <expr><m-k> neosnippet#expandable_or_jumpable() ?
-            \ "\<C-p>" : "\<ESC>"
+        " For conceal markers.
+        if has('conceal')
+          set conceallevel=2 concealcursor=niv
+        endif
 
 
-      " For conceal markers.
-      if has('conceal')
-        set conceallevel=2 concealcursor=niv
-      endif
+        " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+        imap <expr><Tab>
+              \ pumvisible() ?
+              \ "\<C-n>" : "\<TAB>"
+        imap <expr><S-Tab>
+              \ pumvisible() ?
+              \ "\<C-p>" : "\<S-Tab>"
+        imap <expr><m-j>
+              \ neosnippet#expandable_or_jumpable() ?
+              \ "\<C-n>" : "\<C-n>"
+        smap <expr><m-j> neosnippet#expandable_or_jumpable() ?
+              \ "\<C-n>" : "\<ESC>"
+        imap <expr><m-k>
+              \ neosnippet#expandable_or_jumpable() ?
+              \ "\<C-p>" : "\<C-p>"
+        smap <expr><m-k> neosnippet#expandable_or_jumpable() ?
+              \ "\<C-p>" : "\<ESC>"
+
 
     "}}}
 
@@ -1672,8 +1684,37 @@
   " Denite --------------------------------------------------------------------{{{
 
     let g:webdevicons_enable_denite = 0
-    let s:menus = {}
 
+    " Denite keybinding
+    autocmd FileType denite call s:denite_my_settings()
+    function! s:denite_my_settings() abort
+      nnoremap <silent><buffer><expr> <CR>
+            \ denite#do_map('do_action')
+      " nnoremap <silent><buffer><expr> d
+      "       \ denite#do_map('do_action', 'delete')
+      nnoremap <silent><buffer><expr> p
+            \ denite#do_map('do_action', 'preview')
+      nnoremap <silent><buffer><expr> q
+            \ denite#do_map('quit')
+      nnoremap <silent><buffer><expr> i
+            \ denite#do_map('open_filter_buffer')
+      nnoremap <silent><buffer><expr> <Space>
+            \ denite#do_map('toggle_select').'j'
+    endfunction
+
+    " File search settings
+    call denite#custom#var('file/rec', 'command',
+          \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+    call denite#custom#source('file/rec', 'vars', {
+          \ 'command': [
+          \ 'ag', '--follow','--nogroup','--hidden', '--column', '-g', '', '--ignore', '.git', '--ignore', '*.png'
+          \] })
+    " Change sorters.
+    call denite#custom#source(
+    \ 'file/rec', 'sorters', ['sorter/sublime'])
+
+
+    " Menu Display Configuration
     call denite#custom#option('_', {
                 \ 'prompt': '❯',
                 \ 'winheight': 10,
@@ -1683,17 +1724,13 @@
                 \ 'updatetime': 1,
                 \ 'auto_resize': 1,
                 \})
-    call denite#custom#option('TSDocumentSymbol', {
-                \ 'prompt': ' @' ,
-                \ 'reversed': 0,
-                \})
-    call denite#custom#var('file_rec', 'command',
-                \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-    call denite#custom#source('file_rec', 'vars', {
-                \ 'command': [
-                \ 'ag', '--follow','--nogroup','--hidden', '--column', '-g', '', '--ignore', '.git', '--ignore', '*.png'
-                \] })
 
+    " Files ignored by during searches
+    call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+                \ [ '.git/', '.ropeproject/', '__pycache__/',
+                \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+    " Denite grep setting
     call denite#custom#var('grep', 'command', ['ag'])
     call denite#custom#var('grep', 'default_opts',
                 \ ['-i', '--vimgrep'])
@@ -1702,91 +1739,60 @@
     call denite#custom#var('grep', 'separator', ['--'])
     call denite#custom#var('grep', 'final_opts', [])
 
-
-    " nnoremap <silent> <c-p> :Denite file_rec<CR>
-    nnoremap <silent> <leader>j :Denite file_rec<CR>
-    " nnoremap <silent> <leader>? :Denite  help<CR>
-    nnoremap <silent> <leader>th :Denite colorscheme<CR>
-    nnoremap <silent> <leader>b :Denite buffer<CR>
-    nnoremap <silent> <leader>a :Denite grep:::!<CR>
-    nnoremap <silent> <Leader>gh :Denite menu:git<CR>
+    " Move down in Denite menus
     call denite#custom#map('insert','<M-j>','<denite:move_to_next_line>','noremap')
+    " Move up in Denite menus
     call denite#custom#map('insert','<M-k>','<denite:move_to_previous_line>','noremap')
-    call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-                \ [ '.git/', '.ropeproject/', '__pycache__/',
-                \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+    let s:menus = {}
     call denite#custom#var('menu', 'menus', s:menus)
 
-"}}}
+    " menu filters
+    nnoremap <silent> <leader>j :Denite file/rec<CR>i
+    nnoremap <silent> <leader>? :Denite  help<CR>
+    nnoremap <silent> <leader>th :Denite colorscheme<CR>
+    nnoremap <silent> <leader><leader>b :Denite buffer<CR>
+    nnoremap <silent> <leader>a :Denite grep:::!<CR>
+    nnoremap <silent> <Leader>gh :Denite menu:git<CR>
 
-  " Git from denite...ERMERGERD -----------------------------------------------{{{
+    " Denite:Git -----------------------------------------------{{{
 
-      let s:menus.git = {
-                  \ 'description' : 'Fugitive interface',
-                  \}
-      let s:menus.git.command_candidates = [
-                  \[' git status', 'Gstatus'],
-                  \[' git diff', 'Gvdiff'],
-                  \[' git commit', 'Gcommit'],
-                  \[' git stage/add', 'Gwrite'],
-                  \[' git checkout', 'Gread'],
-                  \[' git rm', 'Gremove'],
-                  \[' git cd', 'Gcd'],
-                  \[' git push', 'exe "Git! push " input("remote/branch: ")'],
-                  \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
-                  \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
-                  \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
-                  \[' git fetch', 'Gfetch'],
-                  \[' git merge', 'Gmerge'],
-                  \[' git browse', 'Gbrowse'],
-                  \[' git head', 'Gedit HEAD^'],
-                  \[' git parent', 'edit %:h'],
-                  \[' git log commit buffers', 'Glog --'],
-                  \[' git log current file', 'Glog -- %'],
-                  \[' git log last n commits', 'exe "Glog -" input("num: ")'],
-                  \[' git log first n commits', 'exe "Glog --reverse -" input("num: ")'],
-                  \[' git log until date', 'exe "Glog --until=" input("day: ")'],
-                  \[' git log grep commits',  'exe "Glog --grep= " input("string: ")'],
-                  \[' git log pickaxe',  'exe "Glog -S" input("string: ")'],
-                  \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
-                  \[' git mv', 'exe "Gmove " input("destination: ")'],
-                  \[' git grep',  'exe "Ggrep " input("string: ")'],
-                  \[' git prompt', 'exe "Git! " input("command: ")'],
-                  \] " Append ' --' after log to get commit info commit buffers
-      "}}}
-
-  " Ionic denite source -------------------------------------------------------{{{
-
-    function! Ionic(job) abort
-        if a:job ==# "serve"
-            enew!
-            let filename = 'Ionic:\ '. a:job
-            call termopen('ionic '. a:job)
-            exe 'file 'filename
-            startinsert
-        else
-            let platform = input('platform: ')
-            enew!
-            let filename = 'Ionic:\ '. a:job
-            call termopen('ionic '. a:job . ' ' . platform)
-            exe 'file 'filename
-            startinsert
-        endif
-    endfunction
-
-    " function ExitHandle()
-    "   echom self
-    " endfunction
-
-    let s:menus.ionic = {
-                \ 'description' : 'some rando ionic stuff',
-                \}
-    let s:menus.ionic.command_candidates = [
-                \[' serve', 'call Ionic("serve")' ],
-                \[' run device', 'call Ionic("run")'],
-                \[' emulate device', 'call Ionic("emulate")'],
-                \]
+        let s:menus.git = {
+              \ 'description' : 'Fugitive interface',
+              \}
+        let s:menus.git.command_candidates = [
+              \[' git status', 'Gstatus'],
+              \[' git diff', 'Gvdiff'],
+              \[' git commit', 'exe "terminal git-cz " '],
+              \[' git amend', 'Gcommit --amend'],
+              \[' git stage/add', 'Gwrite'],
+              \[' git checkout', 'Gread'],
+              \[' git rm', 'Gremove'],
+              \[' git cd', 'Gcd'],
+              \[' git push', 'exe "Git! push " input("remote/branch: ")'],
+              \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
+              \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
+              \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
+              \[' git fetch', 'Gfetch'],
+              \[' git merge', 'Gmerge'],
+              \[' git browse', 'Gbrowse'],
+              \[' git head', 'Gedit HEAD^'],
+              \[' git parent', 'edit %:h'],
+              \[' git log commit buffers', 'Glog --'],
+              \[' git log current file', 'Glog -- %'],
+              \[' git log last n commits', 'exe "Glog -" input("num: ")'],
+              \[' git log first n commits', 'exe "Glog --reverse -" input("num: ")'],
+              \[' git log until date', 'exe "Glog --until=" input("day: ")'],
+              \[' git log grep commits',  'exe "Glog --grep= " input("string: ")'],
+              \[' git log pickaxe',  'exe "Glog -S" input("string: ")'],
+              \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
+              \[' git mv', 'exe "Gmove " input("destination: ")'],
+              \[' git grep',  'exe "Ggrep " input("string: ")'],
+              \[' git prompt', 'exe "Git! " input("command: ")'],
+              \] " Append ' --' after log to get commit info commit buffers
     "}}}
+
+"}}}
 
   " Buffer and Tmux Panel Navigation ------------------------------{{{
 
@@ -1801,25 +1807,34 @@
     tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
     tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
     tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
+    imap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
+    imap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
+    imap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+    imap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+    imap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
 
 "}}}
 
   " Vim-Airline ---------------------------------------------------------------{{{
 
-      if !exists('g:airline_symbols')
-          let g:airline_symbols = {}
-      endif
+      " enable tabline
       let g:airline#extensions#tabline#enabled = 1
-      let g:airline#extensions#mike#enabled = 1
-      set hidden
+      " style of tab labels
       let g:airline#extensions#tabline#fnamemod = ':t'
+      " show name of buffers in tab
+      let g:airline#extensions#tabline#show_splits = 1
+      " show a 'buffer' label on right
+      let g:airline#extensions#tabline#show_buffers = 1
+      " whether 'tabs' & 'buffers' label display at all
+      let g:airline#extensions#tabline#show_tab_type = 1
+      " whether the number indicator set for the tab is shown
+      let g:airline#extensions#tabline#show_tab_nr = 1
+      " * configure how numbers are displayed in tab mode.
+        " let g:airline#extensions#tabline#tab_nr_type = 0 " # of splits (default)
+        " let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+        let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+
       let g:airline#extensions#tabline#buffer_idx_mode = 1
-      let g:airline_powerline_fonts = 1
-      let g:airline#extensions#neomake#error_symbol='• '
-      let g:airline#extensions#neomake#warning_symbol='•  '
-      let g:airline_symbols.branch = ''
-      let g:airline_theme='serene'
-      cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
       tmap <leader>1  <C-\><C-n><Plug>AirlineSelectTab1
       tmap <leader>2  <C-\><C-n><Plug>AirlineSelectTab2
       tmap <leader>3  <C-\><C-n><Plug>AirlineSelectTab3
@@ -1852,17 +1867,24 @@
                   \}
 
 
+      " set hidden
+      cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
 
 
       if !exists('g:airline_symbols')
         let g:airline_symbols = {}
       endif
+      let g:airline_powerline_fonts = 1
+      let g:airline_theme='serene'
+      let g:airline#extensions#neomake#error_symbol='• '
+      let g:airline#extensions#neomake#warning_symbol='•  '
 
       " unicode symbols
       let g:airline_left_alt_sep = ''
       let g:airline_left_sep = ''
       let g:airline_right_alt_sep = ''
       let g:airline_right_sep = ''
+      let g:airline_symbols.branch = ''
       let g:airline_symbols.crypt = '🔒'
       let g:airline_symbols.linenr = '☰'
       let g:airline_symbols.linenr = '␊'
@@ -1920,13 +1942,9 @@
           " let g:pomodoro_notification_cmd = "mpg123 -q ~/desktop/bowl.m4a"
       "}}}
 
-      " Naming Format Function ------------------------------{{{
-
-      "}}}
-
       " Editor Config Plugin ------------------------------{{{
-            let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
-            let g:EditorConfig_core_mode = 'external_command'
+            " let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+            " let g:EditorConfig_core_mode = 'external_command'
       " }}}
 
       " Movement------------------------------ {{{
@@ -1964,5 +1982,231 @@
 
             " let g:licenses_default_commands = ['gpl', 'mit', 'foobar']
       "}}}
+
+      " winteract ------------------------------{{{
+      "  An interactive-window mode, where you can resize windows by repeatedly pressing j/k and h/l, amongst other things.
+
+      " Enter InteractiveWindow mode
+      nmap <M-w> :InteractiveWindow<CR>
+      nmap <leader>gw :InteractiveWindow<CR>
+
+      let winmap = {}
+      let winmap.normal = {
+            \ "h": "normal! \<C-w><" , "=": "normal! \<C-w>=" ,
+            \ "j": "normal! \<C-w>-" , "f": "normal! \<C-w>_" ,
+            \ "k": "normal! \<C-w>+" , "F": "normal! \<C-w>|" ,
+            \ "l": "normal! \<C-w>>" , "o": "normal! \<C-w>o" ,
+            \
+            \ "|": "exe g:winmode.count.'wincmd |'",
+            \ "\\": "exe g:winmode.count.'wincmd _'",
+            \ "&": "normal! :\<C-r>=&tw\<CR>wincmd |\<CR>" ,
+            \
+            \ "\<A-h>": "normal! \<C-w>h" ,  "H": "normal! \<C-w>H" ,
+            \ "\<A-j>": "normal! \<C-w>j" ,  "J": "normal! \<C-w>J" ,
+            \ "\<A-k>": "normal! \<C-w>k" ,  "K": "normal! \<C-w>K" ,
+            \ "\<A-l>": "normal! \<C-w>l" ,  "L": "normal! \<C-w>L" ,
+            \
+            \ "x": "normal! \<C-w>c" , "n": "normal! :bn\<CR>" ,
+            \ "c": "normal! \<C-w>c" , "p": "normal! :bp\<CR>" ,
+            \ "s": "normal! \<C-w>s" , "\<TAB>": "normal! :bn\<CR>" ,
+            \ "v": "normal! \<C-w>v" , "\<S-TAB>": "normal! :bp\<CR>" ,
+            \
+            \ "w": "normal! \<C-w>w" , "\<A-w>": "normal! \<C-w>p" ,
+            \ "W": "normal! \<C-w>W" ,
+            \ "q": "normal! :copen\<CR>" ,
+            \
+            \ "m": "let g:winmode.submode='move'" ,
+            \ ":": "let g:winmode.submode='set'" ,
+            \ "t": "let g:winmode.submode='tab'" ,
+            \
+            \ "d": "bdelete" ,
+            \ ";": "terminal" ,
+            \
+            \ "i": "let exitwin=1" ,
+            \ "\<ESC>": "let exitwin=1" ,
+            \ "\<CR>": "let exitwin=1" ,
+            \}
+
+      let winmap.move = {
+            \ "h": "normal! \<C-w>H" ,
+            \ "j": "normal! \<C-w>J" ,
+            \ "k": "normal! \<C-w>K" ,
+            \ "l": "normal! \<C-w>L" ,
+            \ "x": "normal! \<C-w>x" ,
+            \ "r": "normal! \<C-w>r" ,
+            \ "\<ESC>": "\" NOP" ,
+            \ }
+
+      let winmap.set = {
+            \ "w": "exe g:winmode.count.'wincmd |'",
+            \ "h": "exe g:winmode.count.'wincmd _'",
+            \ "W": "wincmd |",
+            \ "H": "wincmd _",
+            \ "i": "let resetmode=1" ,
+            \ "\<ESC>": "let resetmode=1" ,
+            \ }
+
+      let winmap.tab = {
+            \ "o": "tab sview %" ,
+            \ "e": "tabnew" ,
+            \ "x": "tabclose" ,
+            \ "n": "tabnext" ,
+            \ "p": "tabprevious" ,
+            \
+            \ "w": "let g:winmode.submode='normal'" ,
+            \ "\<ESC>": "let exitwin=1" ,
+            \ "i": "let exitwin=1" ,
+            \ }
+
+      "}}}
+
+      " Vista [symbols viewer] ------------------------------{{{
+
+            " Toggle vista window
+            nnoremap <leader>gv :Vista!!<CR>
+
+
+
+            " " How each level is indented and what to prepend.
+            " " This could make the display more compact or more spacious.
+            " " e.g., more compact: ["▸ ", ""]
+            " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+            "
+            " " Executive used when opening vista sidebar without specifying it.
+            " " See all the avaliable executives via `:echo g:vista#executives`.
+            " let g:vista_default_executive = 'ctags'
+            "
+            " " Set the executive for some filetypes explicitly. Use the explicit executive
+            " " instead of the default one for these filetypes when using `:Vista` without
+            " " specifying the executive.
+            " let g:vista_executive_for = {
+            "   \ 'cpp': 'vim_lsp',
+            "   \ 'php': 'vim_lsp',
+            "   \ }
+            "
+            " " Declare the command including the executable and options used to generate ctags output
+            " " for some certain filetypes.The file path will be appened to your custom command.
+            " " For example:
+            " let g:vista_ctags_cmd = {
+            "       \ 'haskell': 'hasktags -x -o - -c',
+            "       \ }
+            "
+            " " To enable fzf's preview window set g:vista_fzf_preview.
+            " " The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+            " " For example:
+            " let g:vista_fzf_preview = ['right:50%']
+            "
+            " " Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+            " let g:vista#renderer#enable_icon = 1
+            "
+            " " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+            " let g:vista#renderer#icons = {
+            " \   "function": "\uf794",
+            " \   "variable": "\uf71b",
+            " \  }
+
+            " Move to the vista window when it is opened. Set this option to `0` to stay in current windown when opening the vista sidebar.
+
+            let g:vista_stay_on_open = 0
+
+            " Fall back to other executives if the specified one gives empty data.  This is useful if you want to switch to `ctags` when LSP is not usable.  By default it's all the provided executives excluding the tried one.
+
+            let g:vista_finder_alternative_executives = ['lcn']
+
+
+            " Set the executive for some filetypes explicitly, which is useful for setting `ctags` as the default executive, whereas you prefer to use LSP for some filetypes you ensured the LSP functionality is good. The rationality is the LSP server needs to be installed explicitly and people normally only install a few frequently used ones, but ctags supports much more languages by default.
+
+            let g:vista_default_executive = 'lcn'
+
+            let g:vista_executive_for = {
+                  \ 'cpp': 'ctags',
+                  \ 'php': 'lcn',
+                  \ 'markdown': 'toc',
+                  \ 'ocaml': 'lcn',
+                  \ 'reason': 'lcn',
+                  \ 'python': 'lcn',
+                  \ 'rust': 'lcn',
+                  \ 'go': 'lcn',
+                  \ 'javascript.jsx': 'lcn',
+                  \ 'typescript': 'lcn',
+                  \ 'vim': 'ctags',
+                  \ }
+
+      "}}}
+
+      " VWM(Vim Window Manager) ------------------------------{{{
+
+          " Toggles the layout(s) specified by {name}
+          nmap <leader><space>1 :VwmToggle dev_panel<CR>
+          nmap <leader><space>2 :VwmToggle dev_panelv<CR>
+          nmap <leader><space>3 :VwmToggle iterator_panel<CR>
+
+          " Vista attempts to move itself, the sleep prevents a race.
+          let s:debug_panel = {
+                \  'name': 'debug_panel',
+                \  'opnAftr': ['edit'],
+                \  'right':
+                \  {
+                \    'v_sz': 45,
+                \    'init': ['NERDTree'],
+                \    'bot':
+                \    {
+                \      'init': ['Vista']
+                \    }
+                \  }
+                \}
+
+          let s:dev_panel = {
+                \  'name': 'dev_panel',
+                \  'right':
+                \  {
+                \    'v_sz': 65,
+                \    'init': ['term'],
+                \    'bot':
+                \    {
+                \      'init': ['term'],
+                \    }
+                \  }
+                \}
+
+          let s:dev_panelv = {
+                \  'name': 'dev_panelv',
+                \  'bot':
+                \  {
+                \    'h_sz': 15,
+                \    'init': ['term'],
+                \    'right':
+                \    {
+                \      'init': ['term'],
+                \    }
+                \  }
+                \}
+
+          let s:interator_panel = {
+                \  'name': 'iterator_panel',
+                \  'right':
+                \  {
+                \    'v_sz': 65,
+                \    'init': ['term'],
+                \    'bot':
+                \    {
+                \      'init': ['term'],
+                \      'bot':
+                \      {
+                \         'init': ['term'],
+                \      }
+                \    }
+                \  }
+                \}
+
+          let g:vwm#layouts = [s:dev_panel,s:dev_panelv,s:interator_panel]
+
+
+          "}}}
+
+      au BufRead,BufNewFile,FileWritePre todo   syntax match StrikeoutMatch /.*;;$/
+      hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=grey guifg=black
+      hi link StrikeoutMatch StrikeoutColor
+
   " }}}
 
