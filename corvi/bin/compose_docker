@@ -1,0 +1,73 @@
+#! /bin/bash
+
+basic_compose ='version: "3"
+
+services:
+
+  database:
+    image: postgres:10.4-alpine
+    environment:
+      - POSTGRES_PASSWORD=enterpassword
+      - POSTGRES_USER=superuser
+    ports:
+      # Port are ascribe in the follow respective order
+      # e.g.
+      #   <HOST/INTERNAL>:<CONTAINER/EXTERNAL>
+      - 400:5432
+
+  events:
+    # 'build' is used to delegate to a dockerfile in defined
+    # elsewhere. Commonly another folder!
+    build: ./events
+    ports:
+      - 8000:9000
+    # Determines dependacy, which thereby inform build order.
+    depends_on:
+      - database
+      - schema
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=database
+      - DB_USER=superuser
+      - DB_PASSWORD=enterpassword
+      - DB_NAME=superuser
+
+    # Custom DNS servers. Can be a single value or a list.
+    # dns: 8.8.8.8
+    # or
+    dns:
+      - 8.8.8.8
+      - 9.9.9.9
+
+
+    # Custom DNS search domains. Can be a single value or a list.
+    dns_search: example.com
+
+
+  schema:
+    build:
+      context: ./schema_server
+      labels:
+        com.example.description: "Accounting webapp"
+        com.example.department: "Finance"
+        com.example.label-with-empty-value: ""
+
+    # Override the default command.
+    command: bundle exec thin -p 3000
+
+    # **Note**: Setting `entrypoint` both overrides any default entrypoint set on the service's image with the `ENTRYPOINT` Dockerfile instruction, *and* clears out any default command on the image - meaning that if there's a `CMD` instruction in the Dockerfile, it is ignored.
+    entrypoint:
+      - php
+      - -d
+      - zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20100525/xdebug.so
+      - -d
+      - memory_limit=-1
+      - vendor/bin/phpunit
+    ports:
+      - 8000:8000
+    environment:
+      - NODE_ENV=production
+'
+
+# Make Docker Compose file using string defined above
+echo basic_compose >docker-compose.yaml

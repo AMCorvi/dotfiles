@@ -1,5 +1,27 @@
 #! /usr/bin/env bash
 
+
+# Copyright (c) 2019  Corvi, Alistar <inquiry@corvi.xyz>
+# Author:  Corvi, Alistar <inquiry@corvi.xyz>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 # base16 Themes Filepath
 base16Path="${HOME}/.config/base16-shell/scripts"
 
@@ -7,22 +29,20 @@ base16Path="${HOME}/.config/base16-shell/scripts"
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-  [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-  eval "$("$BASE16_SHELL/profile_helper.sh")";
+[ -n "$PS1" ] &&
+  [ -s "$BASE16_SHELL/profile_helper.sh" ] &&
+  eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # ls -a $HOME/.config/base16-shell/;
 
-
 # Borrowed from Chris Kempson ( https://github.com/chriskempson/base16-shell );
-_base16()
-{
+_base16() {
   local script=$1
   local theme=$2
   [ -f $script ] && . $script
   ln -fs $script ~/.base16_theme
   export BASE16_THEME=${theme}
-  echo -e "if \0041exists('g:colors_name') || g:colors_name != 'base16-$theme'\n  colorscheme base16-$theme\nendif" >| ~/.vimrc_background
+  echo -e "if \0041exists('g:colors_name') || g:colors_name != 'base16-$theme'\n  colorscheme base16-$theme\nendif" >|~/.vimrc_background
   if [ -n ${BASE16_SHELL_HOOKS:+s} ] && [ -d "${BASE16_SHELL_HOOKS}" ]; then
     for hook in $BASE16_SHELL_HOOKS/*; do
       [ -f "$hook" ] && [ -x "$hook" ] && "$hook"
@@ -31,7 +51,7 @@ _base16()
 }
 
 # select desired theme
-theme=`ls ${base16Path} | pick | awk '{
+theme=$(ls ${base16Path} | pick | awk '{
 startOfName = (index($0, "-") + 1)
 startOfExt = index($0, ".")
 
@@ -39,8 +59,9 @@ nameLength = (startOfExt - startOfName)
 name = substr($0, startOfName , nameLength)
 
 print name
-}'`;
+}')
 
+echo SUBSHELL $BASH_SUBSHELL
 
 # Execute theme change
 _base16 $HOME/.config/base16-shell/scripts/base16-${theme}.sh $theme
