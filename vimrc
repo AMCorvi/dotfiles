@@ -1762,34 +1762,35 @@
               \ 'description' : 'Fugitive interface',
               \}
         let s:menus.git.command_candidates = [
-              \[' git status', 'Gstatus'],
-              \[' git diff', 'Gvdiff'],
-              \[' git commit', 'exe "terminal git-cz " '],
               \[' git amend', 'Gcommit --amend'],
-              \[' git stage/add', 'Gwrite'],
-              \[' git checkout', 'Gread'],
-              \[' git rm', 'Gremove'],
-              \[' git cd', 'Gcd'],
-              \[' git push', 'exe "Git! push " input("remote/branch: ")'],
-              \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
-              \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
-              \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
-              \[' git fetch', 'Gfetch'],
-              \[' git merge', 'Gmerge'],
               \[' git browse', 'Gbrowse'],
+              \[' git cd', 'Gcd'],
+              \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
+              \[' git checkout', 'Gread'],
+              \[' git commit', 'exe "terminal git-cz " '],
+              \[' git diff', 'Gdiff'],
+              \[' git fetch', 'Gfetch'],
+              \[' git grep',  'exe "Ggrep " input("string: ")'],
               \[' git head', 'Gedit HEAD^'],
-              \[' git parent', 'edit %:h'],
+              \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
               \[' git log commit buffers', 'Glog --'],
               \[' git log current file', 'Glog -- %'],
-              \[' git log last n commits', 'exe "Glog -" input("num: ")'],
               \[' git log first n commits', 'exe "Glog --reverse -" input("num: ")'],
-              \[' git log until date', 'exe "Glog --until=" input("day: ")'],
               \[' git log grep commits',  'exe "Glog --grep= " input("string: ")'],
+              \[' git log last n commits', 'exe "Glog -" input("num: ")'],
               \[' git log pickaxe',  'exe "Glog -S" input("string: ")'],
-              \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
+              \[' git log until date', 'exe "Glog --until=" input("day: ")'],
+              \[' git merge', 'Gmerge'],
               \[' git mv', 'exe "Gmove " input("destination: ")'],
-              \[' git grep',  'exe "Ggrep " input("string: ")'],
+              \[' git parent', 'edit %:h'],
               \[' git prompt', 'exe "Git! " input("command: ")'],
+              \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
+              \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
+              \[' git push', 'exe "Git! push " input("remote/branch: ")'],
+              \[' git rm', 'Gremove'],
+              \[' git stage/add', 'Gwrite'],
+              \[' git status', 'Gstatus'],
+              \[' git vdiff', 'Gvdiff'],
               \] " Append ' --' after log to get commit info commit buffers
     "}}}
 
@@ -1868,7 +1869,6 @@
                   \}
 
 
-      " set hidden
       cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
 
 
