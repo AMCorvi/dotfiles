@@ -659,7 +659,8 @@
         " Prompt command for terminal
         nmap <leader>com  :term<Space>
         "Yank visual selection and run on commandline
-        vmap <leader>com yy<esc>:term<Space><C-r>+
+        nmap <leader>comt vf;Y:term<SPACE><CR>p
+        vmap <leader>comt y:term<SPACE><CR>p
 
       nnoremap <leader>z :call <SID>SynStack()<CR>
       function! <SID>SynStack()
@@ -1958,6 +1959,7 @@
       " Task-Warrior Plugin ------------------------------{{{
           nmap <leader>tk :TW<CR>
           nmap <leader>task :TW
+
       "}}}
 
       " Vim-Licenses ------------------------------{{{
