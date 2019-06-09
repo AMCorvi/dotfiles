@@ -2308,7 +2308,10 @@
           nmap ga <Plug>(EasyAlign)
       "}}}
       au BufRead,BufNewFile,FileWritePre todo   syntax match StrikeoutMatch /.*;;$/
+
       hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=grey guifg=black
+
+      " nonsence
       hi link StrikeoutMatch StrikeoutColor
 
   " }}}
