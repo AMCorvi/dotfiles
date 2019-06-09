@@ -135,7 +135,7 @@
             call dein#add('vim-airline/vim-airline')
             call dein#add('Zuckonit/vim-airline-tomato')
             call dein#add('neoclide/coc-neco') "viml completion source for coc.nvim
-            call dein#add('neoclide/coc.nvim', {'on_ft': '*', 'build':'./install.sh'})
+            call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
             call dein#add('liuchengxu/vista.vim') " 🌵 Viewer & Finder for LSP symbols and tags in Vim http://liuchengxu.org/vista.vim
             call dein#add('paroxayte/vwm.vim') " A layout manager for vim and nvim.
             call dein#add('romgrk/winteract.vim') "An interactive-window mode, where you can resize windows by repeatedly pressing j/k and h/l, amongst other things.
@@ -150,7 +150,7 @@
             call dein#add("jpalardy/vim-slime") " SLIME is an Emacs plugin to turn Emacs into a REPL.
             call dein#add('djoshea/vim-autoread') " Have Vim automatically reload a file that has changed externally
             call dein#add('junegunn/fzf') " A command-line fuzzy finder REASON DEPENDENCY
-            call dein#add('autozimu/LanguageClient-neovim',{'build': 'bash install.sh', 'rev': 'next'}) " Language Server Protocol (LSP) support for vim and neovim.
+            " call dein#add('autozimu/LanguageClient-neovim',{'build': 'bash install.sh', 'rev': 'next'}) " Language Server Protocol (LSP) support for vim and neovim.
             call dein#add('tpope/vim-jdaddy') " jdaddy.vim: JSON manipulation and pretty printing
             call dein#add('vim-scripts/CycleColor') " Cycles through available colorschemes
             call dein#add('TheZoq2/neovim-auto-autoread') "Plugin that makes autoread actually work as expected in neovim
@@ -633,7 +633,7 @@
       nmap =oer :Codi!!<CR>
 
       " Documentation Lookup
-      nnoremap <M-K> :Dash<CR>
+      " nnoremap <M-K> :Dash<CR>
 
       " Align blocks of text and keep them selected
       vmap < <gv
@@ -690,51 +690,134 @@
 
   " Language Server Settings ------------------------------------------------------------------------{{{
 
-      " NOTE: Run command nvim +PlugInstall +UpdateRemotePlugins +qa in shell to install this plugin. Install corresponding language servers. Restart neovim/vim and language services will be available right away. Happy hacking!
-      "
-      " Please see INSTALL for complete installation and configuration instructions.
+      " if hidden is not set, TextEdit might fail.
+      set hidden
 
-      let g:LanguageClient_autoStart = 1
+      " Some servers have issues with backup files, see #649
+      set nobackup
+      set nowritebackup
 
+      " Better display for messages
+      set cmdheight=1
 
-      let g:LanguageClient_serverCommands = {
-          \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
-          \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
-          \ 'cuda': ['ccls', '--log-file=/tmp/cc.log'],
-          \ 'go': ['go-langserver'],
-          \ 'javascript': ['javascript-typescript-stdio'],
-          \ 'javascript.jsx': ['javascript-typescript-stdio'],
-          \ 'objc': ['ccls', '--log-file=/tmp/cc.log'],
-          \ 'ocaml': ['ocaml-language-server', '--stdio'],
-          \ 'python': ['pyls'],
-          \ 'python3': ['pyls'],
-          \ 'reason': ['ocaml-language-server', '--stdio'],
-          \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-          \ 'sh': ['bash-language-server', 'start'],
-          \ }
+      " Smaller updatetime for CursorHold & CursorHoldI
+      set updatetime=300
 
+      " don't give |ins-completion-menu| messages.
+      set shortmess+=c
 
-      " Goto definition of identifier under cursor.
-      nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<cr>
+      " always show signcolumns
+      set signcolumn=yes
 
-      " Format current document.
-      nnoremap <silent> <leader>gf :call LanguageClient_textDocument_formatting()<cr>
+      " Use tab for trigger completion with characters ahead and navigate.
+      " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+      inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+      inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-      " Rename identifier under cursor
-      nnoremap <silent> <leader>gr :call LanguageClient_textDocument_rename()<cr>
+      function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+      endfunction
 
-      " Show type info (and short doc) of identifier under cursor.
-      nnoremap <silent>  <leader>ge :call LanguageClient_textDocument_hover()<cr>
+      " Use <c-space> to trigger completion.
+      inoremap <silent><expr> <c-space> coc#refresh()
 
-      nnoremap <silent> <leader>gc :call LanguageClient_textDocument_codeAction()<cr>
+      " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+      " Coc only does snippet and additional edit on confirm.
+      inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-      augroup LanguageClient_signature
+      " Use `[c` and `]c` to navigate diagnostics
+      nmap <silent> [c <Plug>(coc-diagnostic-prev)
+      nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+      " Remap keys for gotos
+      nmap <silent> gd <Plug>(coc-definition)
+      nmap <silent> gy <Plug>(coc-type-definition)
+      nmap <silent> gi <Plug>(coc-implementation)
+      nmap <silent> gr <Plug>(coc-references)
+
+      " Use K to show documentation in preview window
+      nnoremap <silent> <M-K> :call <SID>show_documentation()<CR>
+
+      function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+          execute 'h '.expand('<cword>')
+        else
+          call CocAction('doHover')
+        endif
+      endfunction
+
+      " Highlight symbol under cursor on CursorHold
+      autocmd CursorHold * silent call CocActionAsync('highlight')
+
+      " Remap for rename current word
+      nmap <leader>rn <Plug>(coc-rename)
+
+      " Remap for format selected region
+      xmap <leader>f  <Plug>(coc-format-selected)
+      nmap <leader>f  <Plug>(coc-format-selected)
+
+      augroup mygroup
         autocmd!
-        autocmd BufEnter * let b:Plugin_LanguageClient_started = 0
-        autocmd User LanguageClientStarted let b:Plugin_LanguageClient_started = 1
-        autocmd User LanguageClientStopped let b:Plugin_LanguageClient_started = 0
-        " autocmd CursorMoved * if b:Plugin_LanguageClient_started | call LanguageClient_textDocument_signatureHelp() | endif
-      augroup END
+        " Setup formatexpr specified filetype(s).
+        autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+        " Update signature help on jump placeholder
+        autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+      augroup end
+
+      " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+      xmap <leader>a  <Plug>(coc-codeaction-selected)
+      nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+      " Remap for do codeAction of current line
+      nmap <leader>ac  <Plug>(coc-codeaction)
+      " Fix autofix problem of current line
+      nmap <leader>qf  <Plug>(coc-fix-current)
+
+
+      " Use `:Format` to format current buffer
+      command! -nargs=0 Format :call CocAction('format')
+
+      " Use `:Fold` to fold current buffer
+      command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+      " use `:OR` for organize import of current buffer
+      command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+      " " Add diagnostic info for https://github.com/itchyny/lightline.vim
+      " let g:lightline = {
+      "       \ 'colorscheme': 'wombat',
+      "       \ 'active': {
+      "       \   'left': [ [ 'mode', 'paste' ],
+      "       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      "       \ },
+      "       \ 'component_function': {
+      "       \   'cocstatus': 'coc#status'
+      "       \ },
+      "       \ }
+      "
+
+
+      " Using CocList
+      " Show all diagnostics
+      nnoremap <silent> <leader><SPACE>a  :<C-u>CocList diagnostics<cr>
+      " Manage extensions
+      nnoremap <silent> <leader><SPACE>e  :<C-u>CocList extensions<cr>
+      " Show commands
+      nnoremap <silent> <leader><SPACE>c  :<C-u>CocList commands<cr>
+      " Find symbol of current document
+      nnoremap <silent> <leader><SPACE>o  :<C-u>CocList outline<cr>
+      " Search workspace symbols
+      nnoremap <silent> <leader><SPACE>s  :<C-u>CocList -I symbols<cr>
+      " Do default action for next item.
+      nnoremap <silent> <leader><SPACE>j  :<C-u>CocNext<CR>
+      " Do default action for previous item.
+      nnoremap <silent> <leader><SPACE>k  :<C-u>CocPrev<CR>
+      " Resume latest coc list
+      nnoremap <silent> <leader><SPACE>p  :<C-u>CocListResume<CR>
 
   "}}}
 
@@ -1469,7 +1552,6 @@
 
   " FileBrowser ------------------------------------------------------------------{{{
 
-
     "Nerd Tree --------------------------------------------------{{{
         let g:netrw_liststyle = 3
         let g:netrw_browse_split = 2
@@ -1901,6 +1983,16 @@
       let g:airline_symbols.notexists = '∄'
       let g:airline_symbols.whitespace = 'Ξ'
 
+      let g:airline#extensions#coc#enabled = 1
+      " * change error symbol:
+      let airline#extensions#coc#error_symbol = 'E:'
+      " * change warning symbol:
+      let airline#extensions#coc#warning_symbol = 'W:'
+      " * change error format:
+      let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+      " * change warning format:
+      let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+
       " powerline symbols
       " let g:airline_left_sep = ''
       " let g:airline_left_alt_sep = ''
@@ -2113,7 +2205,7 @@
 
             " Fall back to other executives if the specified one gives empty data.  This is useful if you want to switch to `ctags` when LSP is not usable.  By default it's all the provided executives excluding the tried one.
 
-            let g:vista_finder_alternative_executives = ['lcn']
+            let g:vista_finder_alternative_executives = ['coc']
 
 
             " Set the executive for some filetypes explicitly, which is useful for setting `ctags` as the default executive, whereas you prefer to use LSP for some filetypes you ensured the LSP functionality is good. The rationality is the LSP server needs to be installed explicitly and people normally only install a few frequently used ones, but ctags supports much more languages by default.
@@ -2122,15 +2214,15 @@
 
             let g:vista_executive_for = {
                   \ 'cpp': 'ctags',
-                  \ 'php': 'lcn',
+                  \ 'php': 'coc',
                   \ 'markdown': 'toc',
-                  \ 'ocaml': 'lcn',
-                  \ 'reason': 'lcn',
-                  \ 'python': 'lcn',
-                  \ 'rust': 'lcn',
-                  \ 'go': 'lcn',
-                  \ 'javascript.jsx': 'lcn',
-                  \ 'typescript': 'lcn',
+                  \ 'ocaml': 'coc',
+                  \ 'reason': 'coc',
+                  \ 'python': 'coc',
+                  \ 'rust': 'coc',
+                  \ 'go': 'coc',
+                  \ 'javascript.jsx': 'coc',
+                  \ 'typescript': 'coc',
                   \ 'vim': 'ctags',
                   \ }
 
