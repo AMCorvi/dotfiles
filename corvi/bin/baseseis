@@ -1,6 +1,5 @@
 #! /usr/bin/env bash
 
-
 # Copyright (c) 2019  Corvi, Alistar <inquiry@corvi.xyz>
 # Author:  Corvi, Alistar <inquiry@corvi.xyz>
 #
@@ -21,7 +20,6 @@
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
 # base16 Themes Filepath
 base16Path="${HOME}/.config/base16-shell/scripts"
 
@@ -39,10 +37,22 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 _base16() {
   local script=$1
   local theme=$2
+
+ # Check if script for theme exists
   [ -f $script ] && . $script
+
+  # Given the existence of the script file
+  #  symlink script to predfined file in home directory
   ln -fs $script ~/.base16_theme
+
+  # Set env variable
   export BASE16_THEME=${theme}
+
+
+  # Add to VIM-related file script which changes a
+  #   global 'theme' variable in VIM
   echo -e "if \0041exists('g:colors_name') || g:colors_name != 'base16-$theme'\n  colorscheme base16-$theme\nendif" >|~/.vimrc_background
+
   if [ -n ${BASE16_SHELL_HOOKS:+s} ] && [ -d "${BASE16_SHELL_HOOKS}" ]; then
     for hook in $BASE16_SHELL_HOOKS/*; do
       [ -f "$hook" ] && [ -x "$hook" ] && "$hook"
@@ -50,18 +60,33 @@ _base16() {
   fi
 }
 
+
+function iso_theme() {
+    awk '{
+  startOfName = (index($0, "-") + 1)
+  startOfExt = index($0, ".")
+
+  nameLength = (startOfExt - startOfName)
+  name = substr($0, startOfName , nameLength)
+
+  print name
+  }' $1;
+}
+
 # select desired theme
-theme=$(ls ${base16Path} | pick | awk '{
-startOfName = (index($0, "-") + 1)
-startOfExt = index($0, ".")
+if [ $1 ]; then
+  # Allow theme the be passed in
 
-nameLength = (startOfExt - startOfName)
-name = substr($0, startOfName , nameLength)
+  # first check if similar theme is available
+  #  if not set $theme to empty string
+  theme=`ls $base16Path | iso_theme | grep $1 `
+  # overwrite theme variable if it has been set to empty string
+  [ -z $theme ] && theme='classic-light'
 
-print name
-}')
-
-echo SUBSHELL $BASH_SUBSHELL
+else
+  # Select from list of available themes
+  theme=$(ls ${base16Path} | iso_theme | pick)
+fi
 
 # Execute theme change
-_base16 $HOME/.config/base16-shell/scripts/base16-${theme}.sh $theme
+_base16 $HOME/.config/base16-shell/scripts/base16-${theme}.sh $theme && (echo "Current successfully updated to $theme")
