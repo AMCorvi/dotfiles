@@ -178,10 +178,11 @@
         "}}}
 
         "Formatting"-----------{{{
-            call dein#add('tpope/vim-speeddating') "speeddating.vim: use CTRL-A/CTRL-X to increment dates, times, and more
             call dein#add('tpope/vim-surround')
             call dein#add('neomake/neomake', {'on_cmd': 'Neomake'})
             call dein#add('sbdchd/neoformat')
+            call dein#add('junegunn/vim-easy-align') " 🌻 A Vim alignment plugin
+            call dein#add('tpope/vim-speeddating') "speeddating.vim: use CTRL-A/CTRL-X to increment dates, times, and more
             call dein#add('wincent/scalpel') "Fast within-file word replacement for Vim
             call dein#add('nicwest/vim-camelsnek') " Convert between camel and snek case (and kebab case)
             call dein#add('tpope/vim-unimpaired') " Pairs of handy bracket mappings
@@ -729,9 +730,10 @@
       " Coc only does snippet and additional edit on confirm.
       inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-      " Use `[c` and `]c` to navigate diagnostics
+      " Navigate diagnostics
       nmap <silent> <M-<> <Plug>(coc-diagnostic-prev)
       nmap <silent> <M->> <Plug>(coc-diagnostic-next)
+      nmap <silent> <M-i> <Plug>(coc-diagnostic-info)
 
       " Remap keys for gotos
       nmap <silent> gd <Plug>(coc-definition)
@@ -2298,6 +2300,13 @@
 
           "}}}
 
+      " VIM easy Align ------------------------------{{{
+          " Start interactive EasyAlign in visual mode (e.g. vipga)
+          vmap ga <Plug>(EasyAlign)
+
+          " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+          nmap ga <Plug>(EasyAlign)
+      "}}}
       au BufRead,BufNewFile,FileWritePre todo   syntax match StrikeoutMatch /.*;;$/
       hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=grey guifg=black
       hi link StrikeoutMatch StrikeoutColor
