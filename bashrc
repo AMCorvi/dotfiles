@@ -33,3 +33,5 @@ source ~/.z/z.sh
 # Automate configuration of opam environment
 eval `opam config env`
 
+# added for either COC plugin or YARN
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
