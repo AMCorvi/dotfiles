@@ -391,18 +391,7 @@
 
       syntax on
 
-      "Colorscheme
-      set background=dark
-          " Default ColorScheme
-          colorscheme base16-summerfruit-dark
-          " Dynamically set colorscheme to which base16 colorscheme is set in the terminal
-          if filereadable(expand("~/.vimrc_background"))
-            let base16colorspace=256
-            source ~/.vimrc_background
-          endif
-
-      " Remove '|' character fom split window border (note blank space after
-      " back slash):
+      " Remove '|' character fom split window border (note blank space after back slash):
       set fillchars=fold:c
 
       " List(whitespace) characters and colors
@@ -418,21 +407,481 @@
       nnoremap =otn :hi LineNr guibg=NONE<CR>
 
 
-      " Change color of Search Highlight
-      hi Search cterm=NONE ctermfg=NONE ctermbg=red
-      hi Search gui=NONE guifg=bg guibg=fg
-      hi CursorLineNr cterm=NONE ctermfg=yellow ctermbg=red
-      hi CursorLineNr gui=NONE guifg=yellow guibg=red
-      hi Comment cterm=italic
+      " Change color of Search Highlight ---------------------{{{
+            hi Search cterm=NONE ctermfg=NONE ctermbg=red
+            hi Search gui=NONE guifg=bg guibg=fg
+            hi CursorLineNr cterm=NONE ctermfg=yellow ctermbg=red
+            hi CursorLineNr gui=NONE guifg=yellow guibg=red
+            hi Comment cterm=italic
+      "}}}
 
-      " Neomake sign colors
-      hi NeomakeErrorSign guifg=red
-      hi NeomakeWarningSign guifg=yellow
-      hi NeomakeErrorSign guibg=bg
-      hi NeomakeWarningSign guibg=bg
-      hi NeomakeErrorSign ctermfg=red
-      hi NeomakeWarningSign ctermfg=yellow
+      " Colorscheme ---------------------{{{
+          set background=dark
+              " Default ColorScheme
+              colorscheme base16-summerfruit-dark
+              " Dynamically set colorscheme to which base16 colorscheme is set in the terminal
+              if filereadable(expand("~/.vimrc_background"))
+                let base16colorspace=256
+                source ~/.vimrc_background
+              endif
+      "}}}
 
+      " Folding  ----------------------------------------------{{{
+
+          function! MyFoldText() "
+            let line = getline(v:foldstart)
+            let nucolwidth = &fdc + &number * &numberwidth
+            let windowwidth = winwidth(0) - nucolwidth - 3
+            let foldedlinecount = v:foldend - v:foldstart
+
+            " expand tabs into spaces
+            " let onetab = strpart('          ', 0, &tabstop)
+            " let line = substitute(line, '\t', onetab, 'g')
+
+            let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+            " let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
+            " let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines   ')
+            let fillcharcount = windowwidth - len(line)
+            " return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines'
+            return line . '…' . repeat(" ",fillcharcount)
+          endfunction "
+
+
+          set foldtext=MyFoldText()
+
+          autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+          autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+
+          autocmd FileType vim setlocal fdc=1
+          set foldlevel=99
+
+          " Space to toggle folds.
+          nnoremap <Space> za
+          vnoremap <Space> za
+          autocmd FileType vim setlocal foldmethod=marker
+          autocmd FileType vim setlocal foldlevel=0
+
+          autocmd FileType javascript,html,css,scss,typescript setlocal foldlevel=99
+
+          autocmd FileType css,scss,json setlocal foldmethod=marker
+          autocmd FileType css,scss,json setlocal foldmarker={,}
+
+          autocmd FileType coffee setl foldmethod=indent
+          let g:xml_syntax_folding = 1
+          autocmd FileType xml setl foldmethod=syntax
+
+          autocmd FileType html setl foldmethod=expr
+          autocmd FileType html setl foldexpr=HTMLFolds()
+
+          autocmd FileType javascript,typescript,json setl foldmethod=syntax
+          filetype plugin indent on
+
+      " }}}
+
+      " Neomake sign colors --------------------{{{
+          hi NeomakeErrorSign guifg=red
+          hi NeomakeWarningSign guifg=yellow
+          hi NeomakeErrorSign guibg=bg
+          hi NeomakeWarningSign guibg=bg
+          hi NeomakeErrorSign ctermfg=red
+          hi NeomakeWarningSign ctermfg=yellow
+      "}}}
+
+      " Deoplete ------------------------------------------------------------------{{{
+
+
+          let g:deoplete#enable_at_startup = 1
+          let g:echodoc_enable_at_startup=1
+          set completeopt+=noselect
+          set completeopt-=preview
+          autocmd CompleteDone * pclose
+          let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+          call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+          let g:deoplete#enable_ignore_case = 1
+          let g:deoplete#enable_smart_case = 1
+          let g:deoplete#enable_camel_case = 1
+          let g:deoplete#enable_refresh_always = 1
+          let g:deoplete#max_abbr_width = 0
+          let g:deoplete#max_menu_width = 0
+
+          " no delay before completion
+          let g:deoplete#auto_complete_delay = 0
+
+          let g:deoplete#file#enable_buffer_path = 1
+          let g:deoplete#auto_complete_start_length = 1
+          " let g:deoplete#omni#input_patterns = {}
+
+          " let g:deoplete#enable_debug = 1
+          " call deoplete#enable_logging('DEBUG', 'deoplete.log')
+          " call deoplete#custom#source('typescript', 'debug_enabled', 1)
+
+          " enable deoplete
+
+          let g:deoplete#file#enable_buffer_path=1
+
+          " Golang
+          let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+          let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+
+          " this is the default, make sure it is not set to "omnifunc" somewhere else in your vimrc
+          let g:deoplete#complete_method = "complete"
+
+
+          let g:deoplete#sources = {}
+          let g:deoplete#sources.cpp = ['LanguageClient']
+          let g:deoplete#sources.python = ['jedi', 'buffer', 'LanguageClient']
+          let g:deoplete#sources.python3 = ['jedi', 'buffer', 'LanguageClient']
+          let g:deoplete#sources.rust = ['buffer', 'around', 'LanguageClient']
+          let g:deoplete#sources.c = ['buffer', 'around', 'LanguageClient']
+          let g:deoplete#sources.ocaml = ['buffer', 'around', 'LanguageClient']
+          let g:deoplete#sources.javascript = ['tern', 'buffer', 'around', 'LanguageClient', "neosnippet"]
+          let g:deoplete#sources.go = ["go", 'buffer', 'around', 'LanguageClient']
+          let g:deoplete#sources.vim = ['vim']
+
+
+          let g:deoplete#ignore_sources = {}
+          let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
+          let g:deoplete#ignore_sources.javascript = ['buffer', 'around', 'member', 'tag']
+
+          call deoplete#custom#source('buffer','mark','')
+          call deoplete#custom#source('LanguageClient', 'mark', "")
+          call deoplete#custom#source('ocaml', 'mark', '')
+          call deoplete#custom#source('go', 'mark', '')
+          call deoplete#custom#source('tern','mark','')
+          call deoplete#custom#source('omni','mark','⌾')
+          call deoplete#custom#source('file','mark','file')
+          call deoplete#custom#source('jedi','mark','')
+          call deoplete#custom#source('typescript','mark','')
+          call deoplete#custom#source('neosnippet','mark','')
+
+          let ranknumber = 999
+          " call deoplete#custom#source('buffer','rank',ranknumber - 1)
+          call deoplete#custom#source('jedi','rank',ranknumber - 1)
+          call deoplete#custom#source('go','rank',ranknumber - 1)
+          call deoplete#custom#source('ocaml', 'rank', ranknumber - 1)
+          call deoplete#custom#source('tern','rank',ranknumber - 1)
+          call deoplete#custom#source('LanguageClient', 'rank', ranknumber - 1)
+          " call deoplete#custom#source('neosnippets','rank',ranknumber - 1)
+          " let g:deoplete#omni_patterns.html = ''
+
+          function! Preview_func()
+              if &pvw
+                  setlocal nonumber norelativenumber
+              endif
+          endfunction
+          autocmd WinEnter * call Preview_func()
+
+          " Deactive deoplete if multicursor active
+          function! Multiple_cursors_before()
+              let b:deoplete_disable_auto_complete=2
+          endfunction
+          function! Multiple_cursors_after()
+              let b:deoplete_disable_auto_complete=0
+          endfunction
+
+
+
+
+      "}}}
+
+      " Sayonara ------------------------------------------------------------------{{{
+
+           " When |:Sayonara| deletes the last active buffer, Vim quits. If this option is
+           " set to `1`, you'll get prompted on whether to quit or not.
+           " Default: `0`
+
+           let g:sayonara_confirm_quit = 1
+
+      " }}}
+
+      " winteract ------------------------------{{{
+          "  An interactive-window mode, where you can resize windows by repeatedly pressing j/k and h/l, amongst other things.
+
+          " Enter InteractiveWindow mode
+          nmap <M-w> :InteractiveWindow<CR>
+          nmap <leader>gw :InteractiveWindow<CR>
+
+          let winmap = {}
+          let winmap.normal = {
+                \ "h": "normal! \<C-w><" , "=": "normal! \<C-w>=" ,
+                \ "j": "normal! \<C-w>-" , "f": "normal! \<C-w>_" ,
+                \ "k": "normal! \<C-w>+" , "F": "normal! \<C-w>|" ,
+                \ "l": "normal! \<C-w>>" , "o": "normal! \<C-w>o" ,
+                \
+                \ "|": "exe g:winmode.count.'wincmd |'",
+                \ "\\": "exe g:winmode.count.'wincmd _'",
+                \ "&": "normal! :\<C-r>=&tw\<CR>wincmd |\<CR>" ,
+                \
+                \ "\<A-h>": "normal! \<C-w>h" ,  "H": "normal! \<C-w>H" ,
+                \ "\<A-j>": "normal! \<C-w>j" ,  "J": "normal! \<C-w>J" ,
+                \ "\<A-k>": "normal! \<C-w>k" ,  "K": "normal! \<C-w>K" ,
+                \ "\<A-l>": "normal! \<C-w>l" ,  "L": "normal! \<C-w>L" ,
+                \
+                \ "x": "normal! \<C-w>c" , "n": "normal! :bn\<CR>" ,
+                \ "c": "normal! \<C-w>c" , "p": "normal! :bp\<CR>" ,
+                \ "s": "normal! \<C-w>s" , "\<TAB>": "normal! :bn\<CR>" ,
+                \ "v": "normal! \<C-w>v" , "\<S-TAB>": "normal! :bp\<CR>" ,
+                \
+                \ "w": "normal! \<C-w>w" , "\<A-w>": "normal! \<C-w>p" ,
+                \ "W": "normal! \<C-w>W" ,
+                \ "q": "normal! :copen\<CR>" ,
+                \
+                \ "m": "let g:winmode.submode='move'" ,
+                \ ":": "let g:winmode.submode='set'" ,
+                \ "t": "let g:winmode.submode='tab'" ,
+                \
+                \ "d": "bdelete" ,
+                \ ";": "terminal" ,
+                \
+                \ "i": "let exitwin=1" ,
+                \ "\<ESC>": "let exitwin=1" ,
+                \ "\<CR>": "let exitwin=1" ,
+                \}
+
+          let winmap.move = {
+                \ "h": "normal! \<C-w>H" ,
+                \ "j": "normal! \<C-w>J" ,
+                \ "k": "normal! \<C-w>K" ,
+                \ "l": "normal! \<C-w>L" ,
+                \ "x": "normal! \<C-w>x" ,
+                \ "r": "normal! \<C-w>r" ,
+                \ "\<ESC>": "\" NOP" ,
+                \ }
+
+          let winmap.set = {
+                \ "w": "exe g:winmode.count.'wincmd |'",
+                \ "h": "exe g:winmode.count.'wincmd _'",
+                \ "W": "wincmd |",
+                \ "H": "wincmd _",
+                \ "i": "let resetmode=1" ,
+                \ "\<ESC>": "let resetmode=1" ,
+                \ }
+
+          let winmap.tab = {
+                \ "o": "tab sview %" ,
+                \ "e": "tabnew" ,
+                \ "x": "tabclose" ,
+                \ "n": "tabnext" ,
+                \ "p": "tabprevious" ,
+                \
+                \ "w": "let g:winmode.submode='normal'" ,
+                \ "\<ESC>": "let exitwin=1" ,
+                \ "i": "let exitwin=1" ,
+                \ }
+
+      "}}}
+
+      " Vim-Airline ---------------------------------------------------------------{{{
+
+          " enable tabline
+          let g:airline#extensions#tabline#enabled = 1
+          " style of tab labels
+          let g:airline#extensions#tabline#fnamemod = ':t'
+          " show name of buffers in tab
+          let g:airline#extensions#tabline#show_splits = 1
+          " show a 'buffer' label on right
+          let g:airline#extensions#tabline#show_buffers = 1
+          " whether 'tabs' & 'buffers' label display at all
+          let g:airline#extensions#tabline#show_tab_type = 1
+          " whether the number indicator set for the tab is shown
+          let g:airline#extensions#tabline#show_tab_nr = 1
+          " * configure how numbers are displayed in tab mode.
+            " let g:airline#extensions#tabline#tab_nr_type = 0 " # of splits (default)
+            " let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+            let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+
+          let g:airline#extensions#tabline#buffer_idx_mode = 1
+          tmap <leader>1  <C-\><C-n><Plug>AirlineSelectTab1
+          tmap <leader>2  <C-\><C-n><Plug>AirlineSelectTab2
+          tmap <leader>3  <C-\><C-n><Plug>AirlineSelectTab3
+          tmap <leader>4  <C-\><C-n><Plug>AirlineSelectTab4
+          tmap <leader>5  <C-\><C-n><Plug>AirlineSelectTab5
+          tmap <leader>6  <C-\><C-n><Plug>AirlineSelectTab6
+          tmap <leader>7  <C-\><C-n><Plug>AirlineSelectTab7
+          tmap <leader>8  <C-\><C-n><Plug>AirlineSelectTab8
+          tmap <leader>9  <C-\><C-n><Plug>AirlineSelectTab9
+          nmap <leader>1 <Plug>AirlineSelectTab1
+          nmap <leader>2 <Plug>AirlineSelectTab2
+          nmap <leader>3 <Plug>AirlineSelectTab3
+          nmap <leader>4 <Plug>AirlineSelectTab4
+          nmap <leader>5 <Plug>AirlineSelectTab5
+          nmap <leader>6 <Plug>AirlineSelectTab6
+          nmap <leader>7 <Plug>AirlineSelectTab7
+          nmap <leader>8 <Plug>AirlineSelectTab8
+          nmap <leader>9 <Plug>AirlineSelectTab9
+          let g:airline#extensions#tabline#buffer_idx_format = {
+                      \ '0': '0 ',
+                      \ '1': '1 ',
+                      \ '2': '2 ',
+                      \ '3': '3 ',
+                      \ '4': '4 ',
+                      \ '5': '5 ',
+                      \ '6': '6 ',
+                      \ '7': '7 ',
+                      \ '8': '8 ',
+                      \ '9': '9 ',
+                      \}
+
+
+          cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
+
+
+          if !exists('g:airline_symbols')
+            let g:airline_symbols = {}
+          endif
+          let g:airline_powerline_fonts = 1
+          let g:airline_theme='serene'
+          let g:airline#extensions#neomake#error_symbol='• '
+          let g:airline#extensions#neomake#warning_symbol='•  '
+
+          " unicode symbols
+          let g:airline_left_alt_sep = ''
+          let g:airline_left_sep = ''
+          let g:airline_right_alt_sep = ''
+          let g:airline_right_sep = ''
+          let g:airline_symbols.branch = ''
+          let g:airline_symbols.crypt = '🔒'
+          let g:airline_symbols.linenr = '☰'
+          let g:airline_symbols.linenr = '␊'
+          let g:airline_symbols.linenr = '␤'
+          let g:airline_symbols.linenr = '¶'
+          let g:airline_symbols.maxlinenr = ''
+          let g:airline_symbols.maxlinenr = '㏑'
+          let g:airline_symbols.branch = '⎇'
+          let g:airline_symbols.paste = 'ρ'
+          let g:airline_symbols.paste = 'Þ'
+          let g:airline_symbols.paste = '∥'
+          let g:airline_symbols.spell = 'Ꞩ'
+          let g:airline_symbols.notexists = '∄'
+          let g:airline_symbols.whitespace = 'Ξ'
+
+          let g:airline#extensions#coc#enabled = 1
+          " * change error symbol:
+          let airline#extensions#coc#error_symbol = 'E:'
+          " * change warning symbol:
+          let airline#extensions#coc#warning_symbol = 'W:'
+          " * change error format:
+          let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+          " * change warning format:
+          let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+
+          " powerline symbols
+          " let g:airline_left_sep = ''
+          " let g:airline_left_alt_sep = ''
+          " let g:airline_right_sep = ''
+          " let g:airline_right_alt_sep = ''
+          " let g:airline_symbols.branch = ''
+          " let g:airline_symbols.readonly = ''
+          " let g:airline_symbols.linenr = '☰'
+          " let g:airline_symbols.maxlinenr = ''
+
+          " old vim-powerline symbols
+          " let g:airline_left_sep = '⮀'
+          " let g:airline_left_alt_sep = '⮁'
+          " let g:airline_right_sep = '⮂'
+          " let g:airline_right_alt_sep = '⮃'
+          " let g:airline_symbols.branch = '⭠'
+          " let g:airline_symbols.readonly = '⭤'
+          " let g:airline_symbols.linenr = '⭡'
+
+      "}}}
+
+      " VWM(Vim Window Manager) ------------------------------{{{
+
+          " Toggles the layout(s) specified by {name}
+          nmap <leader><space>1 :VwmToggle dev_panel<CR>
+          nmap <leader><space>2 :VwmToggle dev_panelv<CR>
+          nmap <leader><space>3 :VwmToggle iterator_panel<CR>
+
+          " Vista attempts to move itself, the sleep prevents a race.
+          let s:debug_panel = {
+                \  'name': 'debug_panel',
+                \  'opnAftr': ['edit'],
+                \  'right':
+                \  {
+                \    'v_sz': 45,
+                \    'init': ['NERDTree'],
+                \    'bot':
+                \    {
+                \      'init': ['Vista']
+                \    }
+                \  }
+                \}
+
+          let s:dev_panel = {
+                \  'name': 'dev_panel',
+                \  'right':
+                \  {
+                \    'v_sz': 65,
+                \    'init': ['term'],
+                \    'bot':
+                \    {
+                \      'init': ['term'],
+                \    }
+                \  }
+                \}
+
+          let s:dev_panelv = {
+                \  'name': 'dev_panelv',
+                \  'bot':
+                \  {
+                \    'h_sz': 15,
+                \    'init': ['term'],
+                \    'right':
+                \    {
+                \      'init': ['term'],
+                \    }
+                \  }
+                \}
+
+          let s:interator_panel = {
+                \  'name': 'iterator_panel',
+                \  'right':
+                \  {
+                \    'v_sz': 65,
+                \    'init': ['term'],
+                \    'bot':
+                \    {
+                \      'init': ['term'],
+                \      'bot':
+                \      {
+                \         'init': ['term'],
+                \      }
+                \    }
+                \  }
+                \}
+
+          let g:vwm#layouts = [s:dev_panel,s:dev_panelv,s:interator_panel]
+
+
+          "}}}
+
+      " Vim-Devicons --------------------------------------------------------------{{{
+
+          " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+          " let g:WebDevIconsOS = 'Darwin'
+
+          " add or override individual additional filetypes
+
+          let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+          let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['rei'] = 'λ'
+          let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['re'] = 'λ'
+
+          let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
+          let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
+
+
+          let g:webdevicons_conceal_nerdtree_brackets = 1
+          " let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+          " let g:NERDTreeDirArrows = 1
+          let g:NERDTreeShowIgnoredStatus = 0
+          let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
+          let g:NERDTreeDirArrowExpandable = ''
+          let g:NERDTreeDirArrowCollapsible = ''
+                " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+          let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+
+      " }}}
 
   "}}}
 
@@ -664,6 +1113,7 @@
         vmap <leader>comt y:term<SPACE><CR>p
 
       nnoremap <leader>z :call <SID>SynStack()<CR>
+
       function! <SID>SynStack()
           if !exists("*synstack")
               return
@@ -680,577 +1130,473 @@
 
   "}}}"
 
-  " Linting -------------------------------------------------------------------{{{
+  " Languages -------------------------------------------------------------------{{{
+
+      " Language Server Settings ------------------------------------------------------------------------{{{
 
-      " autocmd! BufWinEnter * NeomakeDisable
-      autocmd! BufWritePost * Neomake
-      let g:neomake_warning_sign = {'text': '!!'}
-      let g:neomake_error_sign = {'text': 'X'}
+          " if hidden is not set, TextEdit might fail.
+          set hidden
+
+          " Some servers have issues with backup files, see #649
+          set nobackup
+          set nowritebackup
+
+          " Better display for messages
+          set cmdheight=1
+
+          " Smaller updatetime for CursorHold & CursorHoldI
+          set updatetime=300
+
+          " don't give |ins-completion-menu| messages.
+          set shortmess+=c
+
+          " always show signcolumns
+          set signcolumn=yes
+
+          " Use tab for trigger completion with characters ahead and navigate.
+          " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+          inoremap <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ coc#refresh()
+          inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+          function! s:check_back_space() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~# '\s'
+          endfunction
+
+          " Use <c-space> to trigger completion.
+          inoremap <silent><expr> <c-space> coc#refresh()
+
+          " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+          " Coc only does snippet and additional edit on confirm.
+          inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+          " Navigate diagnostics
+          nmap <silent> <M-<> <Plug>(coc-diagnostic-prev)
+          nmap <silent> <M->> <Plug>(coc-diagnostic-next)
+          nmap <silent> <M-i> <Plug>(coc-diagnostic-info)
+
+          " Remap keys for gotos
+          nmap <silent> gd <Plug>(coc-definition)
+          nmap <silent> gy <Plug>(coc-type-definition)
+          nmap <silent> gi <Plug>(coc-implementation)
+          nmap <silent> gr <Plug>(coc-references)
+
+          " Use K to show documentation in preview window
+          nnoremap <silent> <M-K> :call <SID>show_documentation()<CR>
+
+          function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+              execute 'h '.expand('<cword>')
+            else
+              call CocAction('doHover')
+            endif
+          endfunction
+
+          " Highlight symbol under cursor on CursorHold
+          autocmd CursorHold * silent call CocActionAsync('highlight')
+
+          " Remap for rename current word
+          nmap <leader>rn <Plug>(coc-rename)
+
+          " Remap for format selected region
+          xmap <leader>f  <Plug>(coc-format-selected)
+          nmap <leader>f  <Plug>(coc-format-selected)
+
+          augroup mygroup
+            autocmd!
+            " Setup formatexpr specified filetype(s).
+            autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+            " Update signature help on jump placeholder
+            autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+          augroup end
+
+          " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+          xmap <leader>a  <Plug>(coc-codeaction-selected)
+          nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+          " Remap for do codeAction of current line
+          nmap <leader>ac  <Plug>(coc-codeaction)
+          " Fix autofix problem of current line
+          nmap <leader>qf  <Plug>(coc-fix-current)
+
+
+          " Use `:Format` to format current buffer
+          command! -nargs=0 Format :call CocAction('format')
+
+          " Use `:Fold` to fold current buffer
+          command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+          " use `:OR` for organize import of current buffer
+          command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+          " " Add diagnostic info for https://github.com/itchyny/lightline.vim
+          " let g:lightline = {
+          "       \ 'colorscheme': 'wombat',
+          "       \ 'active': {
+          "       \   'left': [ [ 'mode', 'paste' ],
+          "       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+          "       \ },
+          "       \ 'component_function': {
+          "       \   'cocstatus': 'coc#status'
+          "       \ },
+          "       \ }
+          "
+
+
+          " Using CocList
+          " Show all diagnostics
+          nnoremap <silent> <leader><SPACE>a  :<C-u>CocList diagnostics<cr>
+          " Manage extensions
+          nnoremap <silent> <leader><SPACE>e  :<C-u>CocList extensions<cr>
+          " Show commands
+          nnoremap <silent> <leader><SPACE>c  :<C-u>CocList commands<cr>
+          " Find symbol of current document
+          nnoremap <silent> <leader><SPACE>o  :<C-u>CocList outline<cr>
+          " Search workspace symbols
+          nnoremap <silent> <leader><SPACE>s  :<C-u>CocList -I symbols<cr>
+          " Do default action for next item.
+          nnoremap <silent> <leader><SPACE>j  :<C-u>CocNext<CR>
+          " Do default action for previous item.
+          nnoremap <silent> <leader><SPACE>k  :<C-u>CocPrev<CR>
+          " Resume latest coc list
+          nnoremap <silent> <leader><SPACE>p  :<C-u>CocListResume<CR>
 
-  "}}}
-
-  " Language Server Settings ------------------------------------------------------------------------{{{
-
-      " if hidden is not set, TextEdit might fail.
-      set hidden
-
-      " Some servers have issues with backup files, see #649
-      set nobackup
-      set nowritebackup
-
-      " Better display for messages
-      set cmdheight=1
-
-      " Smaller updatetime for CursorHold & CursorHoldI
-      set updatetime=300
-
-      " don't give |ins-completion-menu| messages.
-      set shortmess+=c
-
-      " always show signcolumns
-      set signcolumn=yes
-
-      " Use tab for trigger completion with characters ahead and navigate.
-      " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-      inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-      inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-      function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-      endfunction
-
-      " Use <c-space> to trigger completion.
-      inoremap <silent><expr> <c-space> coc#refresh()
-
-      " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-      " Coc only does snippet and additional edit on confirm.
-      inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-      " Navigate diagnostics
-      nmap <silent> <M-<> <Plug>(coc-diagnostic-prev)
-      nmap <silent> <M->> <Plug>(coc-diagnostic-next)
-      nmap <silent> <M-i> <Plug>(coc-diagnostic-info)
-
-      " Remap keys for gotos
-      nmap <silent> gd <Plug>(coc-definition)
-      nmap <silent> gy <Plug>(coc-type-definition)
-      nmap <silent> gi <Plug>(coc-implementation)
-      nmap <silent> gr <Plug>(coc-references)
-
-      " Use K to show documentation in preview window
-      nnoremap <silent> <M-K> :call <SID>show_documentation()<CR>
-
-      function! s:show_documentation()
-        if (index(['vim','help'], &filetype) >= 0)
-          execute 'h '.expand('<cword>')
-        else
-          call CocAction('doHover')
-        endif
-      endfunction
-
-      " Highlight symbol under cursor on CursorHold
-      autocmd CursorHold * silent call CocActionAsync('highlight')
-
-      " Remap for rename current word
-      nmap <leader>rn <Plug>(coc-rename)
-
-      " Remap for format selected region
-      xmap <leader>f  <Plug>(coc-format-selected)
-      nmap <leader>f  <Plug>(coc-format-selected)
-
-      augroup mygroup
-        autocmd!
-        " Setup formatexpr specified filetype(s).
-        autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-        " Update signature help on jump placeholder
-        autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-      augroup end
-
-      " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-      xmap <leader>a  <Plug>(coc-codeaction-selected)
-      nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-      " Remap for do codeAction of current line
-      nmap <leader>ac  <Plug>(coc-codeaction)
-      " Fix autofix problem of current line
-      nmap <leader>qf  <Plug>(coc-fix-current)
-
-
-      " Use `:Format` to format current buffer
-      command! -nargs=0 Format :call CocAction('format')
-
-      " Use `:Fold` to fold current buffer
-      command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-      " use `:OR` for organize import of current buffer
-      command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-      " " Add diagnostic info for https://github.com/itchyny/lightline.vim
-      " let g:lightline = {
-      "       \ 'colorscheme': 'wombat',
-      "       \ 'active': {
-      "       \   'left': [ [ 'mode', 'paste' ],
-      "       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      "       \ },
-      "       \ 'component_function': {
-      "       \   'cocstatus': 'coc#status'
-      "       \ },
-      "       \ }
-      "
-
-
-      " Using CocList
-      " Show all diagnostics
-      nnoremap <silent> <leader><SPACE>a  :<C-u>CocList diagnostics<cr>
-      " Manage extensions
-      nnoremap <silent> <leader><SPACE>e  :<C-u>CocList extensions<cr>
-      " Show commands
-      nnoremap <silent> <leader><SPACE>c  :<C-u>CocList commands<cr>
-      " Find symbol of current document
-      nnoremap <silent> <leader><SPACE>o  :<C-u>CocList outline<cr>
-      " Search workspace symbols
-      nnoremap <silent> <leader><SPACE>s  :<C-u>CocList -I symbols<cr>
-      " Do default action for next item.
-      nnoremap <silent> <leader><SPACE>j  :<C-u>CocNext<CR>
-      " Do default action for previous item.
-      nnoremap <silent> <leader><SPACE>k  :<C-u>CocPrev<CR>
-      " Resume latest coc list
-      nnoremap <silent> <leader><SPACE>p  :<C-u>CocListResume<CR>
-
-  "}}}
-
-  " Deoplete ------------------------------------------------------------------{{{
-
-
-      let g:deoplete#enable_at_startup = 1
-      let g:echodoc_enable_at_startup=1
-      set completeopt+=noselect
-      set completeopt-=preview
-      autocmd CompleteDone * pclose
-      let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-      call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-      let g:deoplete#enable_ignore_case = 1
-      let g:deoplete#enable_smart_case = 1
-      let g:deoplete#enable_camel_case = 1
-      let g:deoplete#enable_refresh_always = 1
-      let g:deoplete#max_abbr_width = 0
-      let g:deoplete#max_menu_width = 0
-
-      " no delay before completion
-      let g:deoplete#auto_complete_delay = 0
-
-      let g:deoplete#file#enable_buffer_path = 1
-      let g:deoplete#auto_complete_start_length = 1
-      " let g:deoplete#omni#input_patterns = {}
-
-      " let g:deoplete#enable_debug = 1
-      " call deoplete#enable_logging('DEBUG', 'deoplete.log')
-      " call deoplete#custom#source('typescript', 'debug_enabled', 1)
-
-      " enable deoplete
-
-      let g:deoplete#file#enable_buffer_path=1
-
-      " Golang
-      let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-      let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
-      " this is the default, make sure it is not set to "omnifunc" somewhere else in your vimrc
-      let g:deoplete#complete_method = "complete"
-
-
-      let g:deoplete#sources = {}
-      let g:deoplete#sources.cpp = ['LanguageClient']
-      let g:deoplete#sources.python = ['jedi', 'buffer', 'LanguageClient']
-      let g:deoplete#sources.python3 = ['jedi', 'buffer', 'LanguageClient']
-      let g:deoplete#sources.rust = ['buffer', 'around', 'LanguageClient']
-      let g:deoplete#sources.c = ['buffer', 'around', 'LanguageClient']
-      let g:deoplete#sources.ocaml = ['buffer', 'around', 'LanguageClient']
-      let g:deoplete#sources.javascript = ['tern', 'buffer', 'around', 'LanguageClient', "neosnippet"]
-      let g:deoplete#sources.go = ["go", 'buffer', 'around', 'LanguageClient']
-      let g:deoplete#sources.vim = ['vim']
-
-
-      let g:deoplete#ignore_sources = {}
-      let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
-      let g:deoplete#ignore_sources.javascript = ['buffer', 'around', 'member', 'tag']
-
-      call deoplete#custom#source('buffer','mark','')
-      call deoplete#custom#source('LanguageClient', 'mark', "")
-      call deoplete#custom#source('ocaml', 'mark', '')
-      call deoplete#custom#source('go', 'mark', '')
-      call deoplete#custom#source('tern','mark','')
-      call deoplete#custom#source('omni','mark','⌾')
-      call deoplete#custom#source('file','mark','file')
-      call deoplete#custom#source('jedi','mark','')
-      call deoplete#custom#source('typescript','mark','')
-      call deoplete#custom#source('neosnippet','mark','')
-
-      let ranknumber = 999
-      " call deoplete#custom#source('buffer','rank',ranknumber - 1)
-      call deoplete#custom#source('jedi','rank',ranknumber - 1)
-      call deoplete#custom#source('go','rank',ranknumber - 1)
-      call deoplete#custom#source('ocaml', 'rank', ranknumber - 1)
-      call deoplete#custom#source('tern','rank',ranknumber - 1)
-      call deoplete#custom#source('LanguageClient', 'rank', ranknumber - 1)
-      " call deoplete#custom#source('neosnippets','rank',ranknumber - 1)
-      " let g:deoplete#omni_patterns.html = ''
-
-      function! Preview_func()
-          if &pvw
-              setlocal nonumber norelativenumber
-          endif
-      endfunction
-      autocmd WinEnter * call Preview_func()
-
-      " Deactive deoplete if multicursor active
-      function! Multiple_cursors_before()
-          let b:deoplete_disable_auto_complete=2
-      endfunction
-      function! Multiple_cursors_after()
-          let b:deoplete_disable_auto_complete=0
-      endfunction
-
-
-
-
-  "}}}
-
-  " Javascript ----------------------------------------------------------------{{{
-
-      autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
-
-      " Node File Execution
-      au Filetype javascript nmap "run :!node %<CR>
-
-
-    " Autocompletion
-    " Mapping for jsdoc Documentation
-    autocmd FileType javascript nnoremap <leader>dc :JsDoc<CR>
-
-
-    " let g:javascript_plugin_flow = 1
-    "
-    " " To disable flow from running in background by default, set to 0 in your ~/.vimrc, like so:
-    let g:flow#enable = 0
-
-    let g:jsx_ext_required = 0
-    let g:jsdoc_allow_input_prompt = 1
-    let g:jsdoc_input_description = 1
-    let g:vim_json_syntax_conceal = 0
-
-    " let g:javascript_conceal_arrow_function       = "➠"
-    " let g:javascript_conceal_function             = "ƒ"
-    " let g:javascript_conceal_null                 = "ø"
-    " let g:javascript_conceal_this                 = "@"
-    " let g:javascript_conceal_return               = "⇚"
-    " let g:javascript_conceal_undefined            = "¿"
-    " let g:javascript_conceal_NaN                  = "ℕ"
-    " let g:javascript_conceal_prototype            = "¶"
-    " let g:javascript_conceal_static               = "•"
-    " let g:javascript_conceal_super                = "Ω"
-    " let g:javascript_conceal_noarg_arrow_function = "🞅"
-    " let g:javascript_conceal_underscore_arrow_function = "🞅"
-
-    "Formatting------------------------------{{{
-
-        autocmd FileType javascript set formatprg=prettier-eslint\ --stdin\ --parser\ babylon
-        autocmd FileType json set formatprg=prettier-eslint\ --stdin
-
-
-        let g:neoformat_javascript_prettier_eslint = {
-              \ 'exe': 'prettier-eslint',
-              \ 'args': ['--stdin', '--parser babylon'],
-              \ 'replace': 0,
-              \ 'stdin': 1,
-              \ 'valid_exit_codes': [0, 23],
-              \ 'no_append': 1,
-              \ }
-        let g:neoformat_enabled_javascript = ['prettier_eslint']
-        " let g:neoformat_try_formatprg = 1
-
-        " let g:neoformat_try_formatprg = 1
-        let g:neoformat_enabled_json = ['prettier']
-        let g:neoformat_enabled_yaml = ['prettier']
-
-    "}}}
-
-    "Linting------------------------------{{{
-            " let g:neomake_highlight_columns = 1
-            let g:neomake_javascript_enabled_makers = ['eslint']
-            let g:neomake_verbose = 1
-            " let g:neomake_javascript_eslint_maker = {
-            "       \ 'args': ['--no-color', '--format', 'compact'],
-            "       \ 'errorformat': '%f: line %l\, col %c\, %m'
-            "       \ }
-            " let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
-            " let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-    "}}}
-
-    "Prettier --- {{{
-        " The command :Prettier by default is synchronous but can also be forced async
-        let g:prettier#exec_cmd_async = 1
-
-        " " max line lengh that prettier will wrap on
-        " let g:prettier#config#print_width = 80
-        "
-        " " number of spaces per indentation level
-        " let g:prettier#config#tab_width = 2
-        "
-        " " use tabs over spaces
-        " let g:prettier#config#use_tabs = 'false'
-        "
-        " " print semicolons
-        " let g:prettier#config#semi = 'true'
-        "
-        " " single quotes over double quotes
-        " let g:prettier#config#single_quote = 'false'
-        "
-        " " print spaces between brackets
-        " let g:prettier#config#bracket_spacing = 'false'
-        "
-        " " put > on the last line instead of new line
-        " let g:prettier#config#jsx_bracket_same_line = 'false'
-        "
-        " " none|es5|all
-        " let g:prettier#config#trailing_comma = 'none'
-        "
-        " " flow|babylon|typescript|postcss|json|graphql
-        " let g:prettier#config#parser = 'babylon'
-
-        " cli-override|file-override|prefer-file
-        let g:prettier#config#config_precedence = 'prefer-file'"
-  "}}}
-
-    "Typescript------------------------------ {{{
-
-                let g:nvim_typescript#signature_complete=1
-                let g:nvim_typescript#type_info_on_hold=1
-                let g:nvim_typescript#max_completion_detail=100
-                "
-                let g:neomake_typescript_tsc_maker = {
-                      \ 'append_file': 0,
-                      \ 'args': ['--project', getcwd() . '/tsconfig.json', '--noEmit'],
-                      \ 'errorformat':
-                      \   '%E%f %#(%l\,%c): error %m,' .
-                      \   '%E%f %#(%l\,%c): %m,' .
-                      \   '%Eerror %m,' .
-                      \   '%C%\s%\+%m'
-                      \}
-
-                let g:neomake_typescript_enabled_makers = ['tsc']
-                " map <silent> <leader>gd :TSDoc <cr>
-                " map <silent> <leader>gt :TSType <cr>
-                " map <silent> <leader>@ :Denite -buffer-name=TSDocumentSymbol TSDocumentSymbol <cr>
-                " " autocmd FileType typescript setl omnifunc=TSComplete
-                let g:nvim_typescript#kind_symbols = {
-                      \ 'keyword': 'keyword',
-                      \ 'class': '',
-                      \ 'interface': 'interface',
-                      \ 'script': 'script',
-                      \ 'module': '',
-                      \ 'local class': 'local class',
-                      \ 'type': 'type',
-                      \ 'enum': '',
-                      \ 'enum member': '',
-                      \ 'alias': '',
-                      \ 'type parameter': 'type param',
-                      \ 'primitive type': 'primitive type',
-                      \ 'var': '',
-                      \ 'local var': '',
-                      \ 'property': '',
-                      \ 'let': '',
-                      \ 'const': '',
-                      \ 'label': 'label',
-                      \ 'parameter': 'param',
-                      \ 'index': 'index',
-                      \ 'function': '',
-                      \ 'local function': 'local function',
-                      \ 'method': '',
-                      \ 'getter': '',
-                      \ 'setter': '',
-                      \ 'call': 'call',
-                      \ 'constructor': '',
-                      \}
-     "------------ }}}
-
-    "Tern Configuration------------------------------{{{
-
-
-
-
-            autocmd FileType javascript nmap <leader>k :TernDef<CR>
-            " Use tern_for_vim.
-            let g:tern#command = ["tern"]
-            let g:tern#arguments = ["--persistent"]
-            let g:tern_show_argument_hints=1
-
-            " " Set bin if you have many installations
-            let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
-            " let g:deoplete#sources#ternjs#timeout = 1
-            "
-            " " Whether to include the types of the completions in the result data. Default: 0
-            let g:deoplete#sources#ternjs#types = 1
-            "
-            " " Whether to include the distance (in scopes for variables, in prototypes for
-            " " properties) between the completions and the origin position in the result
-            " " data. Default: 0
-            let g:deoplete#sources#ternjs#depths = 1
-            "
-            " " Whether to include documentation strings (if found) in the result data.
-            " " Default: 0
-            let g:deoplete#sources#ternjs#docs = 1
-            "
-            " " When on, only completions that match the current word at the given point will
-            " " be returned. Turn this off to get all results, so that you can filter on the
-            " " client side. Default: 1
-            "     let g:deoplete#sources#ternjs#filter = 0
-            "
-            " " Whether to use a case-insensitive compare between the current word and
-            " " potential completions. Default 0
-            let g:deoplete#sources#ternjs#case_insensitive = 1
-            "
-            " " When completing a property and no completions are found, Tern will use some
-            " " heuristics to try and return some properties anyway. Set this to 0 to
-            " " turn that off. Default: 1
-            "     let g:deoplete#sources#ternjs#guess = 0
-            "
-            " " Determines whether the result set will be sorted. Default: 1
-            let g:deoplete#sources#ternjs#sort = 0
-            "
-            " " When disabled, only the text before the given position is considered part of
-            " " the word. When enabled (the default), the whole variable name that the cursor
-            " " is on will be included. Default: 1
-            "     let g:deoplete#sources#ternjs#expand_word_forward = 0
-            "
-            " " Whether to ignore the properties of Object.prototype unless they have been
-            " " spelled out by at least to characters. Default: 1
-            "     let g:deoplete#sources#ternjs#omit_object_prototype = 0
-            "
-            " " Whether to include JavaScript keywords when completing something that is not
-            " " a property. Default: 0
-            let g:deoplete#sources#ternjs#include_keywords = 1
-            "
-            " " If completions should be returned when inside a literal. Default: 1
-            " let g:deoplete#sources#ternjs#in_literal = 0
-
-
-            " " Add extra filetypes
-            let g:deoplete#sources#ternjs#filetypes = [
-                  \ 'js',
-                  \ 'jsx',
-                  \ 'javascript.jsx',
-                  \ 'vue',
-                  \ '...'
-                  \ ]
-
-
-    "}}}
-
-
-  " }}}
-
-  " Ocaml/Reason ------------------------------------------------------------------------{{{
-
-     " Mapping for jsdoc Documentation
-     autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
-
-     " Node File Execution
-     au Filetype reason nnoremap "run :!ocamlrun %<CR>
-     au Filetype ocaml nnoremap "run :!ocaml %<CR>
-
-     " Use 'vim-sexp' syntax package on the dune files
-     augroup dune_ft
-       au!
-       autocmd BufNewFile,BufRead dune set syntax=sexp
-       " autocmd BufNewFile,BufRead dune set filetype=sexp
-     augroup END
-
-     " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
-     let g:slime_target = "neovim"
-
-
-     " Use the following command to tell Vim to use ocp-indent:
-     "" autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
-
-      "Merlin Configuration ------------------------------ {{{
-           let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-           execute "set rtp+=" . g:opamshare . "/merlin/vim"
-
-           " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-                   let s:opam_share_dir = system("opam config var share")
-                   let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-                   let s:opam_configuration = {}
-
-                   function! OpamConfOcpIndent()
-                     execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-                   endfunction
-                   let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-                   function! OpamConfOcpIndex()
-                     execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-                   endfunction
-                   let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-                   function! OpamConfMerlin()
-                     let l:dir = s:opam_share_dir . "/merlin/vim"
-                     execute "set rtp+=" . l:dir
-                   endfunction
-                   let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-                   let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-                   let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-                   let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-                   for tool in s:opam_packages
-                     " Respect package order (merlin should be after ocp-index)
-                     if count(s:opam_available_tools, tool) > 0
-                       call s:opam_configuration[tool]()
-                     endif
-                   endfor
-           " ## end of OPAM user-setup addition for vim / base ## keep this line
       "}}}
 
-     "Formatting------------------------------{{{
+      " Javascript ----------------------------------------------------------------{{{
 
-         " OCaml formating
-         autocmd FileType reason set formatprg=bsrefmt\ --print=ml
-         let g:neoformat_reason_refmt = {
-               \ 'exe': 'bsrefmt',
-               \ 'args': ['--print=re', '--parse=re'],
-               \ 'replace': 0,
-               \ }
-         let g:neoformat_enabled_reason = ['refmt']
-         "
-         autocmd FileType ocaml set formatprg=bsrefmt\ -p\ re\ --parse=ml
-         " let g:neoformat_ocaml_refmt = {
-         "       \ 'exe': 'bsrefmt',
-         "       \ 'args': ['--print=ml', '--parse=ml', '--recoverable'],
-         "       \ 'replace': 0,
-         "       \ }
-         " let g:neoformat_enabled_ocaml = ['refmt']
-         " let g:neoformat_try_formatprg = 1
+          autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
 
-     "}}}
+          " Node File Execution
+          au Filetype javascript nmap "run :!node %<CR>
 
-  "}}}
 
-  " Rust------------------------------------------------------------------------{{{
-        let g:neomake_rust_enabled_makers = ['rustc']
-        let g:neomake_verbose = 1
-        let g:neoformat_enabled_rust = ['rustfmt']
+          " Autocompletion
+          " Mapping for jsdoc Documentation
+          autocmd FileType javascript nnoremap <leader>dc :JsDoc<CR>
 
-        au Filetype rust nmap "run :!cargo run %<cr>
-        au Filetype rust nmap `clean :!cargo clean %<cr>
-        au Filetype rust nmap `build :!cargo build %<cr>
-        au Filetype rust nmap `test :!cargo test %<cr>
-  " }}}
 
-  " C/C++ --------------------------------------------------------------------{{{
+          " let g:javascript_plugin_flow = 1
+          "
+          " " To disable flow from running in background by default, set to 0 in your ~/.vimrc, like so:
+          let g:flow#enable = 0
+
+          let g:jsx_ext_required = 0
+          let g:jsdoc_allow_input_prompt = 1
+          let g:jsdoc_input_description = 1
+          let g:vim_json_syntax_conceal = 0
+
+          " let g:javascript_conceal_arrow_function       = "➠"
+          " let g:javascript_conceal_function             = "ƒ"
+          " let g:javascript_conceal_null                 = "ø"
+          " let g:javascript_conceal_this                 = "@"
+          " let g:javascript_conceal_return               = "⇚"
+          " let g:javascript_conceal_undefined            = "¿"
+          " let g:javascript_conceal_NaN                  = "ℕ"
+          " let g:javascript_conceal_prototype            = "¶"
+          " let g:javascript_conceal_static               = "•"
+          " let g:javascript_conceal_super                = "Ω"
+          " let g:javascript_conceal_noarg_arrow_function = "🞅"
+          " let g:javascript_conceal_underscore_arrow_function = "🞅"
+
+          "Formatting------------------------------{{{
+
+          autocmd FileType javascript set formatprg=prettier-eslint\ --stdin\ --parser\ babylon
+          autocmd FileType json set formatprg=prettier-eslint\ --stdin
+
+
+          let g:neoformat_javascript_prettier_eslint = {
+                \ 'exe': 'prettier-eslint',
+                \ 'args': ['--stdin', '--parser babylon'],
+                \ 'replace': 0,
+                \ 'stdin': 1,
+                \ 'valid_exit_codes': [0, 23],
+                \ 'no_append': 1,
+                \ }
+          let g:neoformat_enabled_javascript = ['prettier_eslint']
+          " let g:neoformat_try_formatprg = 1
+
+          " let g:neoformat_try_formatprg = 1
+          let g:neoformat_enabled_json = ['prettier']
+          let g:neoformat_enabled_yaml = ['prettier']
+
+          "}}}
+
+          "Linting------------------------------{{{
+          " let g:neomake_highlight_columns = 1
+          let g:neomake_javascript_enabled_makers = ['eslint']
+          let g:neomake_verbose = 1
+          " let g:neomake_javascript_eslint_maker = {
+          "       \ 'args': ['--no-color', '--format', 'compact'],
+          "       \ 'errorformat': '%f: line %l\, col %c\, %m'
+          "       \ }
+          " let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+          " let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+          "}}}
+
+          "Prettier --- {{{
+          " The command :Prettier by default is synchronous but can also be forced async
+          let g:prettier#exec_cmd_async = 1
+
+          " " max line lengh that prettier will wrap on
+          " let g:prettier#config#print_width = 80
+          "
+          " " number of spaces per indentation level
+          " let g:prettier#config#tab_width = 2
+          "
+          " " use tabs over spaces
+          " let g:prettier#config#use_tabs = 'false'
+          "
+          " " print semicolons
+          " let g:prettier#config#semi = 'true'
+          "
+          " " single quotes over double quotes
+          " let g:prettier#config#single_quote = 'false'
+          "
+          " " print spaces between brackets
+          " let g:prettier#config#bracket_spacing = 'false'
+          "
+          " " put > on the last line instead of new line
+          " let g:prettier#config#jsx_bracket_same_line = 'false'
+          "
+          " " none|es5|all
+          " let g:prettier#config#trailing_comma = 'none'
+          "
+          " " flow|babylon|typescript|postcss|json|graphql
+          " let g:prettier#config#parser = 'babylon'
+
+          " cli-override|file-override|prefer-file
+          let g:prettier#config#config_precedence = 'prefer-file'"
+          "}}}
+
+          "Typescript------------------------------ {{{
+
+          let g:nvim_typescript#signature_complete=1
+          let g:nvim_typescript#type_info_on_hold=1
+          let g:nvim_typescript#max_completion_detail=100
+          "
+          let g:neomake_typescript_tsc_maker = {
+                \ 'append_file': 0,
+                \ 'args': ['--project', getcwd() . '/tsconfig.json', '--noEmit'],
+                \ 'errorformat':
+                \   '%E%f %#(%l\,%c): error %m,' .
+                \   '%E%f %#(%l\,%c): %m,' .
+                \   '%Eerror %m,' .
+                \   '%C%\s%\+%m'
+                \}
+
+          let g:neomake_typescript_enabled_makers = ['tsc']
+          " map <silent> <leader>gd :TSDoc <cr>
+          " map <silent> <leader>gt :TSType <cr>
+          " map <silent> <leader>@ :Denite -buffer-name=TSDocumentSymbol TSDocumentSymbol <cr>
+          " " autocmd FileType typescript setl omnifunc=TSComplete
+          let g:nvim_typescript#kind_symbols = {
+                \ 'keyword': 'keyword',
+                \ 'class': '',
+                \ 'interface': 'interface',
+                \ 'script': 'script',
+                \ 'module': '',
+                \ 'local class': 'local class',
+                \ 'type': 'type',
+                \ 'enum': '',
+                \ 'enum member': '',
+                \ 'alias': '',
+                \ 'type parameter': 'type param',
+                \ 'primitive type': 'primitive type',
+                \ 'var': '',
+                \ 'local var': '',
+                \ 'property': '',
+                \ 'let': '',
+                \ 'const': '',
+                \ 'label': 'label',
+                \ 'parameter': 'param',
+                \ 'index': 'index',
+                \ 'function': '',
+                \ 'local function': 'local function',
+                \ 'method': '',
+                \ 'getter': '',
+                \ 'setter': '',
+                \ 'call': 'call',
+                \ 'constructor': '',
+                \}
+          "------------ }}}
+
+          "Tern Configuration------------------------------{{{
+
+
+
+
+          autocmd FileType javascript nmap <leader>k :TernDef<CR>
+          " Use tern_for_vim.
+          let g:tern#command = ["tern"]
+          let g:tern#arguments = ["--persistent"]
+          let g:tern_show_argument_hints=1
+
+          " " Set bin if you have many installations
+          let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
+          " let g:deoplete#sources#ternjs#timeout = 1
+          "
+          " " Whether to include the types of the completions in the result data. Default: 0
+          let g:deoplete#sources#ternjs#types = 1
+          "
+          " " Whether to include the distance (in scopes for variables, in prototypes for
+          " " properties) between the completions and the origin position in the result
+          " " data. Default: 0
+          let g:deoplete#sources#ternjs#depths = 1
+          "
+          " " Whether to include documentation strings (if found) in the result data.
+          " " Default: 0
+          let g:deoplete#sources#ternjs#docs = 1
+          "
+          " " When on, only completions that match the current word at the given point will
+          " " be returned. Turn this off to get all results, so that you can filter on the
+          " " client side. Default: 1
+          "     let g:deoplete#sources#ternjs#filter = 0
+          "
+          " " Whether to use a case-insensitive compare between the current word and
+          " " potential completions. Default 0
+          let g:deoplete#sources#ternjs#case_insensitive = 1
+          "
+          " " When completing a property and no completions are found, Tern will use some
+          " " heuristics to try and return some properties anyway. Set this to 0 to
+          " " turn that off. Default: 1
+          "     let g:deoplete#sources#ternjs#guess = 0
+          "
+          " " Determines whether the result set will be sorted. Default: 1
+          let g:deoplete#sources#ternjs#sort = 0
+          "
+          " " When disabled, only the text before the given position is considered part of
+          " " the word. When enabled (the default), the whole variable name that the cursor
+          " " is on will be included. Default: 1
+          "     let g:deoplete#sources#ternjs#expand_word_forward = 0
+          "
+          " " Whether to ignore the properties of Object.prototype unless they have been
+          " " spelled out by at least to characters. Default: 1
+          "     let g:deoplete#sources#ternjs#omit_object_prototype = 0
+          "
+          " " Whether to include JavaScript keywords when completing something that is not
+          " " a property. Default: 0
+          let g:deoplete#sources#ternjs#include_keywords = 1
+          "
+          " " If completions should be returned when inside a literal. Default: 1
+          " let g:deoplete#sources#ternjs#in_literal = 0
+
+
+          " " Add extra filetypes
+          let g:deoplete#sources#ternjs#filetypes = [
+                \ 'js',
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue',
+                \ '...'
+                \ ]
+
+
+          "}}}
+
+
+      " }}}
+
+      " Ocaml/Reason ------------------------------------------------------------------------{{{
+
+      " Mapping for jsdoc Documentation
+      autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
+
+      " Node File Execution
+      au Filetype reason nnoremap "run :!ocamlrun %<CR>
+      au Filetype ocaml nnoremap "run :!ocaml %<CR>
+
+      " Use 'vim-sexp' syntax package on the dune files
+      augroup dune_ft
+        au!
+        autocmd BufNewFile,BufRead dune set syntax=sexp
+        " autocmd BufNewFile,BufRead dune set filetype=sexp
+      augroup END
+
+      " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
+      let g:slime_target = "neovim"
+
+
+      " Use the following command to tell Vim to use ocp-indent:
+      "" autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
+
+      "Merlin Configuration ------------------------------ {{{
+      let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+      execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
+      " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+      let s:opam_share_dir = system("opam config var share")
+      let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+      let s:opam_configuration = {}
+
+      function! OpamConfOcpIndent()
+        execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+      endfunction
+      let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+      function! OpamConfOcpIndex()
+        execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+      endfunction
+      let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+      function! OpamConfMerlin()
+        let l:dir = s:opam_share_dir . "/merlin/vim"
+        execute "set rtp+=" . l:dir
+      endfunction
+      let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+      let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+      let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+      let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+      for tool in s:opam_packages
+        " Respect package order (merlin should be after ocp-index)
+        if count(s:opam_available_tools, tool) > 0
+          call s:opam_configuration[tool]()
+        endif
+      endfor
+      " ## end of OPAM user-setup addition for vim / base ## keep this line
+      "}}}
+
+      "Formatting------------------------------{{{
+
+      " OCaml formating
+      autocmd FileType reason set formatprg=bsrefmt\ --print=ml
+      let g:neoformat_reason_refmt = {
+            \ 'exe': 'bsrefmt',
+            \ 'args': ['--print=re', '--parse=re'],
+            \ 'replace': 0,
+            \ }
+      let g:neoformat_enabled_reason = ['refmt']
+      "
+      autocmd FileType ocaml set formatprg=bsrefmt\ -p\ re\ --parse=ml
+      " let g:neoformat_ocaml_refmt = {
+      "       \ 'exe': 'bsrefmt',
+      "       \ 'args': ['--print=ml', '--parse=ml', '--recoverable'],
+      "       \ 'replace': 0,
+      "       \ }
+      " let g:neoformat_enabled_ocaml = ['refmt']
+      " let g:neoformat_try_formatprg = 1
+
+      "}}}
+
+      "}}}
+
+      " Rust------------------------------------------------------------------------{{{
+      let g:neomake_rust_enabled_makers = ['rustc']
+      let g:neomake_verbose = 1
+      let g:neoformat_enabled_rust = ['rustfmt']
+
+      au Filetype rust nmap "run :!cargo run %<cr>
+      au Filetype rust nmap `clean :!cargo clean %<cr>
+      au Filetype rust nmap `build :!cargo build %<cr>
+      au Filetype rust nmap `test :!cargo test %<cr>
+      " }}}
+
+      " C/C++ --------------------------------------------------------------------{{{
 
       au Filetype cpp nmap "run :mak!<CR><CR>
       au Filetype python nmap <M-;> A;<ESC>
@@ -1262,66 +1608,66 @@
       let g:LanguageClient_hasSnippetSupport = 0
 
       " Formatting -- {{{
-          fu! C_init()
-            setl formatexpr=LanguageClient#textDocument_rangeFormatting()
-          endf
-          au FileType c,cpp,cuda,objc :call C_init()
+      fu! C_init()
+        setl formatexpr=LanguageClient#textDocument_rangeFormatting()
+      endf
+      au FileType c,cpp,cuda,objc :call C_init()
       " }}}
 
       " textDocument/documentHighlight -- {{{
 
-          " augroup LanguageClient_config
-          "   au!
-          "   au BufEnter * let b:Plugin_LanguageClient_started = 0
-          "   au User LanguageClientStarted setl signcolumn=yes
-          "   au User LanguageClientStarted let b:Plugin_LanguageClient_started = 1
-          "   au User LanguageClientStopped setl signcolumn=auto
-          "   au User LanguageClientStopped let b:Plugin_LanguageClient_stopped = 0
-          "   au CursorMoved * if b:Plugin_LanguageClient_started | sil call LanguageClient#textDocument_documentHighlight() | endif
-          " augroup END
+      " augroup LanguageClient_config
+      "   au!
+      "   au BufEnter * let b:Plugin_LanguageClient_started = 0
+      "   au User LanguageClientStarted setl signcolumn=yes
+      "   au User LanguageClientStarted let b:Plugin_LanguageClient_started = 1
+      "   au User LanguageClientStopped setl signcolumn=auto
+      "   au User LanguageClientStopped let b:Plugin_LanguageClient_stopped = 0
+      "   au CursorMoved * if b:Plugin_LanguageClient_started | sil call LanguageClient#textDocument_documentHighlight() | endif
+      " augroup END
 
       " }}}
 
       " $ccls/navigate | Semantic navigation. Roughly, -- {{{
 
-          " "D" => first child declaration "L" => previous declaration "R" => next declaration "U" => parent declaration
-          au Filetype cpp nn <silent> xh :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'L'})<cr>
-          au Filetype cpp nn <silent> xj :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'D'})<cr>
-          au Filetype cpp nn <silent> xk :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'U'})<cr>
-          au Filetype cpp nn <silent> xl :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'R'})<cr>
+      " "D" => first child declaration "L" => previous declaration "R" => next declaration "U" => parent declaration
+      au Filetype cpp nn <silent> xh :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'L'})<cr>
+      au Filetype cpp nn <silent> xj :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'D'})<cr>
+      au Filetype cpp nn <silent> xk :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'U'})<cr>
+      au Filetype cpp nn <silent> xl :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'R'})<cr>
 
       " }}}
 
       " Cross reference extensions --{{{
 
-          " bases
-          au Filetype cpp nn <silent> xb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<cr>
-          " bases of up to 3 levels
-          au Filetype cpp nn <silent> xB :call LanguageClient#findLocations({'method':'$ccls/inheritance','levels':3})<cr>
-          " derived
-          au Filetype cpp nn <silent> xd :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<cr>
-          " derived of up to 3 levels
-          au Filetype cpp nn <silent> xD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true,'levels':3})<cr>
+      " bases
+      au Filetype cpp nn <silent> xb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<cr>
+      " bases of up to 3 levels
+      au Filetype cpp nn <silent> xB :call LanguageClient#findLocations({'method':'$ccls/inheritance','levels':3})<cr>
+      " derived
+      au Filetype cpp nn <silent> xd :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<cr>
+      " derived of up to 3 levels
+      au Filetype cpp nn <silent> xD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true,'levels':3})<cr>
 
-          " caller
-          au Filetype cpp nn <silent> xc :call LanguageClient#findLocations({'method':'$ccls/call'})<cr>
-          " callee
-          au Filetype cpp nn <silent> xC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<cr>
+      " caller
+      au Filetype cpp nn <silent> xc :call LanguageClient#findLocations({'method':'$ccls/call'})<cr>
+      " callee
+      au Filetype cpp nn <silent> xC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<cr>
 
-          " $ccls/member
-          " nested classes / types in a namespace
-          au Filetype cpp nn <silent> xs :call LanguageClient#findLocations({'method':'$ccls/member','kind':2})<cr>
-          " member functions / functions in a namespace
-          au Filetype cpp nn <silent> xf :call LanguageClient#findLocations({'method':'$ccls/member','kind':3})<cr>
-          " member variables / variables in a namespace
-          au Filetype cpp nn <silent> xm :call LanguageClient#findLocations({'method':'$ccls/member'})<cr>
+      " $ccls/member
+      " nested classes / types in a namespace
+      au Filetype cpp nn <silent> xs :call LanguageClient#findLocations({'method':'$ccls/member','kind':2})<cr>
+      " member functions / functions in a namespace
+      au Filetype cpp nn <silent> xf :call LanguageClient#findLocations({'method':'$ccls/member','kind':3})<cr>
+      " member variables / variables in a namespace
+      au Filetype cpp nn <silent> xm :call LanguageClient#findLocations({'method':'$ccls/member'})<cr>
 
-          au Filetype cpp nn xx x
+      au Filetype cpp nn xx x
       " }}}
 
-  " }}}
+      " }}}
 
-  " Go ------------------------------------------------------------------------{{{
+      " Go ------------------------------------------------------------------------{{{
 
       " Go File Execution
       au Filetype go nmap "run :!go run %<CR>
@@ -1331,9 +1677,9 @@
       let g:neoformat_enabled_go = ['goimports']
 
 
-  "}}}
+      "}}}
 
-  " Python --------------------------------------------------------------------{{{
+      " Python --------------------------------------------------------------------{{{
 
       let g:python_host_prog = '/usr/local/bin/python'
       let g:python3_host_prog = '/usr/local/bin/python3'
@@ -1359,9 +1705,9 @@
 
       " let g:neoformat_enabled_htmldjango = ['html-beautify']
 
-  " }}}
+      " }}}
 
-  " Bash --------------------------------------------------------------------{{{
+      " Bash --------------------------------------------------------------------{{{
 
 
       function! ShellFold()
@@ -1385,16 +1731,16 @@
 
       autocmd FileType sh set tabstop=2|set shiftwidth=2|set expandtab
 
-  "}}}
+      "}}}
 
-  " MarkDown ------------------------------------------------------------------{{{
+      " MarkDown ------------------------------------------------------------------{{{
 
       noremap <leader>TM :TableModeToggle<CR>
       let g:table_mode_corner="|"
       let g:neomake_markdown_proselint_maker = {
-                  \ 'errorformat': '%W%f:%l:%c: %m',
-                  \ 'postprocess': function('neomake#postprocess#GenericLengthPostprocess'),
-                  \}
+            \ 'errorformat': '%W%f:%l:%c: %m',
+            \ 'postprocess': function('neomake#postprocess#GenericLengthPostprocess'),
+            \}
       let g:neomake_markdown_enabled_makers = ['alex', 'proselint']
 
 
@@ -1411,57 +1757,57 @@
 
       " iamcco/markdown-preview.vim ---- {{{{
 
-            let g:mkdp_path_to_chrome = "open -a Opera"
-            " path to the chrome or the command to open chrome(or other modern browsers)
-            " if set, g:mkdp_browserfunc would be ignored
+      let g:mkdp_path_to_chrome = "open -a Opera"
+      " path to the chrome or the command to open chrome(or other modern browsers)
+      " if set, g:mkdp_browserfunc would be ignored
 
-            " let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
-            " callback vim function to open browser, the only param is the url to open
+      " let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
+      " callback vim function to open browser, the only param is the url to open
 
-            let g:mkdp_auto_start = 0
-            " set to 1, the vim will open the preview window once enter the markdown
-            " buffer
+      let g:mkdp_auto_start = 0
+      " set to 1, the vim will open the preview window once enter the markdown
+      " buffer
 
-            let g:mkdp_auto_open = 0
-            " set to 1, the vim will auto open preview window when you edit the
-            " markdown file
+      let g:mkdp_auto_open = 0
+      " set to 1, the vim will auto open preview window when you edit the
+      " markdown file
 
-            let g:mkdp_auto_close = 1
-            " set to 1, the vim will auto close current preview window when change
-            " from markdown buffer to another buffer
+      let g:mkdp_auto_close = 1
+      " set to 1, the vim will auto close current preview window when change
+      " from markdown buffer to another buffer
 
-            let g:mkdp_refresh_slow = 0
-            " set to 1, the vim will just refresh markdown when save the buffer or
-            " leave from insert mode, default 0 is auto refresh markdown as you edit or
-            " move the cursor
+      let g:mkdp_refresh_slow = 0
+      " set to 1, the vim will just refresh markdown when save the buffer or
+      " leave from insert mode, default 0 is auto refresh markdown as you edit or
+      " move the cursor
 
-            let g:mkdp_command_for_global = 0
-            " set to 1, the MarkdownPreview command can be use for all files,
-            " by default it just can be use in markdown file
+      let g:mkdp_command_for_global = 0
+      " set to 1, the MarkdownPreview command can be use for all files,
+      " by default it just can be use in markdown file
 
 
-            nmap <silent> <F8> <Plug>MarkdownPreview
-            imap <silent> <F8> <Plug>MarkdownPreview
-            nmap <silent> <F9> <Plug>StopMarkdownPreview
-            imap <silent> <F9> <Plug>StopMarkdownPreview
+      nmap <silent> <F8> <Plug>MarkdownPreview
+      imap <silent> <F8> <Plug>MarkdownPreview
+      nmap <silent> <F9> <Plug>StopMarkdownPreview
+      imap <silent> <F9> <Plug>StopMarkdownPreview
 
       " }}}
 
       " preview/previm - - - - - - - - - - - - - - - - - - - -  {{{
-          " open by Firefow Developer Edition
-          " au Filetype markdown nmap "run :PrevimOpen
-          " let g:previm_open_cmd = 'open -a Firefox\ Developer\ Edition'
+      " open by Firefow Developer Edition
+      " au Filetype markdown nmap "run :PrevimOpen
+      " let g:previm_open_cmd = 'open -a Firefox\ Developer\ Edition'
       " }}}
 
-  "}}}
+      "}}}
 
-  " Java ----------------------------------------------------------------------{{{
+      " Java ----------------------------------------------------------------------{{{
 
       autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-  "}}}
+      "}}}
 
-  " HTML ----------------------------------------------------------------------{{{
+      " HTML ----------------------------------------------------------------------{{{
       let g:neomake_html_enabled_makers = []
       let g:neoformat_enabled_pug = ['pug-beautifMer']
       let g:neoformat_enabled_html = ['pretter-eslint']
@@ -1470,87 +1816,17 @@
       " prettier-eslint\ --stdin\ --silent\
       " let g:neoformat_enabled_javascript = ['prettier-eslint']
       autocmd FileType html nnoremap <silent> <leader>f :Neoformat htmlbeautify<CR>
-  " }}}
+      " }}}
 
-  " CSS -----------------------------------------------------------------------{{{
+      " CSS -----------------------------------------------------------------------{{{
 
-  "}}}
-
-  " Lua -----------------------------------------------------------------------{{{
-
-  "}}}
-
-  " Fold, gets it's own section  ----------------------------------------------{{{
-
-      function! MyFoldText() "
-          let line = getline(v:foldstart)
-          let nucolwidth = &fdc + &number * &numberwidth
-          let windowwidth = winwidth(0) - nucolwidth - 3
-          let foldedlinecount = v:foldend - v:foldstart
-
-          " expand tabs into spaces
-          " let onetab = strpart('          ', 0, &tabstop)
-          " let line = substitute(line, '\t', onetab, 'g')
-
-          let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-          " let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines')
-          " let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - len('lines   ')
-          let fillcharcount = windowwidth - len(line)
-          " return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . ' Lines'
-          return line . '…' . repeat(" ",fillcharcount)
-      endfunction "
-
-
-      set foldtext=MyFoldText()
-
-      autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-      autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-
-      autocmd FileType vim setlocal fdc=1
-      set foldlevel=99
-
-      " Space to toggle folds.
-      nnoremap <Space> za
-      vnoremap <Space> za
-      autocmd FileType vim setlocal foldmethod=marker
-      autocmd FileType vim setlocal foldlevel=0
-
-      autocmd FileType javascript,html,css,scss,typescript setlocal foldlevel=99
-
-      autocmd FileType css,scss,json setlocal foldmethod=marker
-      autocmd FileType css,scss,json setlocal foldmarker={,}
-
-      autocmd FileType coffee setl foldmethod=indent
-      let g:xml_syntax_folding = 1
-      autocmd FileType xml setl foldmethod=syntax
-
-      autocmd FileType html setl foldmethod=expr
-      autocmd FileType html setl foldexpr=HTMLFolds()
-
-      autocmd FileType javascript,typescript,json setl foldmethod=syntax
-      filetype plugin indent on
-
-  " }}}
-
-  " Git -----------------------------------------------------------------------{{{
-
-      " let g:gitgutter_sign_column_always = 1
-      " set signcolumn=yes
-
-      " Shortcut for fugitive diffing
-      nnoremap gid :Gvdiff<CR>
-      " Shortcut for fugitive commiting
-      nnoremap gic :terminal git-cz<CR>
-      " Shortcut for fugitive staging
-      nnoremap gis :Gstatus<CR>
-      " Shortcut for fugitive pushing
-      nnoremap gip :Gpush<Space>
-
-      "easygit--------------- {{{
-        let g:easygit_enable_command = 1
       "}}}
 
-  " }}}
+      " Lua -----------------------------------------------------------------------{{{
+
+      "}}}
+
+  "}}}
 
   " FileBrowser ------------------------------------------------------------------{{{
 
@@ -1641,87 +1917,21 @@
 
   "}}}
 
-  " Sayonara ------------------------------------------------------------------{{{
-
-       " When |:Sayonara| deletes the last active buffer, Vim quits. If this option is
-       " set to `1`, you'll get prompted on whether to quit or not.
-       " Default: `0`
-
-       let g:sayonara_confirm_quit = 1
-
-  " }}}
-
-  " Vim-Devicons --------------------------------------------------------------{{{
-
-      " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-      " let g:WebDevIconsOS = 'Darwin'
-
-      " add or override individual additional filetypes
-
-      let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-      let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['rei'] = 'λ'
-      let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['re'] = 'λ'
-
-      let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
-      let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
-
-
-      let g:webdevicons_conceal_nerdtree_brackets = 1
-      " let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-      " let g:NERDTreeDirArrows = 1
-      let g:NERDTreeShowIgnoredStatus = 0
-      let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
-      let g:NERDTreeDirArrowExpandable = ''
-      let g:NERDTreeDirArrowCollapsible = ''
-            " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-      let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-
-  " }}}
-
-  " Code formatting -----------------------------------------------------------{{{
+  " Formatting -----------------------------------------------------------{{{
 
       " ;f to format code, requires formatters: read the docs
       nnoremap  <leader>f :Neoformat<CR>
 
-  " }}}
+      " Linting -------------------------------------------------------------------{{{
 
-  " Snippets -----------------------------------------------------------------{{{
+          " autocmd! BufWinEnter * NeomakeDisable
+          autocmd! BufWritePost * Neomake
+          let g:neomake_warning_sign = {'text': '!!'}
+          let g:neomake_error_sign = {'text': 'X'}
 
-        " Enable snipMate compatibility feature.
-        let g:neosnippet#enable_snipmate_compatibility = 1
-        let g:neosnippet#expand_word_boundary = 1
-        let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
-        imap <leader><space> <Plug>(neosnippet_expand_or_jump)
-        smap <leader><space> <Plug>(neosnippet_expand_or_jump)
-        xmap <leader><space> <Plug>(neosnippet_expand_target)
-        " For conceal markers.
-        if has('conceal')
-          set conceallevel=2 concealcursor=niv
-        endif
+      "}}}
 
-
-        " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-        imap <expr><Tab>
-              \ pumvisible() ?
-              \ "\<C-n>" : "\<TAB>"
-        imap <expr><S-Tab>
-              \ pumvisible() ?
-              \ "\<C-p>" : "\<S-Tab>"
-        imap <expr><m-j>
-              \ neosnippet#expandable_or_jumpable() ?
-              \ "\<C-n>" : "\<C-n>"
-        smap <expr><m-j> neosnippet#expandable_or_jumpable() ?
-              \ "\<C-n>" : "\<ESC>"
-        imap <expr><m-k>
-              \ neosnippet#expandable_or_jumpable() ?
-              \ "\<C-p>" : "\<C-p>"
-        smap <expr><m-k> neosnippet#expandable_or_jumpable() ?
-              \ "\<C-p>" : "\<ESC>"
-
-
-    "}}}
-
-  " Emmet customization -------------------------------------------------------{{{
+      " Emmet customization -------------------------------------------------------{{{
 
 
       "  " 1. Expand abbreviation *emmet-expand-abbr
@@ -1739,22 +1949,22 @@
 
       " Remapping <C-y>, just doesn't cut it.
       function! s:expand_html_tab()
-          " try to determine if we're within quotes or tags.
-          " if so, assume we're in an emmet fill area.
-          let line = getline('.')
-          if col('.') < len(line)
-              let line = matchstr(line, '[">][^<"]*\%'.col('.').'c[^>"]*[<"]')
-              if len(line) >= 2
-                  return "\<C-n>"
-              endif
+        " try to determine if we're within quotes or tags.
+        " if so, assume we're in an emmet fill area.
+        let line = getline('.')
+        if col('.') < len(line)
+          let line = matchstr(line, '[">][^<"]*\%'.col('.').'c[^>"]*[<"]')
+          if len(line) >= 2
+            return "\<C-n>"
           endif
-          " expand anything emmet thinks is expandable.
-          if emmet#isExpandable()
-              return emmet#expandAbbrIntelligent("\<tab>")
-              " return "\<C-y>,"
-          endif
-          " return a regular tab character
-          return "\<tab>"
+        endif
+        " expand anything emmet thinks is expandable.
+        if emmet#isExpandable()
+          return emmet#expandAbbrIntelligent("\<tab>")
+          " return "\<C-y>,"
+        endif
+        " return a regular tab character
+        return "\<tab>"
       endfunction
       let g:user_emmet_expandabbr_key='<Tab>'
       " imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
@@ -1766,257 +1976,187 @@
       autocmd FileType html,css,scss EmmetInstall
       "}}}
 
-  " Denite --------------------------------------------------------------------{{{
+      " VIM easy align ------------------------------{{{
+          " Start interactive EasyAlign in visual mode (e.g. vipga)
+          vmap ga <Plug>(EasyAlign)
 
-    let g:webdevicons_enable_denite = 0
+          " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+          nmap ga <Plug>(EasyAlign)
+      "}}}
 
-    " Denite keybinding
-    autocmd FileType denite call s:denite_my_settings()
-    function! s:denite_my_settings() abort
-      nnoremap <silent><buffer><expr> <CR>
-            \ denite#do_map('do_action')
-      " nnoremap <silent><buffer><expr> d
-      "       \ denite#do_map('do_action', 'delete')
-      nnoremap <silent><buffer><expr> p
-            \ denite#do_map('do_action', 'preview')
-      nnoremap <silent><buffer><expr> q
-            \ denite#do_map('quit')
-      nnoremap <silent><buffer><expr> i
-            \ denite#do_map('open_filter_buffer')
-      nnoremap <silent><buffer><expr> <Space>
-            \ denite#do_map('toggle_select').'j'
-    endfunction
+  " }}}
 
-    " File search settings
-    call denite#custom#var('file/rec', 'command',
-          \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-    call denite#custom#source('file/rec', 'vars', {
-          \ 'command': [
-          \ 'ag', '--follow','--nogroup','--hidden', '--column', '-g', '', '--ignore', '.git', '--ignore', '*.png'
-          \] })
-    " Change sorters.
-    call denite#custom#source(
-    \ 'file/rec', 'sorters', ['sorter/sublime'])
+  " Productivity Tools ---------------------------------------------------{{{
+
+      " Git -----------------------------------------------------------------------{{{
+
+          " let g:gitgutter_sign_column_always = 1
+          " set signcolumn=yes
+
+          " Shortcut for fugitive diffing
+          nnoremap gid :Gvdiff<CR>
+          " Shortcut for fugitive commiting
+          nnoremap gic :terminal git-cz<CR>
+          " Shortcut for fugitive staging
+          nnoremap gis :Gstatus<CR>
+          " Shortcut for fugitive pushing
+          nnoremap gip :Gpush<Space>
+
+          "easygit--------------- {{{
+            let g:easygit_enable_command = 1
+          "}}}
+
+      " }}}
+
+      " Snippets -----------------------------------------------------------------{{{
+
+            " Enable snipMate compatibility feature.
+            let g:neosnippet#enable_snipmate_compatibility = 1
+            let g:neosnippet#expand_word_boundary = 1
+            let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
+            imap <leader><space> <Plug>(neosnippet_expand_or_jump)
+            smap <leader><space> <Plug>(neosnippet_expand_or_jump)
+            xmap <leader><space> <Plug>(neosnippet_expand_target)
+            " For conceal markers.
+            if has('conceal')
+              set conceallevel=2 concealcursor=niv
+            endif
 
 
-    " Menu Display Configuration
-    call denite#custom#option('_', {
-                \ 'prompt': '❯',
-                \ 'winheight': 10,
-                \ 'reversed': 1,
-                \ 'highlight_matched_char': 'Underlined',
-                \ 'highlight_mode_normal': 'CursorLine',
-                \ 'updatetime': 1,
-                \ 'auto_resize': 1,
-                \})
+            " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+            imap <expr><Tab>
+                  \ pumvisible() ?
+                  \ "\<C-n>" : "\<TAB>"
+            imap <expr><S-Tab>
+                  \ pumvisible() ?
+                  \ "\<C-p>" : "\<S-Tab>"
+            imap <expr><m-j>
+                  \ neosnippet#expandable_or_jumpable() ?
+                  \ "\<C-n>" : "\<C-n>"
+            smap <expr><m-j> neosnippet#expandable_or_jumpable() ?
+                  \ "\<C-n>" : "\<ESC>"
+            imap <expr><m-k>
+                  \ neosnippet#expandable_or_jumpable() ?
+                  \ "\<C-p>" : "\<C-p>"
+            smap <expr><m-k> neosnippet#expandable_or_jumpable() ?
+                  \ "\<C-p>" : "\<ESC>"
 
-    " Files ignored by during searches
-    call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-                \ [ '.git/', '.ropeproject/', '__pycache__/',
-                \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-    " Denite grep setting
-    call denite#custom#var('grep', 'command', ['ag'])
-    call denite#custom#var('grep', 'default_opts',
-                \ ['-i', '--vimgrep'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', [])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
+        "}}}
 
-    " Move down in Denite menus
-    call denite#custom#map('insert','<M-j>','<denite:move_to_next_line>','noremap')
-    " Move up in Denite menus
-    call denite#custom#map('insert','<M-k>','<denite:move_to_previous_line>','noremap')
+      " Denite --------------------------------------------------------------------{{{
 
-    let s:menus = {}
-    call denite#custom#var('menu', 'menus', s:menus)
+        let g:webdevicons_enable_denite = 0
 
-    " menu filters
-    nnoremap <silent> <leader>j :Denite file/rec<CR>i
-    nnoremap <silent> <leader>? :Denite  help<CR>
-    nnoremap <silent> <leader>th :Denite colorscheme<CR>
-    nnoremap <silent> <leader><leader>b :Denite buffer<CR>
-    nnoremap <silent> <leader>a :Denite grep:::!<CR>
-    nnoremap <silent> <Leader>gh :Denite menu:git<CR>
+        " Denite keybinding
+        autocmd FileType denite call s:denite_my_settings()
+        function! s:denite_my_settings() abort
+          nnoremap <silent><buffer><expr> <CR>
+                \ denite#do_map('do_action')
+          " nnoremap <silent><buffer><expr> d
+          "       \ denite#do_map('do_action', 'delete')
+          nnoremap <silent><buffer><expr> p
+                \ denite#do_map('do_action', 'preview')
+          nnoremap <silent><buffer><expr> q
+                \ denite#do_map('quit')
+          nnoremap <silent><buffer><expr> i
+                \ denite#do_map('open_filter_buffer')
+          nnoremap <silent><buffer><expr> <Space>
+                \ denite#do_map('toggle_select').'j'
+        endfunction
 
-    " Denite:Git -----------------------------------------------{{{
+        " File search settings
+        call denite#custom#var('file/rec', 'command',
+              \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+        call denite#custom#source('file/rec', 'vars', {
+              \ 'command': [
+              \ 'ag', '--follow','--nogroup','--hidden', '--column', '-g', '', '--ignore', '.git', '--ignore', '*.png'
+              \] })
+        " Change sorters.
+        call denite#custom#source(
+        \ 'file/rec', 'sorters', ['sorter/sublime'])
 
-        let s:menus.git = {
-              \ 'description' : 'Fugitive interface',
-              \}
-        let s:menus.git.command_candidates = [
-              \[' git amend', 'Gcommit --amend'],
-              \[' git browse', 'Gbrowse'],
-              \[' git cd', 'Gcd'],
-              \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
-              \[' git checkout', 'Gread'],
-              \[' git commit', 'exe "terminal git-cz " '],
-              \[' git diff', 'Gdiff'],
-              \[' git fetch', 'Gfetch'],
-              \[' git grep',  'exe "Ggrep " input("string: ")'],
-              \[' git head', 'Gedit HEAD^'],
-              \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
-              \[' git log commit buffers', 'Glog --'],
-              \[' git log current file', 'Glog -- %'],
-              \[' git log first n commits', 'exe "Glog --reverse -" input("num: ")'],
-              \[' git log grep commits',  'exe "Glog --grep= " input("string: ")'],
-              \[' git log last n commits', 'exe "Glog -" input("num: ")'],
-              \[' git log pickaxe',  'exe "Glog -S" input("string: ")'],
-              \[' git log until date', 'exe "Glog --until=" input("day: ")'],
-              \[' git merge', 'Gmerge'],
-              \[' git mv', 'exe "Gmove " input("destination: ")'],
-              \[' git parent', 'edit %:h'],
-              \[' git prompt', 'exe "Git! " input("command: ")'],
-              \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
-              \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
-              \[' git push', 'exe "Git! push " input("remote/branch: ")'],
-              \[' git rm', 'Gremove'],
-              \[' git stage/add', 'Gwrite'],
-              \[' git status', 'Gstatus'],
-              \[' git vdiff', 'Gvdiff'],
-              \] " Append ' --' after log to get commit info commit buffers
-    "}}}
 
-"}}}
+        " Menu Display Configuration
+        call denite#custom#option('_', {
+                    \ 'prompt': '❯',
+                    \ 'winheight': 10,
+                    \ 'reversed': 1,
+                    \ 'highlight_matched_char': 'Underlined',
+                    \ 'highlight_mode_normal': 'CursorLine',
+                    \ 'updatetime': 1,
+                    \ 'auto_resize': 1,
+                    \})
 
-  " Buffer and Tmux Panel Navigation ------------------------------{{{
+        " Files ignored by during searches
+        call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+                    \ [ '.git/', '.ropeproject/', '__pycache__/',
+                    \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-    let g:tmux_navigator_no_mappings = 1
-    nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-    nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-    nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-    nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
-    nnoremap <silent> <C-;> :TmuxNavigatePrevious<cr>
-    tmap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
-    tmap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
-    tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
-    tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
-    tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
-    imap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
-    imap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
-    imap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
-    imap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
-    imap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
+        " Denite grep setting
+        call denite#custom#var('grep', 'command', ['ag'])
+        call denite#custom#var('grep', 'default_opts',
+                    \ ['-i', '--vimgrep'])
+        call denite#custom#var('grep', 'recursive_opts', [])
+        call denite#custom#var('grep', 'pattern_opt', [])
+        call denite#custom#var('grep', 'separator', ['--'])
+        call denite#custom#var('grep', 'final_opts', [])
 
-"}}}
+        " Move down in Denite menus
+        call denite#custom#map('insert','<M-j>','<denite:move_to_next_line>','noremap')
+        " Move up in Denite menus
+        call denite#custom#map('insert','<M-k>','<denite:move_to_previous_line>','noremap')
 
-  " Vim-Airline ---------------------------------------------------------------{{{
+        let s:menus = {}
+        call denite#custom#var('menu', 'menus', s:menus)
 
-      " enable tabline
-      let g:airline#extensions#tabline#enabled = 1
-      " style of tab labels
-      let g:airline#extensions#tabline#fnamemod = ':t'
-      " show name of buffers in tab
-      let g:airline#extensions#tabline#show_splits = 1
-      " show a 'buffer' label on right
-      let g:airline#extensions#tabline#show_buffers = 1
-      " whether 'tabs' & 'buffers' label display at all
-      let g:airline#extensions#tabline#show_tab_type = 1
-      " whether the number indicator set for the tab is shown
-      let g:airline#extensions#tabline#show_tab_nr = 1
-      " * configure how numbers are displayed in tab mode.
-        " let g:airline#extensions#tabline#tab_nr_type = 0 " # of splits (default)
-        " let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-        let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+        " menu filters
+        nnoremap <silent> <leader>j :Denite file/rec<CR>i
+        nnoremap <silent> <leader>? :Denite  help<CR>
+        nnoremap <silent> <leader>th :Denite colorscheme<CR>
+        nnoremap <silent> <leader><leader>b :Denite buffer<CR>
+        nnoremap <silent> <leader>a :Denite grep:::!<CR>
+        nnoremap <silent> <Leader>gh :Denite menu:git<CR>
 
-      let g:airline#extensions#tabline#buffer_idx_mode = 1
-      tmap <leader>1  <C-\><C-n><Plug>AirlineSelectTab1
-      tmap <leader>2  <C-\><C-n><Plug>AirlineSelectTab2
-      tmap <leader>3  <C-\><C-n><Plug>AirlineSelectTab3
-      tmap <leader>4  <C-\><C-n><Plug>AirlineSelectTab4
-      tmap <leader>5  <C-\><C-n><Plug>AirlineSelectTab5
-      tmap <leader>6  <C-\><C-n><Plug>AirlineSelectTab6
-      tmap <leader>7  <C-\><C-n><Plug>AirlineSelectTab7
-      tmap <leader>8  <C-\><C-n><Plug>AirlineSelectTab8
-      tmap <leader>9  <C-\><C-n><Plug>AirlineSelectTab9
-      nmap <leader>1 <Plug>AirlineSelectTab1
-      nmap <leader>2 <Plug>AirlineSelectTab2
-      nmap <leader>3 <Plug>AirlineSelectTab3
-      nmap <leader>4 <Plug>AirlineSelectTab4
-      nmap <leader>5 <Plug>AirlineSelectTab5
-      nmap <leader>6 <Plug>AirlineSelectTab6
-      nmap <leader>7 <Plug>AirlineSelectTab7
-      nmap <leader>8 <Plug>AirlineSelectTab8
-      nmap <leader>9 <Plug>AirlineSelectTab9
-      let g:airline#extensions#tabline#buffer_idx_format = {
-                  \ '0': '0 ',
-                  \ '1': '1 ',
-                  \ '2': '2 ',
-                  \ '3': '3 ',
-                  \ '4': '4 ',
-                  \ '5': '5 ',
-                  \ '6': '6 ',
-                  \ '7': '7 ',
-                  \ '8': '8 ',
-                  \ '9': '9 ',
+        " Denite:Git -----------------------------------------------{{{
+
+            let s:menus.git = {
+                  \ 'description' : 'Fugitive interface',
                   \}
+            let s:menus.git.command_candidates = [
+                  \[' git amend', 'Gcommit --amend'],
+                  \[' git browse', 'Gbrowse'],
+                  \[' git cd', 'Gcd'],
+                  \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
+                  \[' git checkout', 'Gread'],
+                  \[' git commit', 'exe "terminal git-cz " '],
+                  \[' git diff', 'Gdiff'],
+                  \[' git fetch', 'Gfetch'],
+                  \[' git grep',  'exe "Ggrep " input("string: ")'],
+                  \[' git head', 'Gedit HEAD^'],
+                  \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
+                  \[' git log commit buffers', 'Glog --'],
+                  \[' git log current file', 'Glog -- %'],
+                  \[' git log first n commits', 'exe "Glog --reverse -" input("num: ")'],
+                  \[' git log grep commits',  'exe "Glog --grep= " input("string: ")'],
+                  \[' git log last n commits', 'exe "Glog -" input("num: ")'],
+                  \[' git log pickaxe',  'exe "Glog -S" input("string: ")'],
+                  \[' git log until date', 'exe "Glog --until=" input("day: ")'],
+                  \[' git merge', 'Gmerge'],
+                  \[' git mv', 'exe "Gmove " input("destination: ")'],
+                  \[' git parent', 'edit %:h'],
+                  \[' git prompt', 'exe "Git! " input("command: ")'],
+                  \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
+                  \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
+                  \[' git push', 'exe "Git! push " input("remote/branch: ")'],
+                  \[' git rm', 'Gremove'],
+                  \[' git stage/add', 'Gwrite'],
+                  \[' git status', 'Gstatus'],
+                  \[' git vdiff', 'Gvdiff'],
+                  \] " Append ' --' after log to get commit info commit buffers
+        "}}}
 
-
-      cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
-
-
-      if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-      endif
-      let g:airline_powerline_fonts = 1
-      let g:airline_theme='serene'
-      let g:airline#extensions#neomake#error_symbol='• '
-      let g:airline#extensions#neomake#warning_symbol='•  '
-
-      " unicode symbols
-      let g:airline_left_alt_sep = ''
-      let g:airline_left_sep = ''
-      let g:airline_right_alt_sep = ''
-      let g:airline_right_sep = ''
-      let g:airline_symbols.branch = ''
-      let g:airline_symbols.crypt = '🔒'
-      let g:airline_symbols.linenr = '☰'
-      let g:airline_symbols.linenr = '␊'
-      let g:airline_symbols.linenr = '␤'
-      let g:airline_symbols.linenr = '¶'
-      let g:airline_symbols.maxlinenr = ''
-      let g:airline_symbols.maxlinenr = '㏑'
-      let g:airline_symbols.branch = '⎇'
-      let g:airline_symbols.paste = 'ρ'
-      let g:airline_symbols.paste = 'Þ'
-      let g:airline_symbols.paste = '∥'
-      let g:airline_symbols.spell = 'Ꞩ'
-      let g:airline_symbols.notexists = '∄'
-      let g:airline_symbols.whitespace = 'Ξ'
-
-      let g:airline#extensions#coc#enabled = 1
-      " * change error symbol:
-      let airline#extensions#coc#error_symbol = 'E:'
-      " * change warning symbol:
-      let airline#extensions#coc#warning_symbol = 'W:'
-      " * change error format:
-      let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
-      " * change warning format:
-      let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
-
-      " powerline symbols
-      " let g:airline_left_sep = ''
-      " let g:airline_left_alt_sep = ''
-      " let g:airline_right_sep = ''
-      " let g:airline_right_alt_sep = ''
-      " let g:airline_symbols.branch = ''
-      " let g:airline_symbols.readonly = ''
-      " let g:airline_symbols.linenr = '☰'
-      " let g:airline_symbols.maxlinenr = ''
-
-      " old vim-powerline symbols
-      " let g:airline_left_sep = '⮀'
-      " let g:airline_left_alt_sep = '⮁'
-      " let g:airline_right_sep = '⮂'
-      " let g:airline_right_alt_sep = '⮃'
-      " let g:airline_symbols.branch = '⭠'
-      " let g:airline_symbols.readonly = '⭤'
-      " let g:airline_symbols.linenr = '⭡'
-
-  "}}}
-
-  " Misc ---------------------------------------------------------------{{{
+    "}}}
 
       " Pomdoro------------------------------{{{
 
@@ -2041,120 +2181,6 @@
             " let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
             " let g:EditorConfig_core_mode = 'external_command'
       " }}}
-
-      " Movement------------------------------ {{{
-
-          "Clever-F------------------------------{{{
-              let g:clever_f_smart_case = 1
-          "}}}
-
-      " }}}
-
-      " Task-Warrior Plugin ------------------------------{{{
-          nmap <leader>tk :TW<CR>
-          nmap <leader>task :TW
-
-      "}}}
-
-      " Vim-Licenses ------------------------------{{{
-
-            " There are currently more than 10 licenses, and you can add your own. To do so, copy the license text in ~/.vim/licenses/licenseFile.txt. Then add a command for this license:
-            "
-            " command! License call InsertLicense('licenseFile')
-            "
-            " If your license file contains a <year> tag, it will be automatically replaced by the current year.
-            "
-            " The <name of copyright holder> tag will be automatically replaced by the content of the g:licenses_copyright_holders_name variable (if not empty), so that the copyright holder's name will be automatically added to the license. Thus, you may want to add such a line to you .vimrc:
-
-            """" let g:licenses_authors_name = 'Last Name, First Name <my@email.com>'
-            let g:licenses_copyright_holders_name = ' Corvi, Alistar <inquiry@corvi.xyz>'
-
-            " And the <name of author> tag will be automatically replaced by the the content of the g:licenses_authors_name variable (if not empty), so that your name will be automatically added to the license. Thus, you may want to add such a line to you .vimrc:
-
-            """" let g:licenses_authors_name = 'Last Name, First Name <my@email.com>'
-            let g:licenses_authors_name = ' Corvi, Alistar <inquiry@corvi.xyz>'
-
-            " If you do not want this plugin to create all these commands, you may restrict to the licenses you want by using the g:licenses_default_commands option. For instance, to have this plugin add only a command for the GNU GPL, Mit and Foobar licenses, use this:
-
-            " let g:licenses_default_commands = ['gpl', 'mit', 'foobar']
-      "}}}
-
-      " winteract ------------------------------{{{
-      "  An interactive-window mode, where you can resize windows by repeatedly pressing j/k and h/l, amongst other things.
-
-      " Enter InteractiveWindow mode
-      nmap <M-w> :InteractiveWindow<CR>
-      nmap <leader>gw :InteractiveWindow<CR>
-
-      let winmap = {}
-      let winmap.normal = {
-            \ "h": "normal! \<C-w><" , "=": "normal! \<C-w>=" ,
-            \ "j": "normal! \<C-w>-" , "f": "normal! \<C-w>_" ,
-            \ "k": "normal! \<C-w>+" , "F": "normal! \<C-w>|" ,
-            \ "l": "normal! \<C-w>>" , "o": "normal! \<C-w>o" ,
-            \
-            \ "|": "exe g:winmode.count.'wincmd |'",
-            \ "\\": "exe g:winmode.count.'wincmd _'",
-            \ "&": "normal! :\<C-r>=&tw\<CR>wincmd |\<CR>" ,
-            \
-            \ "\<A-h>": "normal! \<C-w>h" ,  "H": "normal! \<C-w>H" ,
-            \ "\<A-j>": "normal! \<C-w>j" ,  "J": "normal! \<C-w>J" ,
-            \ "\<A-k>": "normal! \<C-w>k" ,  "K": "normal! \<C-w>K" ,
-            \ "\<A-l>": "normal! \<C-w>l" ,  "L": "normal! \<C-w>L" ,
-            \
-            \ "x": "normal! \<C-w>c" , "n": "normal! :bn\<CR>" ,
-            \ "c": "normal! \<C-w>c" , "p": "normal! :bp\<CR>" ,
-            \ "s": "normal! \<C-w>s" , "\<TAB>": "normal! :bn\<CR>" ,
-            \ "v": "normal! \<C-w>v" , "\<S-TAB>": "normal! :bp\<CR>" ,
-            \
-            \ "w": "normal! \<C-w>w" , "\<A-w>": "normal! \<C-w>p" ,
-            \ "W": "normal! \<C-w>W" ,
-            \ "q": "normal! :copen\<CR>" ,
-            \
-            \ "m": "let g:winmode.submode='move'" ,
-            \ ":": "let g:winmode.submode='set'" ,
-            \ "t": "let g:winmode.submode='tab'" ,
-            \
-            \ "d": "bdelete" ,
-            \ ";": "terminal" ,
-            \
-            \ "i": "let exitwin=1" ,
-            \ "\<ESC>": "let exitwin=1" ,
-            \ "\<CR>": "let exitwin=1" ,
-            \}
-
-      let winmap.move = {
-            \ "h": "normal! \<C-w>H" ,
-            \ "j": "normal! \<C-w>J" ,
-            \ "k": "normal! \<C-w>K" ,
-            \ "l": "normal! \<C-w>L" ,
-            \ "x": "normal! \<C-w>x" ,
-            \ "r": "normal! \<C-w>r" ,
-            \ "\<ESC>": "\" NOP" ,
-            \ }
-
-      let winmap.set = {
-            \ "w": "exe g:winmode.count.'wincmd |'",
-            \ "h": "exe g:winmode.count.'wincmd _'",
-            \ "W": "wincmd |",
-            \ "H": "wincmd _",
-            \ "i": "let resetmode=1" ,
-            \ "\<ESC>": "let resetmode=1" ,
-            \ }
-
-      let winmap.tab = {
-            \ "o": "tab sview %" ,
-            \ "e": "tabnew" ,
-            \ "x": "tabclose" ,
-            \ "n": "tabnext" ,
-            \ "p": "tabprevious" ,
-            \
-            \ "w": "let g:winmode.submode='normal'" ,
-            \ "\<ESC>": "let exitwin=1" ,
-            \ "i": "let exitwin=1" ,
-            \ }
-
-      "}}}
 
       " Vista [symbols viewer] ------------------------------{{{
 
@@ -2230,88 +2256,77 @@
 
       "}}}
 
-      " VWM(Vim Window Manager) ------------------------------{{{
+      " Task-Warrior Plugin ------------------------------{{{
+          nmap <leader>tk :TW<CR>
+          nmap <leader>task :TW
 
-          " Toggles the layout(s) specified by {name}
-          nmap <leader><space>1 :VwmToggle dev_panel<CR>
-          nmap <leader><space>2 :VwmToggle dev_panelv<CR>
-          nmap <leader><space>3 :VwmToggle iterator_panel<CR>
+      "}}}
 
-          " Vista attempts to move itself, the sleep prevents a race.
-          let s:debug_panel = {
-                \  'name': 'debug_panel',
-                \  'opnAftr': ['edit'],
-                \  'right':
-                \  {
-                \    'v_sz': 45,
-                \    'init': ['NERDTree'],
-                \    'bot':
-                \    {
-                \      'init': ['Vista']
-                \    }
-                \  }
-                \}
+      " Vim-Licenses ------------------------------{{{
 
-          let s:dev_panel = {
-                \  'name': 'dev_panel',
-                \  'right':
-                \  {
-                \    'v_sz': 65,
-                \    'init': ['term'],
-                \    'bot':
-                \    {
-                \      'init': ['term'],
-                \    }
-                \  }
-                \}
+            " There are currently more than 10 licenses, and you can add your own. To do so, copy the license text in ~/.vim/licenses/licenseFile.txt. Then add a command for this license:
+            "
+            " command! License call InsertLicense('licenseFile')
+            "
+            " If your license file contains a <year> tag, it will be automatically replaced by the current year.
+            "
+            " The <name of copyright holder> tag will be automatically replaced by the content of the g:licenses_copyright_holders_name variable (if not empty), so that the copyright holder's name will be automatically added to the license. Thus, you may want to add such a line to you .vimrc:
 
-          let s:dev_panelv = {
-                \  'name': 'dev_panelv',
-                \  'bot':
-                \  {
-                \    'h_sz': 15,
-                \    'init': ['term'],
-                \    'right':
-                \    {
-                \      'init': ['term'],
-                \    }
-                \  }
-                \}
+            """" let g:licenses_authors_name = 'Last Name, First Name <my@email.com>'
+            let g:licenses_copyright_holders_name = ' Corvi, Alistar <inquiry@corvi.xyz>'
 
-          let s:interator_panel = {
-                \  'name': 'iterator_panel',
-                \  'right':
-                \  {
-                \    'v_sz': 65,
-                \    'init': ['term'],
-                \    'bot':
-                \    {
-                \      'init': ['term'],
-                \      'bot':
-                \      {
-                \         'init': ['term'],
-                \      }
-                \    }
-                \  }
-                \}
+            " And the <name of author> tag will be automatically replaced by the the content of the g:licenses_authors_name variable (if not empty), so that your name will be automatically added to the license. Thus, you may want to add such a line to you .vimrc:
 
-          let g:vwm#layouts = [s:dev_panel,s:dev_panelv,s:interator_panel]
+            """" let g:licenses_authors_name = 'Last Name, First Name <my@email.com>'
+            let g:licenses_authors_name = ' Corvi, Alistar <inquiry@corvi.xyz>'
+
+            " If you do not want this plugin to create all these commands, you may restrict to the licenses you want by using the g:licenses_default_commands option. For instance, to have this plugin add only a command for the GNU GPL, Mit and Foobar licenses, use this:
+
+            " let g:licenses_default_commands = ['gpl', 'mit', 'foobar']
+      "}}}
 
 
+  " }}}
+
+  " Navigation ------------------------------{{{
+
+      " Buffer and Tmux Panel Navigation ------------------------------{{{
+
+          let g:tmux_navigator_no_mappings = 1
+          nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+          nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+          nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+          nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+          nnoremap <silent> <C-;> :TmuxNavigatePrevious<cr>
+          tmap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
+          tmap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
+          tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+          tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+          tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
+          imap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
+          imap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
+          imap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+          imap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+          imap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
+
+    "}}}
+
+      " Movement------------------------------ {{{
+
+          "Clever-F------------------------------{{{
+              let g:clever_f_smart_case = 1
           "}}}
 
-      " VIM easy Align ------------------------------{{{
-          " Start interactive EasyAlign in visual mode (e.g. vipga)
-          vmap ga <Plug>(EasyAlign)
 
-          " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-          nmap ga <Plug>(EasyAlign)
-      "}}}
+      " }}}
+
+
+"}}}
+
+  " Misc ---------------------------------------------------------------{{{
+
       au BufRead,BufNewFile,FileWritePre todo   syntax match StrikeoutMatch /.*;;$/
-
       hi def  StrikeoutColor   ctermbg=darkblue ctermfg=black    guibg=grey guifg=black
-
-      " nonsence
       hi link StrikeoutMatch StrikeoutColor
 
   " }}}
