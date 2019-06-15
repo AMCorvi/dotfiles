@@ -5,6 +5,10 @@
       "args": ["--stdio"],
       "filetypes": ["ocaml", "reason"]
     },
+    "reason": {
+      "command": "/absolute/path/to/reason-language-server.exe",
+      "filetypes": ["reason"]
+    },
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
