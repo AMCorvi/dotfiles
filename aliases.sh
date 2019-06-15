@@ -31,6 +31,8 @@
 # Cause ranger to 'quit to' the last(current) viewed was in while the program was active
   alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 
+  alias activate_sqlite='touch sqlite.db'
+  alias activate_postgres="docker run --name database -it --rm -e POSTGRES_USER=main postgres:10.4-alpine"
   alias arc.bash='nvim ~/.bash_profile'
   alias arc.bashrc='cd ~/.dotfiles/ && nvim bashrc'
   alias arc.boxes='cd ~code/sandbox/vagrant\ boxes'
@@ -75,6 +77,7 @@
   alias news='newsbeuter'
   alias nodeenv='NODE_ENV='
   alias npm="pnpm"
+  alias npx="pnpx"
   alias nprart="termsaver rssfeed --url=http://www.npr.org/rss/rss.php?id=1008"
   alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage"
   alias project="cd ~/Desktop/projects"

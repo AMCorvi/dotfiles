@@ -83,7 +83,7 @@ function _git_changes {
 
 function server() {
 
-  if [ `which browser-sync` -eq "browser-sync not found" ]; then
+  if [ `which browser-sync` = "browser-sync not found" ]; then
     npm install --global browser-sync
   fi
 
@@ -387,18 +387,6 @@ function switch_CCompiler() {
   export CC=`which gcc-$to`
   export CXX=`which g++-$to`
 
-}
-
-function dtasking() {
-  local open=$1
-  local taskingFile='~/Desktop/tasking'
-
-  echo $open
-  if [$open == ""]; then
-    lessmd ~/Desktop/tasking; cls;
-  else
-    nvim ~/Desktop/tasking;
-  fi
 }
 
 command_exists () {
