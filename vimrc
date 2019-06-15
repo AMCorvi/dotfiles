@@ -124,8 +124,16 @@
         "}}}
 
         "PlantUML"---------------------------------{{{
+          " call dein#add('weirongxu/plantuml-previewer.vim')
+          " call dein#add ('scrooloose/vim-slumlord') "Inline previews for Plantuml sequence diagrams. OMG!
           call dein#add("aklt/plantuml-syntax") " Vim syntax file for PlantUML
         "}}}
+
+        " Conquer of Completion -------------------- {{{
+            call dein#add('neoclide/coc-neco') "viml completion source for coc.nvim
+            call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
+        " }}}
+
     "}}}
 
     " BOLT-ON PLUGINS"---------------------------------{{{
@@ -134,8 +142,7 @@
             call dein#add('tmux-plugins/vim-tmux')
             call dein#add('vim-airline/vim-airline')
             call dein#add('Zuckonit/vim-airline-tomato')
-            call dein#add('neoclide/coc-neco') "viml completion source for coc.nvim
-            call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
+            call dein#add('tpope/vim-dadbod') " dadbod.vim: Modern database interface for Vim https://www.vim.org/scripts/script.ph…
             call dein#add('liuchengxu/vista.vim') " 🌵 Viewer & Finder for LSP symbols and tags in Vim http://liuchengxu.org/vista.vim
             call dein#add('paroxayte/vwm.vim') " A layout manager for vim and nvim.
             call dein#add('romgrk/winteract.vim') "An interactive-window mode, where you can resize windows by repeatedly pressing j/k and h/l, amongst other things.
@@ -146,7 +153,7 @@
             call dein#add('previm/previm') "Realtime preview by Vim. (Markdown, reStructuredText, textile)
             call dein#add('kassio/neoterm') " Wrapper of some vim/neovim's :terminal functions.
             call dein#add('tkhren/vim-fake') " Vim plugin to provide a generator of random dummy/filler text.
-            call dein#add('rmolin88/pomodoro.vim') " Bring the beauty of the Pomodoro technique to (Neo)Vim
+            " call dein#add('rmolin88/pomodoro.vim') " Bring the beauty of the Pomodoro technique to (Neo)Vim
             call dein#add("jpalardy/vim-slime") " SLIME is an Emacs plugin to turn Emacs into a REPL.
             call dein#add('djoshea/vim-autoread') " Have Vim automatically reload a file that has changed externally
             call dein#add('junegunn/fzf') " A command-line fuzzy finder REASON DEPENDENCY
@@ -470,12 +477,16 @@
           let g:xml_syntax_folding = 1
           autocmd FileType xml setl foldmethod=syntax
 
-          autocmd FileType html setl foldmethod=expr
+          autocmd FileType html setl foldmethod=html
           autocmd FileType html setl foldexpr=HTMLFolds()
 
           autocmd FileType javascript,typescript,json setl foldmethod=syntax
           filetype plugin indent on
 
+      " }}}
+
+      " Terminal  ----------------------------------------------{{{
+          :autocmd BufEnter *.png,*.jpg,*gif exec "! ~/.iterm2/imgcat ".expand("%") | :bw
       " }}}
 
       " Neomake sign colors --------------------{{{
@@ -1696,7 +1707,7 @@
 
       autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
 
-      au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
+      " au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=html
 
       au Filetype python nmap <M-;> A:<ESC>
       au Filetype python nmap "run :!python %<cr>
@@ -1813,9 +1824,10 @@
       let g:neoformat_enabled_html = ['pretter-eslint']
 
       autocmd FileType html set formatprg=prettier
+      autocmd FileType html set foldmethod=indent
       " prettier-eslint\ --stdin\ --silent\
       " let g:neoformat_enabled_javascript = ['prettier-eslint']
-      autocmd FileType html nnoremap <silent> <leader>f :Neoformat htmlbeautify<CR>
+      " autocmd FileType html nnoremap <silent> <leader>f :Neoformat htmlbeautify<CR>
       " }}}
 
       " CSS -----------------------------------------------------------------------{{{
@@ -1988,6 +2000,16 @@
 
   " Productivity Tools ---------------------------------------------------{{{
 
+
+      " DBext -----------------------------------------------------------------{{{
+
+          let g:dbext_default_profile_Default       = 'type=PGSQL:user=AMC:hostname=corax.dev:port=5432'
+          let g:dbext_default_profile_SQLite         = 'type=SQLITE:SQLITE_bin=/usr/bin/sqlite3:sqlite.db'
+          " let g:dbext_default_profile_ORA         = 'type=ORA:user=scott:passwd=tiger'
+          " let g:dbext_default_profile_mySQLServer = 'type=SQLSRV:integratedlogin=1:srvname=mySrv:dbname=myDB'
+
+        "}}}
+
       " Git -----------------------------------------------------------------------{{{
 
           " let g:gitgutter_sign_column_always = 1
@@ -2013,10 +2035,11 @@
             " Enable snipMate compatibility feature.
             let g:neosnippet#enable_snipmate_compatibility = 1
             let g:neosnippet#expand_word_boundary = 1
-            let g:neosnippet#snippets_directory='~/.config/nvim/repos/github.com/'
+            let g:neosnippet#snippets_directory='~/.config/snippets'
             imap <leader><space> <Plug>(neosnippet_expand_or_jump)
             smap <leader><space> <Plug>(neosnippet_expand_or_jump)
             xmap <leader><space> <Plug>(neosnippet_expand_target)
+
             " For conceal markers.
             if has('conceal')
               set conceallevel=2 concealcursor=niv
@@ -2040,6 +2063,44 @@
                   \ "\<C-p>" : "\<C-p>"
             smap <expr><m-k> neosnippet#expandable_or_jumpable() ?
                   \ "\<C-p>" : "\<ESC>"
+
+
+        "}}}
+
+      " Vim-Fake -----------------------------------------------------------------{{{
+
+           "" Choose a random element from a list
+           call fake#define('sex', 'fake#choice(["male", "female"])')
+
+           "" Get a name of male or female
+           call fake#define('name', 'fake#int(1) ? fake#gen("male_name")'
+                 \ . ' : fake#gen("female_name")')
+
+           "" Get a full name
+           call fake#define('fullname', 'fake#gen("name") . " " . fake#gen("surname")')
+
+           "" Get a nonsense text like Lorem ipsum
+           call fake#define('sentense', 'fake#capitalize('
+                 \ . 'join(map(range(fake#int(3,15)),"fake#gen(\"nonsense\")"))'
+                 \ . ' . fake#chars(1,"..............!?"))')
+
+           call fake#define('paragraph', 'join(map(range(fake#int(3,10)),'
+                 \ . '"fake#gen(\"sentense\")"))')
+
+           "" Alias
+           call fake#define('lipsum', 'fake#gen("paragraph")')
+
+           "" Get an age weighted by generation distribution
+           call fake#define('age', 'float2nr(floor(110 * fake#betapdf(1.0, 1.45)))')
+
+           "" Get a domain (its occurrence is ordered by number of websites)
+           call fake#define('gtld', 'fake#get(fake#load("gtld"),'
+                 \ . 'fake#betapdf(0.2, 3.0))')
+
+           call fake#define('email', 'tolower(substitute(printf("%s@%s.%s",'
+                 \ . 'fake#gen("name"),'
+                 \ . 'fake#gen("surname"),'
+                 \ . 'fake#gen("gtld")), "\\s", "-", "g"))')
 
 
         "}}}
