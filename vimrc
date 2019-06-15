@@ -1143,7 +1143,7 @@
 
   " Languages -------------------------------------------------------------------{{{
 
-      " Language Server Settings ------------------------------------------------------------------------{{{
+      " Language Server Settings (COC) ------------------------------------------------------------------------{{{
 
           " if hidden is not set, TextEdit might fail.
           set hidden
@@ -1233,8 +1233,11 @@
           " Fix autofix problem of current line
           nmap <leader>qf  <Plug>(coc-fix-current)
 
+          " Setup keymap to open yank list like:
+          nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
           " Use `:Format` to format current buffer
+          command! -nargs=0 Format :call CocAction('format')
           command! -nargs=0 Format :call CocAction('format')
 
           " Use `:Fold` to fold current buffer
@@ -1835,6 +1838,15 @@
       "}}}
 
       " Lua -----------------------------------------------------------------------{{{
+
+      "}}}
+
+      " VIM -----------------------------------------------------------------------{{{
+
+            let g:markdown_fenced_languages = [
+                  \ 'vim',
+                  \ 'help'
+                  \]
 
       "}}}
 
