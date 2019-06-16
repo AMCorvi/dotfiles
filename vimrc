@@ -200,6 +200,7 @@
         "}}}
 
         "Default Behavior Modifiers"-----------{{{
+            call dein#add('rbgrouleff/bclose.vim') "The BClose Vim plugin for deleting a buffer without closing the window (dependency of francoiscabrol/ranger.vim)
             call dein#add('editorconfig/editorconfig-vim')
             call dein#add('jremmen/vim-ripgrep')
             call dein#add('tpope/vim-repeat') "Repeat.vim remaps . in a way that plugins can tap into it.
@@ -1929,9 +1930,13 @@
 
     " Ranger -------------------------------------------------- {{{
 
-      " let g:NERDTreeHijackNetrw = 0 " add this line if you use NERDTree
-      " let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
+      let g:NERDTreeHijackNetrw = 0 " add this line if you use NERDTree
+      let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
       let g:ranger_map_keys = 0 " To disable the default key mapping
+      let g:ranger_command_override = 'ranger --cmd "set show_hidden=true"'
+
+      nmap - :Ranger<CR>
+
 
 
 
