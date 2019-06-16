@@ -34,4 +34,4 @@ source ~/.z/z.sh
 eval `opam config env`
 
 # added for either COC plugin or YARN
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
