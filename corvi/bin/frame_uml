@@ -1,0 +1,62 @@
+#! /bin/bash
+
+# Copyright (c) 2019  Corvi, Alistar <inquiry@corvi.xyz>
+# Author:  Corvi, Alistar <inquiry@corvi.xyz>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+output_type=${1:-ascii}
+text=${2}
+output_file=""
+if [ $3 ]; then
+  output_file=$3
+else
+  output_file=$(mktemp)
+  trap "rm -f $output_file; " EXIT
+fi
+source_file=${4}
+
+# Display image on command line
+# if output type is an image file ext.
+
+echo processing uml...
+output=$(puml generate --$output_type $(
+  # is text explicity provided (Second Arguement)
+  [ -z $text ] &&
+    echo "" ||
+    echo "--text $text"
+) $(
+  # is output file name explicity provided (Third Arguement)
+  [ -z $output_file ] &&
+    echo "" ||
+    echo "--output $output_file"
+) $([ $source_file ] && echo $source_file))
+
+# echo $output
+if [ !$source_file ]; then
+  if [ $output_type = "png" ]; then
+    clear
+    imgcat $output_file
+  elif [ $output_type = 'svg' ]; then
+    clear
+    open -a "Firefox Developer Edition" $output_file
+  elif [ $output_type = 'ascii' ]; then
+    clear
+    cat $output_file | lolcat
+  fi
+fi
