@@ -539,16 +539,16 @@
           let g:deoplete#complete_method = "complete"
 
 
-          let g:deoplete#sources = {}
-          let g:deoplete#sources.cpp = ['LanguageClient']
-          let g:deoplete#sources.python = ['jedi', 'buffer', 'LanguageClient']
-          let g:deoplete#sources.python3 = ['jedi', 'buffer', 'LanguageClient']
-          let g:deoplete#sources.rust = ['buffer', 'around', 'LanguageClient']
-          let g:deoplete#sources.c = ['buffer', 'around', 'LanguageClient']
-          let g:deoplete#sources.ocaml = ['buffer', 'around', 'LanguageClient']
-          let g:deoplete#sources.javascript = ['tern', 'buffer', 'around', 'LanguageClient', "neosnippet"]
-          let g:deoplete#sources.go = ["go", 'buffer', 'around', 'LanguageClient']
-          let g:deoplete#sources.vim = ['vim']
+          " let g:deoplete#sources = {}
+          " let g:deoplete#sources.cpp = ['LanguageClient']
+          " let g:deoplete#sources.python = ['jedi', 'buffer', 'LanguageClient']
+          " let g:deoplete#sources.python3 = ['jedi', 'buffer', 'LanguageClient']
+          " let g:deoplete#sources.rust = ['buffer', 'around', 'LanguageClient']
+          " let g:deoplete#sources.c = ['buffer', 'around', 'LanguageClient']
+          " let g:deoplete#sources.ocaml = ['buffer', 'around', 'LanguageClient']
+          " let g:deoplete#sources.javascript = ['tern', 'buffer', 'around', 'LanguageClient', 'neosnippet']
+          " let g:deoplete#sources.go = ["go", 'buffer', 'around', 'LanguageClient']
+          " let g:deoplete#sources.vim = ['vim']
 
 
           let g:deoplete#ignore_sources = {}
@@ -1196,8 +1196,6 @@
           nmap <silent> gi <Plug>(coc-implementation)
           nmap <silent> gr <Plug>(coc-references)
 
-          " Use K to show documentation in preview window
-          nnoremap <silent> <M-K> :call <SID>show_documentation()<CR>
 
           function! s:show_documentation()
             if (index(['vim','help'], &filetype) >= 0)
@@ -1206,6 +1204,9 @@
               call CocAction('doHover')
             endif
           endfunction
+
+          " Use K to show documentation in preview window
+          nnoremap <silent> <M-K> :call <SID>show_documentation()<CR>
 
           " Highlight symbol under cursor on CursorHold
           autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -1235,7 +1236,7 @@
           nmap <leader>qf  <Plug>(coc-fix-current)
 
           " Setup keymap to open yank list like:
-          nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+          nnoremap <silent> <leader><leader><space>y  :<C-u>CocList -A --normal yank<cr>
 
           " Use `:Format` to format current buffer
           command! -nargs=0 Format :call CocAction('format')
@@ -1263,21 +1264,21 @@
 
           " Using CocList
           " Show all diagnostics
-          nnoremap <silent> <leader><SPACE>a  :<C-u>CocList diagnostics<cr>
+          nnoremap <silent> <leader><leader><SPACE>a  :<C-u>CocList diagnostics<cr>
           " Manage extensions
-          nnoremap <silent> <leader><SPACE>e  :<C-u>CocList extensions<cr>
+          nnoremap <silent> <leader><leader><SPACE>e  :<C-u>CocList extensions<cr>
           " Show commands
-          nnoremap <silent> <leader><SPACE>c  :<C-u>CocList commands<cr>
+          nnoremap <silent> <leader><leader><SPACE>c  :<C-u>CocList commands<cr>
           " Find symbol of current document
-          nnoremap <silent> <leader><SPACE>o  :<C-u>CocList outline<cr>
+          nnoremap <silent> <leader><leader><SPACE>o  :<C-u>CocList outline<cr>
           " Search workspace symbols
-          nnoremap <silent> <leader><SPACE>s  :<C-u>CocList -I symbols<cr>
+          nnoremap <silent> <leader><leader><SPACE>s  :<C-u>CocList -I symbols<cr>
           " Do default action for next item.
-          nnoremap <silent> <leader><SPACE>j  :<C-u>CocNext<CR>
+          nnoremap <silent> <leader><leader><SPACE>j  :<C-u>CocNext<CR>
           " Do default action for previous item.
-          nnoremap <silent> <leader><SPACE>k  :<C-u>CocPrev<CR>
+          nnoremap <silent> <leader><leader><SPACE>k  :<C-u>CocPrev<CR>
           " Resume latest coc list
-          nnoremap <silent> <leader><SPACE>p  :<C-u>CocListResume<CR>
+          nnoremap <silent> <leader><leader><SPACE>p  :<C-u>CocListResume<CR>
 
       "}}}
 
@@ -2035,7 +2036,7 @@
           " Shortcut for fugitive diffing
           nnoremap gid :Gvdiff<CR>
           " Shortcut for fugitive commiting
-          nnoremap gic :terminal git-cz<CR>
+          nnoremap gic :vsplit +terminal\ git-cz<CR>
           " Shortcut for fugitive staging
           nnoremap gis :Gstatus<CR>
           " Shortcut for fugitive pushing
