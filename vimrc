@@ -899,22 +899,18 @@
 
   " System mappings  ----------------------------------------------------------{{{
 
-      " TODO: remove whenever possible fixed
-      " mapping grave accent(`) to Alt-e do to hardware issue on keyboard
-      imap <M-e> `
+      " Save via leader+w
+      nnoremap <leader>w :up<cr>
 
       "Refresh .vimrc
       nmap <f5> :so $MYVIMRC<CR>
-
-      " New File
-      nmap <leader><M-n> :new <Space>
 
       " Open .vimrc (i.e Preferences)
       noremap <leader>, :e ~/.vimrc<CR>
 
       " No need for ex mode
-      nnoremap Q <nop>
-      vnoremap // y/<C-R>"<CR>
+      " nnoremap Q <nop>
+      " vnoremap // y/<C-R>"<CR>
 
       " Cycle thru colorschemes
       nmap + :CycleColorNext<CR>
@@ -923,77 +919,200 @@
       "CheatSheets
       nmap <f2> :e ~/.dotfiles/cheatsheets<CR>
 
-      " Use enter to make new lines
-      " nmap <CR> o<Esc>
-      " nmap <S-CR> O<Esc>
-
-      " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
-      nmap <M-o> o<esc>
-      nmap <M-O> O<esc>
-
-      " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
-      inoremap <M-o> <cr>
-      inoremap <M-O> <esc>O
-
-      " Pressing ;ss will toggle and untoggle spell checking
-      nnoremap <leader>ss :setlocal spell!<cr>
-
-      " Save via leader+w
-      nnoremap <leader>w :up<cr>
-
-      " press i twice for normal mode
-      inoremap ii <esc>
-      inoremap <M-i> i
-
-
-      " Select all
-      nnoremap <M-a> ggVG
-
-      " Sort all or selection
-      nnoremap "sort ggVG:sort<CR>
-      vnoremap "sort :sort<CR>
+      " Documentation Lookup
+      " nnoremap <M-K> :Dash<CR>
 
       " Suspend Vim
       nnoremap 1<ESC> :suspend<CR>
 
-      " Repeat latest f, t, F or T [count] times
-      nnoremap <M-,> ;
-      vnoremap <M-,> ;
 
+      "Movement ------------------------- {{{
+          " Navigate between display lines
+          noremap  <silent> <Up>   gk
+          noremap  <silent> <Down> gj
+          noremap  <silent> k gk
+          noremap  <silent> j gj
+          noremap  <silent> <Home> g<Home>
+          noremap  <silent> <End>  g<End>
+          inoremap <silent> <Home> <C-o>g<Home>
+          inoremap <silent> <End>  <C-o>g<End>
+          inoremap <M-j> <Down>
+          inoremap <M-k> <Up>
+          inoremap <M-l> <Right>
+          inoremap <M-h> <Left>
 
-      " Navigate between display lines
-      noremap  <silent> <Up>   gk
-      noremap  <silent> <Down> gj
-      noremap  <silent> k gk
-      noremap  <silent> j gj
-      noremap  <silent> <Home> g<Home>
-      noremap  <silent> <End>  g<End>
-      inoremap <silent> <Home> <C-o>g<Home>
-      inoremap <silent> <End>  <C-o>g<End>
-      inoremap <M-j> <Down>
-      inoremap <M-k> <Up>
-      inoremap <M-l> <Right>
-      inoremap <M-h> <Left>
+          noremap H ^
+          noremap L g_
+          nnoremap J 5j
+          nnoremap K 5k
 
-      " Page wide find and replace
-      nnoremap <leader><leader>s :%s/
-      nnoremap <leader><leader>S :s/
+          " Replace J functionality for joining lines
+          nmap <M-j> :join<CR>
 
-      " Scalpel
-      " nnoremap <leader><leader>s <Plug>Scalpel
+          "Permit rapid scrolling in visualmode
+          vnoremap J 5j
+          vnoremap K 5k
 
+          " Repeat latest f, t, F or T [count] times
+          " nnoremap <M-,> ;
+          " vnoremap <M-,> ;
 
-      " Shortcut (/) for commencing search and replace
-      " cmap / <CR>
+          " On highlight search selection
+          nnoremap <silent> <esc> :noh<cr>
 
-      " Add semicolon to end of line
-      " Note: Overwritten in languages where semicolon are not applicable
-      nmap <M-;> A;<esc>
+      "}}}
 
-      " Toggle Neomake globally
-      nnoremap <leader>nt :NeomakeToggle<cr>
-      " Trigger Neomake linter
-      nnoremap <leader>nn :Neomake<CR>
+      "Window & Buffer -------------------- {{{
+
+        " New File
+        nmap <leader><M-n> :new <Space>
+
+        " Vertical Split
+        nnoremap <leader>sp :sp<CR>
+
+        " Horizontal Split
+        nnoremap <leader>vs :vs<CR>
+
+        " Close All Window Currently Focused
+        nnoremap <leader>on :on<CR>
+
+        " Close Current Window
+        nnoremap <leader>cl :clo<CR>
+
+        " Close current buffer
+        nnoremap <leader>bd :Sayonara<CR>
+
+        " Update Buffer
+        noremap <leader>ct :checktime<CR>
+
+        " Go back to previous opened file in Vim
+        nnoremap <M-l> :lne<CR>
+        nnoremap <M-L> :lp<CR>
+
+        " buffer cycling
+        nmap <M-b> :bnext<CR>
+        nmap <M-B> :bprevious<CR>
+
+        " create tab
+        nnoremap <M-t> :tabnew<CR>
+
+      "}}}
+
+      "Formating -------------------- {{{
+
+          " Select all
+          nnoremap <M-a> ggVG
+
+          " Sort all or selection
+          nnoremap "sort ggVG:sort<CR>
+          vnoremap "sort :sort<CR>
+
+          " Toggle Neomake globally
+          nnoremap <leader>nt :NeomakeToggle<cr>
+          " Trigger Neomake linter
+          nnoremap <leader>nn :Neomake<CR>
+
+          " Page wide find and replace
+          nnoremap <leader><leader>s :%s/
+          nnoremap <leader><leader>S :s/
+
+          " join/split short cut
+          nmap =j :join<CR>
+          nmap <CR> i<CR><ESC>
+
+          " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
+          nmap <M-o> o<esc>
+          nmap <M-O> O<esc>
+
+          " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
+          inoremap <M-o> <cr>
+          inoremap <M-O> <esc>O
+
+          " Commenting
+          nmap gcb :TCommentBlock<CR>
+
+          " Use enter to make new lines
+          " nmap <CR> o<Esc>
+          " nmap <S-CR> O<Esc>
+
+          " Pressing ;ss will toggle and untoggle spell checking
+          nnoremap <leader>ss :setlocal spell!<cr>
+
+          " copy current files path to clipboard
+          nmap cp :let @+= expand("%") <cr>
+
+          " Align blocks of text and keep them selected
+          vmap < <gv
+          vmap > >gv
+
+          let g:multi_cursor_next_key='<C-n>'
+          let g:multi_cursor_prev_key='<C-p>'
+          let g:multi_cursor_skip_key='<C-x>'
+          " let g:multi_cursor_quit_key='<Esc>'
+
+      "}}}
+
+      "Typing -------------------- {{{
+
+          " Escape leader(semicolon) in INSERT mode
+          inoremap <M-;> ;
+
+          " Add semicolon to end of line
+          " Note: Manually overwritten in languages where semicolon are not applicable
+          nmap <M-;> A;<esc>
+
+          " press i twice for normal mode
+          inoremap ii <esc>
+          inoremap <M-i> i
+
+          " Toggle file type completion
+          inoremap <c-f> <c-x><c-f>
+
+          " Copy to osx clipboard
+          vnoremap <C-c> "*y<CR>
+
+          " Yank to y register
+          nmap <leader>y "yy
+
+          " exit insert, dd line, enter insert
+          inoremap <c-d> <esc>ddi
+
+      "}}}
+
+      " Neovim terminal mapping -------------------- {{{
+
+          " terminal 'normal mode'
+
+          tmap <esc> <c-\><c-n>
+          " Disable <ESC> in terminal mode. (Prevents crash)
+          tnoremap <ESC> <ESC>
+
+          " Kill terminal-mode while leaving buffer open
+          tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
+
+          " prevent terminal from jumping to the last line
+          tnoremap ii <C-\><C-n>
+
+          " Print 'i' character. Escape the ii tmap binding.
+          tnoremap <M-i> i
+
+          " Print ';' character. Escape global leader key
+          tnoremap <M-;> ;
+
+          " Prompt command for terminal
+          nmap <leader>com  :term<Space>
+          "Yank visual selection and run on commandline
+          nmap <leader>comt vf;Y:term<SPACE><CR>p
+          vmap <leader>comt y:term<SPACE><CR>p
+
+      "}}}
+
+      " echo type of 'syntax item' under cursor
+      nnoremap <leader>z :call <SID>SynStack()<CR>
+
+      " Codi interactive REPL
+      nmap =oer :Codi!!<CR>
+
 
       if exists(":Tabularize")
           nmap <Leader>a= :Tabularize /=<CR>
@@ -1001,130 +1120,6 @@
           nmap <Leader>a: :Tabularize /:\zs<CR>
           vmap <Leader>a: :Tabularize /:\zs<CR>
       endif
-
-      " Vertical Split
-      nnoremap <leader>sp :sp<CR>
-
-      " Horizontal Split
-      nnoremap <leader>vs :vs<CR>
-
-      " Close All Window Currently Focused
-      nnoremap <leader>on :on<CR>
-
-      " Close Current Window
-      nnoremap <leader>cl :clo<CR>
-
-      " Close current buffer
-      nnoremap <leader>bd :Sayonara<CR>
-
-      " Update Buffer
-      noremap <leader>ct :checktime<CR>
-
-      " Go back to previous opened file in Vim
-      nnoremap <M-l> :lne<CR>
-      nnoremap <M-L>L :lp<CR>
-
-      " Escape leader(semicolon) in INSERT mode
-      inoremap <M-;> ;
-
-      " copy current files path to clipboard
-      nmap cp :let @+= expand("%") <cr>
-
-      " exit insert, dd line, enter insert
-      inoremap <c-d> <esc>ddi
-      noremap H ^
-      noremap L g_
-      nnoremap J 5j
-      nnoremap K 5k
-
-      " Replace J functionality for joining lines
-      nmap <M-j> :join<CR>
-
-      "Permit rapid scrolling in visualmode
-      vnoremap J 5j
-      vnoremap K 5k
-
-      " join/split short cut
-      nmap =j :join<CR>
-      nmap <CR> i<CR><ESC>
-
-      " buffer cycling
-      nmap <M-b> :bnext<CR>
-      nmap <M-B> :bprevious<CR>
-
-      " create tab
-      nnoremap <M-t> :tabnew<CR>
-
-      " " replace f and/or t with one-character Sneak
-      " map t <Plug>Sneak_t
-      " map F <Plug>Sneak_s
-      " map f <Plug>Sneak_S
-      " map T <Plug>Sneak_T
-
-      " this is the best, let me tell you why
-      " how annoying is that everytime you want to do something in vim
-      " you have to do shift-; to get :, can't we just do ;?
-      " Plus what does ; do anyways??
-      " if you do have a plugin that needs ;, you can just swap the mapping
-      " nnoremap : ;
-      " " give it a try and you will like it
-      "   nnoremap ; :
-
-      " Toggle file type completion
-      inoremap <c-f> <c-x><c-f>
-
-      " Copy to osx clipboard
-      vnoremap <C-c> "*y<CR>
-      " vnoremap y "*y<CR>
-      " nnoremap Y "*Y<CR>
-      " vnoremap y myy`y
-      " vnoremap Y myY`y
-
-      let g:multi_cursor_next_key='<C-n>'
-      let g:multi_cursor_prev_key='<C-p>'
-      let g:multi_cursor_skip_key='<C-x>'
-      " let g:multi_cursor_quit_key='<Esc>'
-
-      " Commenting
-      nmap gcb :TCommentBlock<CR>
-
-      " Yank to y register
-      nmap <leader>y "yy
-
-      " Codi interactive REPL
-      nmap =oer :Codi!!<CR>
-
-      " Documentation Lookup
-      " nnoremap <M-K> :Dash<CR>
-
-      " Align blocks of text and keep them selected
-      vmap < <gv
-      vmap > >gv
-      "" nnoremap <leader>d "_d
-      " vnoremap <leader>d "_d
-
-      " On highlight search selection
-      nnoremap <silent> <esc> :noh<cr>
-
-      " Neovim terminal mapping
-        " terminal 'normal mode'
-        tmap <esc> <c-\><c-n>
-        " Disable <ESC> in terminal mode. (Prevents crash)
-        tnoremap <ESC> <ESC>
-
-        " Kill terminal-mode while leaving buffer open
-        tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
-
-        " prevent terminal from jumping to the last line
-        tnoremap ii <C-\><C-n>
-
-        " Prompt command for terminal
-        nmap <leader>com  :term<Space>
-        "Yank visual selection and run on commandline
-        nmap <leader>comt vf;Y:term<SPACE><CR>p
-        vmap <leader>comt y:term<SPACE><CR>p
-
-      nnoremap <leader>z :call <SID>SynStack()<CR>
 
       function! <SID>SynStack()
           if !exists("*synstack")
