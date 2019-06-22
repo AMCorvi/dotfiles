@@ -3,11 +3,13 @@
     "ocaml": {
       "command": "ocaml-language-server",
       "args": ["--stdio"],
-      "filetypes": ["ocaml"]
+      "rootPatterns": ["dune", "_build/"],
+      "filetypes": ["ocaml","reason"]
     },
     "reason": {
       "command": "reason-language-server.exe",
-      "filetypes": ["reason"]
+      "rootPatterns": ["package.json"],
+      "filetypes": ["reason","ocaml"]
     },
     "bash": {
       "command": "bash-language-server",
