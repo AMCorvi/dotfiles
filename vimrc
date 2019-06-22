@@ -401,10 +401,11 @@
 
       " Remove '|' character fom split window border (note blank space after back slash):
       set fillchars=fold:c
-
       " List(whitespace) characters and colors
-      set listchars=eol:•,space:\|
-
+      " set listchars=eol:•,space:\|
+      " set showbreak=↪\
+      " set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+      set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 
       " Change split window bar color
       hi VertSplit ctermfg=NONE ctermbg=NONE cterm=NONE
@@ -478,7 +479,7 @@
           let g:xml_syntax_folding = 1
           autocmd FileType xml setl foldmethod=syntax
 
-          autocmd FileType html setl foldmethod=html
+          autocmd FileType html setl foldmethod=syntax
           autocmd FileType html setl foldexpr=HTMLFolds()
 
           autocmd FileType javascript,typescript,json setl foldmethod=syntax
@@ -1186,7 +1187,7 @@
           nmap <silent> <M-i> <Plug>(coc-diagnostic-info)
 
           " Remap keys for gotos
-          nmap <silent> gd <Plug>(coc-definition)
+          nnoremap <silent> gd <Plug>(coc-definition)
           nmap <silent> gy <Plug>(coc-type-definition)
           nmap <silent> gi <Plug>(coc-implementation)
           nmap <silent> gr <Plug>(coc-references)
@@ -1282,7 +1283,7 @@
           autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
 
           " Node File Execution
-          au Filetype javascript nmap "run :!node %<CR>
+          au BufEnter,Filetype javascript nmap "run :!node %<CR>
 
 
           " Autocompletion
@@ -1337,102 +1338,104 @@
           "}}}
 
           "Linting------------------------------{{{
-          " let g:neomake_highlight_columns = 1
-          let g:neomake_javascript_enabled_makers = ['eslint']
-          let g:neomake_verbose = 1
-          " let g:neomake_javascript_eslint_maker = {
-          "       \ 'args': ['--no-color', '--format', 'compact'],
-          "       \ 'errorformat': '%f: line %l\, col %c\, %m'
-          "       \ }
-          " let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
-          " let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+
+							" let g:neomake_highlight_columns = 1
+							let g:neomake_javascript_enabled_makers = ['eslint']
+							let g:neomake_verbose = 1
+							" let g:neomake_javascript_eslint_maker = {
+							"       \ 'args': ['--no-color', '--format', 'compact'],
+							"       \ 'errorformat': '%f: line %l\, col %c\, %m'
+							"       \ }
+							" let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+							" let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+
           "}}}
 
           "Prettier --- {{{
-          " The command :Prettier by default is synchronous but can also be forced async
-          let g:prettier#exec_cmd_async = 1
+							" The command :Prettier by default is synchronous but can also be forced async
+							let g:prettier#exec_cmd_async = 1
 
-          " " max line lengh that prettier will wrap on
-          " let g:prettier#config#print_width = 80
-          "
-          " " number of spaces per indentation level
-          " let g:prettier#config#tab_width = 2
-          "
-          " " use tabs over spaces
-          " let g:prettier#config#use_tabs = 'false'
-          "
-          " " print semicolons
-          " let g:prettier#config#semi = 'true'
-          "
-          " " single quotes over double quotes
-          " let g:prettier#config#single_quote = 'false'
-          "
-          " " print spaces between brackets
-          " let g:prettier#config#bracket_spacing = 'false'
-          "
-          " " put > on the last line instead of new line
-          " let g:prettier#config#jsx_bracket_same_line = 'false'
-          "
-          " " none|es5|all
-          " let g:prettier#config#trailing_comma = 'none'
-          "
-          " " flow|babylon|typescript|postcss|json|graphql
-          " let g:prettier#config#parser = 'babylon'
+							" " max line lengh that prettier will wrap on
+							" let g:prettier#config#print_width = 80
+							"
+							" " number of spaces per indentation level
+							" let g:prettier#config#tab_width = 2
+							"
+							" " use tabs over spaces
+							" let g:prettier#config#use_tabs = 'false'
+							"
+							" " print semicolons
+							" let g:prettier#config#semi = 'true'
+							"
+							" " single quotes over double quotes
+							" let g:prettier#config#single_quote = 'false'
+							"
+							" " print spaces between brackets
+							" let g:prettier#config#bracket_spacing = 'false'
+							"
+							" " put > on the last line instead of new line
+							" let g:prettier#config#jsx_bracket_same_line = 'false'
+							"
+							" " none|es5|all
+							" let g:prettier#config#trailing_comma = 'none'
+							"
+							" " flow|babylon|typescript|postcss|json|graphql
+							" let g:prettier#config#parser = 'babylon'
 
-          " cli-override|file-override|prefer-file
-          let g:prettier#config#config_precedence = 'prefer-file'"
+							" cli-override|file-override|prefer-file
+							let g:prettier#config#config_precedence = 'prefer-file'"
           "}}}
 
           "Typescript------------------------------ {{{
 
-          let g:nvim_typescript#signature_complete=1
-          let g:nvim_typescript#type_info_on_hold=1
-          let g:nvim_typescript#max_completion_detail=100
-          "
-          let g:neomake_typescript_tsc_maker = {
-                \ 'append_file': 0,
-                \ 'args': ['--project', getcwd() . '/tsconfig.json', '--noEmit'],
-                \ 'errorformat':
-                \   '%E%f %#(%l\,%c): error %m,' .
-                \   '%E%f %#(%l\,%c): %m,' .
-                \   '%Eerror %m,' .
-                \   '%C%\s%\+%m'
-                \}
+							let g:nvim_typescript#signature_complete=1
+							let g:nvim_typescript#type_info_on_hold=1
+							let g:nvim_typescript#max_completion_detail=100
+							"
+							let g:neomake_typescript_tsc_maker = {
+										\ 'append_file': 0,
+										\ 'args': ['--project', getcwd() . '/tsconfig.json', '--noEmit'],
+										\ 'errorformat':
+										\   '%E%f %#(%l\,%c): error %m,' .
+										\   '%E%f %#(%l\,%c): %m,' .
+										\   '%Eerror %m,' .
+										\   '%C%\s%\+%m'
+										\}
 
-          let g:neomake_typescript_enabled_makers = ['tsc']
-          " map <silent> <leader>gd :TSDoc <cr>
-          " map <silent> <leader>gt :TSType <cr>
-          " map <silent> <leader>@ :Denite -buffer-name=TSDocumentSymbol TSDocumentSymbol <cr>
-          " " autocmd FileType typescript setl omnifunc=TSComplete
-          let g:nvim_typescript#kind_symbols = {
-                \ 'keyword': 'keyword',
-                \ 'class': '',
-                \ 'interface': 'interface',
-                \ 'script': 'script',
-                \ 'module': '',
-                \ 'local class': 'local class',
-                \ 'type': 'type',
-                \ 'enum': '',
-                \ 'enum member': '',
-                \ 'alias': '',
-                \ 'type parameter': 'type param',
-                \ 'primitive type': 'primitive type',
-                \ 'var': '',
-                \ 'local var': '',
-                \ 'property': '',
-                \ 'let': '',
-                \ 'const': '',
-                \ 'label': 'label',
-                \ 'parameter': 'param',
-                \ 'index': 'index',
-                \ 'function': '',
-                \ 'local function': 'local function',
-                \ 'method': '',
-                \ 'getter': '',
-                \ 'setter': '',
-                \ 'call': 'call',
-                \ 'constructor': '',
-                \}
+							let g:neomake_typescript_enabled_makers = ['tsc']
+							" map <silent> <leader>gd :TSDoc <cr>
+							" map <silent> <leader>gt :TSType <cr>
+							" map <silent> <leader>@ :Denite -buffer-name=TSDocumentSymbol TSDocumentSymbol <cr>
+							" " autocmd FileType typescript setl omnifunc=TSComplete
+							let g:nvim_typescript#kind_symbols = {
+										\ 'keyword': 'keyword',
+										\ 'class': '',
+										\ 'interface': 'interface',
+										\ 'script': 'script',
+										\ 'module': '',
+										\ 'local class': 'local class',
+										\ 'type': 'type',
+										\ 'enum': '',
+										\ 'enum member': '',
+										\ 'alias': '',
+										\ 'type parameter': 'type param',
+										\ 'primitive type': 'primitive type',
+										\ 'var': '',
+										\ 'local var': '',
+										\ 'property': '',
+										\ 'let': '',
+										\ 'const': '',
+										\ 'label': 'label',
+										\ 'parameter': 'param',
+										\ 'index': 'index',
+										\ 'function': '',
+										\ 'local function': 'local function',
+										\ 'method': '',
+										\ 'getter': '',
+										\ 'setter': '',
+										\ 'call': 'call',
+										\ 'constructor': '',
+										\}
           "------------ }}}
 
           "Tern Configuration------------------------------{{{
@@ -1513,86 +1516,92 @@
 
       " Ocaml/Reason ------------------------------------------------------------------------{{{
 
-      " Mapping for jsdoc Documentation
-      autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
+          " Mapping for jsdoc Documentation
+          autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
 
-      " Node File Execution
-      au Filetype reason nnoremap "run :!ocamlrun %<CR>
-      au Filetype ocaml nnoremap "run :!ocaml %<CR>
+          " Node File Execution
+          au BufEnter,Filetype reason nnoremap "run :!ocamlrun %<CR>
+          au BufEnter,Filetype ocaml nnoremap "run :!ocaml %<CR>
 
-      " Use 'vim-sexp' syntax package on the dune files
-      augroup dune_ft
-        au!
-        autocmd BufNewFile,BufRead dune set syntax=sexp
-        " autocmd BufNewFile,BufRead dune set filetype=sexp
-      augroup END
+          " Use 'vim-sexp' syntax package on the dune files
+          augroup dune_ft
+            au!
+            autocmd BufNewFile,BufRead dune set syntax=sexp
+            " autocmd BufNewFile,BufRead dune set filetype=sexp
+          augroup END
 
-      " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
-      let g:slime_target = "neovim"
+          " NeoVim :terminal is not the default, to use it you will have to add this line to your .vimrc:
+          let g:slime_target = "neovim"
 
 
-      " Use the following command to tell Vim to use ocp-indent:
-      "" autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
+          " Use the following command to tell Vim to use ocp-indent:
+          "" autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
 
-      "Merlin Configuration ------------------------------ {{{
-      let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-      execute "set rtp+=" . g:opamshare . "/merlin/vim"
+          "Merlin Configuration ------------------------------ {{{
 
-      " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-      let s:opam_share_dir = system("opam config var share")
-      let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+              let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+              execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
-      let s:opam_configuration = {}
+              " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+              let s:opam_share_dir = system("opam config var share")
+              let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
-      function! OpamConfOcpIndent()
-        execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-      endfunction
-      let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+              let s:opam_configuration = {}
 
-      function! OpamConfOcpIndex()
-        execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-      endfunction
-      let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+              function! OpamConfOcpIndent()
+                execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+              endfunction
+              let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
 
-      function! OpamConfMerlin()
-        let l:dir = s:opam_share_dir . "/merlin/vim"
-        execute "set rtp+=" . l:dir
-      endfunction
-      let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+              function! OpamConfOcpIndex()
+                execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+              endfunction
+              let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
 
-      let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-      let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-      let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-      for tool in s:opam_packages
-        " Respect package order (merlin should be after ocp-index)
-        if count(s:opam_available_tools, tool) > 0
-          call s:opam_configuration[tool]()
-        endif
-      endfor
-      " ## end of OPAM user-setup addition for vim / base ## keep this line
-      "}}}
+              function! OpamConfMerlin()
+                let l:dir = s:opam_share_dir . "/merlin/vim"
+                execute "set rtp+=" . l:dir
+              endfunction
+              let s:opam_configuration['merlin'] = function('OpamConfMerlin')
 
-      "Formatting------------------------------{{{
+              let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+              let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+              let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+              for tool in s:opam_packages
+                " Respect package order (merlin should be after ocp-index)
+                if count(s:opam_available_tools, tool) > 0
+                  call s:opam_configuration[tool]()
+                endif
+              endfor
+              " ## end of OPAM user-setup addition for vim / base ## keep this line
 
-      " OCaml formating
-      autocmd FileType reason set formatprg=bsrefmt\ --print=ml
-      let g:neoformat_reason_refmt = {
-            \ 'exe': 'bsrefmt',
-            \ 'args': ['--print=re', '--parse=re'],
-            \ 'replace': 0,
-            \ }
-      let g:neoformat_enabled_reason = ['refmt']
-      "
-      autocmd FileType ocaml set formatprg=bsrefmt\ -p\ re\ --parse=ml
-      " let g:neoformat_ocaml_refmt = {
-      "       \ 'exe': 'bsrefmt',
-      "       \ 'args': ['--print=ml', '--parse=ml', '--recoverable'],
-      "       \ 'replace': 0,
-      "       \ }
-      " let g:neoformat_enabled_ocaml = ['refmt']
-      " let g:neoformat_try_formatprg = 1
+              " Default: false.
+              " Specifies whether merlin should skip setting default keybindings.
+              let g:merlin_disable_default_keybindings = 1
+          "}}}
 
-      "}}}
+          "Formatting------------------------------{{{
+
+              " OCaml formating
+              autocmd FileType reason set formatprg=refmt\ -p\ ml
+              let g:neoformat_reason_refmt = {
+                    \ 'exe': 'bsrefmt',
+                    \ 'args': ['--print=re', '--parse=re'],
+                    \ 'replace': 0,
+                    \ }
+
+              let g:neoformat_enabled_reason = ['refmt']
+
+              autocmd FileType ocaml set formatprg=refmt\ --parse\ ml
+              let g:neoformat_ocaml_ocp_indent = {
+                    \ 'exe': 'ocp-indent',
+                    \ 'args': [],
+                    \ 'replace': 0,
+                    \ }
+              let g:neoformat_enabled_ocaml = ['ocp_indent']
+              " let g:neoformat_try_formatprg = 1
+
+          "}}}
 
       "}}}
 
@@ -1601,7 +1610,7 @@
       let g:neomake_verbose = 1
       let g:neoformat_enabled_rust = ['rustfmt']
 
-      au Filetype rust nmap "run :!cargo run %<cr>
+      au BufEnter,Filetype rust nmap "run :!cargo run %<cr>
       au Filetype rust nmap `clean :!cargo clean %<cr>
       au Filetype rust nmap `build :!cargo build %<cr>
       au Filetype rust nmap `test :!cargo test %<cr>
@@ -1609,7 +1618,7 @@
 
       " C/C++ --------------------------------------------------------------------{{{
 
-      au Filetype cpp nmap "run :mak!<CR><CR>
+      au BufEnter,Filetype cpp nmap "run :mak!<CR><CR>
       au Filetype python nmap <M-;> A;<ESC>
 
       " Use an absolute configuration path if you want system-wide settings
@@ -1681,7 +1690,7 @@
       " Go ------------------------------------------------------------------------{{{
 
       " Go File Execution
-      au Filetype go nmap "run :!go run %<CR>
+      au BufEnter,Filetype go nmap "run :!go run %<CR>
 
       " Go Format
       let g:neoformat_enabled_go = ['gofmt']
@@ -1709,8 +1718,8 @@
 
       " au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=html
 
-      au Filetype python nmap <M-;> A:<ESC>
-      au Filetype python nmap "run :!python %<cr>
+      au BufEnter,Filetype python nmap <M-;> A:<ESC>
+      au BufEnter,Filetype python nmap "run :!python %<cr>
 
 
 
@@ -1764,7 +1773,7 @@
 
 
       " Markdown preview macro using the 'Typora' (on mac) when installed
-      au Filetype markdown nmap "run :!open -a Typora "%"
+      au BufEnter,Filetype markdown nmap "run :!open -a Typora "%"
 
       " iamcco/markdown-preview.vim ---- {{{{
 
@@ -1949,8 +1958,8 @@
 
       " Linting -------------------------------------------------------------------{{{
 
-          " autocmd! BufWinEnter * NeomakeDisable
-          autocmd! BufWritePost * Neomake
+          autocmd! VimEnter * NeomakeDisable
+          " autocmd! BufWritePost * Neomake
           let g:neomake_warning_sign = {'text': '!!'}
           let g:neomake_error_sign = {'text': 'X'}
 
@@ -2259,7 +2268,8 @@
       " Vista [symbols viewer] ------------------------------{{{
 
             " Toggle vista window
-            nnoremap <leader>gv :Vista!!<CR>
+            nnoremap <leader>vi :Vista!!<CR>
+            au! Filetype markdown nnoremap <leader>vi Vista<space>toc<CR>
 
 
 
@@ -2307,12 +2317,12 @@
 
             " Fall back to other executives if the specified one gives empty data.  This is useful if you want to switch to `ctags` when LSP is not usable.  By default it's all the provided executives excluding the tried one.
 
-            let g:vista_finder_alternative_executives = ['coc']
+            let g:vista_finder_alternative_executives = ['ctags']
 
 
             " Set the executive for some filetypes explicitly, which is useful for setting `ctags` as the default executive, whereas you prefer to use LSP for some filetypes you ensured the LSP functionality is good. The rationality is the LSP server needs to be installed explicitly and people normally only install a few frequently used ones, but ctags supports much more languages by default.
 
-            let g:vista_default_executive = 'lcn'
+            let g:vista_default_executive = 'coc'
 
             let g:vista_executive_for = {
                   \ 'cpp': 'ctags',

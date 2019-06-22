@@ -76,8 +76,8 @@
   alias maintain-brew="brew update; brew upgrade; brew prune; brew cleanup; brew doctor"
   alias news='newsbeuter'
   alias nodeenv='NODE_ENV='
-  alias npm="pnpm"
-  alias npx="pnpx"
+  # alias npm="pnpm"
+  # alias npx="pnpx"
   alias nprart="termsaver rssfeed --url=http://www.npr.org/rss/rss.php?id=1008"
   alias nytimes="termsaver rssfeed --url=http://feeds.nytimes.com/nyt/rss/HomePage"
   alias project="cd ~/Desktop/projects"
