@@ -503,8 +503,8 @@
       " Deoplete ------------------------------------------------------------------{{{
 
 
-          let g:deoplete#enable_at_startup = 1
-          let g:echodoc_enable_at_startup=1
+          let g:deoplete#enable_at_startup = 0
+          let g:echodoc_enable_at_startup=0
           set completeopt+=noselect
           set completeopt-=preview
           autocmd CompleteDone * pclose
@@ -554,9 +554,11 @@
 
           let g:deoplete#ignore_sources = {}
           let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
+          let g:deoplete#ignore_sources.reason = ['buffer', 'around', 'member', 'tag']
           let g:deoplete#ignore_sources.javascript = ['buffer', 'around', 'member', 'tag']
 
           call deoplete#custom#source('buffer','mark','')
+          call deoplete#custom#source('LS', 'mark', "")
           call deoplete#custom#source('LanguageClient', 'mark', "")
           call deoplete#custom#source('ocaml', 'mark', '')
           call deoplete#custom#source('go', 'mark', '')
@@ -566,15 +568,22 @@
           call deoplete#custom#source('jedi','mark','')
           call deoplete#custom#source('typescript','mark','')
           call deoplete#custom#source('neosnippet','mark','')
+          call deoplete#custom#source('around','mark','≼')
 
           let ranknumber = 999
           " call deoplete#custom#source('buffer','rank',ranknumber - 1)
-          call deoplete#custom#source('jedi','rank',ranknumber - 1)
-          call deoplete#custom#source('go','rank',ranknumber - 1)
-          call deoplete#custom#source('ocaml', 'rank', ranknumber - 1)
-          call deoplete#custom#source('tern','rank',ranknumber - 1)
-          call deoplete#custom#source('LanguageClient', 'rank', ranknumber - 1)
-          " call deoplete#custom#source('neosnippets','rank',ranknumber - 1)
+          call deoplete#custom#source('jedi','rank', ranknumber)
+          let ranknumber = ranknumber - 1
+          call deoplete#custom#source('go','rank', ranknumber )
+					let  ranknumber = ranknumber - 1
+          call deoplete#custom#source('ocaml', 'rank', ranknumber)
+          let ranknumber = ranknumber - 1
+          call deoplete#custom#source('tern','rank', ranknumber)
+          let ranknumber = ranknumber - 1
+          call deoplete#custom#source('LanguageClient', 'rank', ranknumber)
+          let ranknumber = ranknumber - 1
+          call deoplete#custom#source('neosnippets','rank',ranknumber)
+
           " let g:deoplete#omni_patterns.html = ''
 
           function! Preview_func()
@@ -981,7 +990,7 @@
         nnoremap <leader>cl :clo<CR>
 
         " Close current buffer
-        nnoremap <leader>bd :Sayonara<CR>
+        nnoremap <leader><leader>bd :Sayonara<CR>
 
         " Update Buffer
         noremap <leader>ct :checktime<CR>
@@ -995,7 +1004,7 @@
         nmap <M-B> :bprevious<CR>
 
         " create tab
-        nnoremap <M-t> :tabnew<CR>
+        nnoremap <M-t> :tab split<CR>
 
       "}}}
 
@@ -1187,7 +1196,7 @@
           nmap <silent> <M-i> <Plug>(coc-diagnostic-info)
 
           " Remap keys for gotos
-          nnoremap <silent> gd <Plug>(coc-definition)
+          nmap <silent> gd <Plug>(coc-definition)
           nmap <silent> gy <Plug>(coc-type-definition)
           nmap <silent> gi <Plug>(coc-implementation)
           nmap <silent> gr <Plug>(coc-references)
@@ -1583,7 +1592,9 @@
           "Formatting------------------------------{{{
 
               " OCaml formating
-              autocmd FileType reason set formatprg=refmt\ -p\ ml
+              autocmd FileType reason set formatprg=refmt\ --print=ml<CR>
+              autocmd Filetype reason nmap gq ggyG:'<,'>!refmt<space>--print=ml<CR>
+              autocmd Filetype reason vmap gq :'<,'>!refmt<space>--print=ml<CR>
               let g:neoformat_reason_refmt = {
                     \ 'exe': 'bsrefmt',
                     \ 'args': ['--print=re', '--parse=re'],
@@ -1592,15 +1603,24 @@
 
               let g:neoformat_enabled_reason = ['refmt']
 
-              autocmd FileType ocaml set formatprg=refmt\ --parse\ ml
-              let g:neoformat_ocaml_ocp_indent = {
-                    \ 'exe': 'ocp-indent',
-                    \ 'args': [],
-                    \ 'replace': 0,
-                    \ }
-              let g:neoformat_enabled_ocaml = ['ocp_indent']
-              " let g:neoformat_try_formatprg = 1
+              autocmd FileType ocaml set formatprg=refmt\ --parse=ml\ --print=re<CR>
+              autocmd Filetype ocaml nmap gq ggyG:'<,'>!refmt<space>--parse=ml<space>--print=re<CR>
+              autocmd Filetype ocaml vmap gq :'<,'>!refmt<space>--parse=ml<space>--print=re<CR>
+              let g:neoformat_ocaml_ocamlformat = {
+                      \ 'exe': 'ocamlformat',
+                      \ 'args': [],
+                      \ 'replace': 0,
+                      \ }
+              let g:neoformat_enabled_ocaml = ['ocamlformat']
 
+              " let g:neoformat_ocaml_ocp_indent = {
+              "       \ 'exe': 'ocp-indent',
+              "       \ 'args': [],
+              "       \ 'replace': 0,
+              "       \ }
+              " let g:neoformat_enabled_ocaml = ['ocp_indent']
+
+              " let g:neoformat_try_formatprg = 1
           "}}}
 
       "}}}
@@ -2134,19 +2154,24 @@
         " Denite keybinding
         autocmd FileType denite call s:denite_my_settings()
         function! s:denite_my_settings() abort
-          nnoremap <silent><buffer><expr> <CR>
+          nnoremap <silent><buffer><expr> l
                 \ denite#do_map('do_action')
-          " nnoremap <silent><buffer><expr> d
-          "       \ denite#do_map('do_action', 'delete')
+          nnoremap <silent><buffer><expr> <Delete>
+                \ denite#do_map('do_action', 'delete')
           nnoremap <silent><buffer><expr> p
                 \ denite#do_map('do_action', 'preview')
-          nnoremap <silent><buffer><expr> q
-                \ denite#do_map('quit')
+        noremap <silent><buffer><expr> h
+              \ denite#do_map('quit')
           nnoremap <silent><buffer><expr> i
                 \ denite#do_map('open_filter_buffer')
           nnoremap <silent><buffer><expr> <Space>
                 \ denite#do_map('toggle_select').'j'
         endfunction
+
+        " Prevent completion window popup from displaying when filtering
+        autocmd BufEnter denite-filter imap <leader>l <cr>
+        autocmd! BufLeave denite-filter
+
 
         " File search settings
         call denite#custom#var('file/rec', 'command',
@@ -2197,7 +2222,7 @@
         nnoremap <silent> <leader>j :Denite file/rec<CR>i
         nnoremap <silent> <leader>? :Denite  help<CR>
         nnoremap <silent> <leader>th :Denite colorscheme<CR>
-        nnoremap <silent> <leader><leader>b :Denite buffer<CR>
+        nnoremap <silent> <leader>b :Denite buffer<CR>
         nnoremap <silent> <leader>a :Denite grep:::!<CR>
         nnoremap <silent> <Leader>gh :Denite menu:git<CR>
 
@@ -2269,7 +2294,8 @@
 
             " Toggle vista window
             nnoremap <leader>vi :Vista!!<CR>
-            au! Filetype markdown nnoremap <leader>vi Vista<space>toc<CR>
+            au BufEnter markdown nnoremap <leader>vi :Vista<space>toc
+            au! BufLeave markdown
 
 
 
@@ -2399,8 +2425,8 @@
 
           "Clever-F------------------------------{{{
               let g:clever_f_smart_case = 1
+              let g:clever_f_repeat_last_char_inputs = ["\<CR>", "\<Tab>"]
           "}}}
-
 
       " }}}
 
