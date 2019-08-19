@@ -236,6 +236,7 @@
         "}}}
 
         "Themes"-----------{{{
+              call dein#add('vim-scripts/chlordane.vim')
               call dein#add('markvincze/panda-vim')
               call dein#add('TroyFletcher/vim-colors-synthwave')
               call dein#add('dennougorilla/azuki.vim')
