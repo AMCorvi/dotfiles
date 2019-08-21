@@ -3,3 +3,6 @@ brew uninstall node
 brew cleanup
 rm -f /usr/local/bin/npm /usr/local/lib/dtrace/node.d
 rm -rf ~/.npm
+rm -f /usr/local/bin/node
+rm -f /usr/local/bin/npm
+rm -f /usr/local/bin/npx

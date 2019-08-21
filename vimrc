@@ -2161,8 +2161,6 @@
                 \ denite#do_map('do_action', 'delete')
           nnoremap <silent><buffer><expr> p
                 \ denite#do_map('do_action', 'preview')
-        noremap <silent><buffer><expr> h
-              \ denite#do_map('quit')
           nnoremap <silent><buffer><expr> i
                 \ denite#do_map('open_filter_buffer')
           nnoremap <silent><buffer><expr> <Space>
