@@ -4,7 +4,7 @@
 add-gitignore
 babylon
 bash-language-server
-bs-platform
+bs-platform@6.1.0-dev.6
 commitizen
 cz-conventional-changelog
 cz-emoji
