@@ -236,6 +236,8 @@
         "}}}
 
         "Themes"-----------{{{
+              call dein#add('lifepillar/vim-colortemplate') " The Toolkit for Vim Color Scheme Designers!
+
               call dein#add('vim-scripts/chlordane.vim')
               call dein#add('markvincze/panda-vim')
               call dein#add('TroyFletcher/vim-colors-synthwave')
@@ -307,7 +309,8 @@
     filetype plugin on
 
     " update vim plugins
-    nnoremap <silent> <leader><leader>u :call dein#update()<CR>"}}}
+    nnoremap <silent> <leader><leader>u :call dein#update()<CR>
+    "}}}
 
 
   " }}}
@@ -434,6 +437,7 @@
                 let base16colorspace=256
                 source ~/.vimrc_background
               endif
+              " source ~/.config/nvim/colors/aramaki-uchi.vim
       "}}}
 
       " Folding  ----------------------------------------------{{{
@@ -1198,7 +1202,7 @@
 
           " Remap keys for gotos
           nmap <silent> gd <Plug>(coc-definition)
-          nmap <silent> gy <Plug>(coc-type-definition)
+          nmap <silent> gt <Plug>(coc-type-definition)
           nmap <silent> gi <Plug>(coc-implementation)
           nmap <silent> gr <Plug>(coc-references)
 
