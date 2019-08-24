@@ -4,12 +4,12 @@
       "command": "ocaml-language-server",
       "args": ["--stdio"],
       "rootPatterns": ["dune", "_build/"],
-      "filetypes": ["ocaml","reason"]
+      "filetypes": [""]
     },
     "reason": {
       "command": "reason-language-server.exe",
-      "rootPatterns": ["package.json"],
-      "filetypes": ["reason","ocaml"]
+      "rootPatterns": ["bsconfig.json"],
+      "filetypes": ["reason", "ocaml"]
     },
     "bash": {
       "command": "bash-language-server",
