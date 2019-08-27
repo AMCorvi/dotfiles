@@ -92,6 +92,8 @@
   alias shiva.enters='cat ~/.shiva_net_title'
   alias svi="set -o vi"
   alias trm="trash"
+  alias reasonml="opam switch reasonml;eval `opam config env`"
+  alias metalang="opam switch latest;eval `opam config env`"
   alias vimruntime='cd ~/.vim_runtime/'
   alias wirednews="termsaver rssfeed --url=http://feeds.wired.com/wired/index"
   alias worklog='nvim ~/.worklog'
