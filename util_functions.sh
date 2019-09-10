@@ -392,3 +392,13 @@ function switch_CCompiler() {
 command_exists () {
   type "$1" &> /dev/null;
 }
+
+show_from_dock () {
+  desired_application=$1
+  defaults write /Applications/$desired_application.app/Contents/Info LSUIElement 0.
+}
+
+hide_in_dock () {
+  desired_application=$1
+  defaults write /Applications/$desired_application.app/Contents/Info LSUIElement 1.
+}
