@@ -1,0 +1,194 @@
+snippet     gt
+abbr        [@@genType]
+options     word
+  ${0}[@@genType]
+
+snippet     external
+abbr        FFI
+options     head
+  external ${1:#:identifer}: ${2:#:signature} -> ${3:_} = "${4:#:import_name}"
+
+snippet     bsnew
+abbr        new directive
+options     word
+ ${0:TARGET} [@@bs.new]
+
+snippet     bsval
+abbr        val directive
+options     word
+  [@@bs.val] ${0:TARGET}
+
+snippet     bsmodule
+abbr        module directive
+options     word
+  [@@bs.module "${1}"]${0:TARGET}
+
+snippet     bsscope
+abbr        scope directive
+options     word
+  [@@bs.scope "${1:default}" ${2:#:,"deeper"}] ${0:TARGET}
+
+snippet     bsderi
+abbr        deriv directive
+options     word
+  [@@bs.deriving] ${0:TARGET}
+
+snippet     bsabstract
+abbr        abstract directive
+options     word
+  [@@bs.deriving abstract] ${0:TARGET}
+
+snippet     bsabstract_light
+abbr        abstract_light directive
+options     word
+  [@@bs.deriving { abstract = light }] ${0:TARGET}
+
+snippet     bsoptional
+abbr        optional directive
+options     word
+  [@bs.optional] ${0:TARGET}
+
+snippet     bssend
+abbr        optional directive
+options     word
+  [@@bs.send] ${0:TARGET}
+
+snippet     bsidentity
+abbr        identity directive
+options     word
+  external ${1:name}: ${0:'a -> 'b} = "%identity"
+
+snippet     bsvariadic
+abbr        variadic directive
+options     word
+  [@@bs.variadic] ${0:TARGET}
+
+snippet     functionObj
+abbr        functional Object creation
+options     word
+  external ${1:route} : ${2:#: _method:string -> path:string -> action:(string list -> unit) -> ?options:< .. > Js.t } -> unit -> _ = "" [@@bs.obj]
+
+snippet     classbind
+abbr        bind to JSclass
+options     word
+  class type ${1:name_of_class} = object
+      method height : int [@@bs.set]
+      method width : int [@@bs.set]
+      method draw : unit -> unit
+    ${0}
+  end [@bs]
+
+  type rect = $1 Js.t
+
+snippet     polymorphic_func
+abbr        polymorphic function
+options     word
+    external ${1:function_name}:
+      ([ \`on_closed
+       | \`on_open [@bs.as 20]
+       | \`in_bin
+       ]
+       [@bs.int]) -> int =
+      "test_int_type" [@@bs.val]
+
+snippet     bsset
+abbr        set directive
+options     word
+    [@@bs.set]
+
+snippet     bsget
+abbr        get directive
+options     word
+    [@@bs.get]
+
+snippet     bssetindex
+abbr        set index directive
+options     word
+    [@@bs.set_index]
+
+snippet     bsgetindex
+abbr        get index directive
+options     word
+    [@@bs.get_index]
+
+snippet     returnable
+abbr        returnable
+options     word
+    [@@bs.returnable ${1:undefined_of_opt}] ${0}
+
+snippet     regex
+abbr        regex
+options     word
+    [%bs.re "/b/g"]
+
+snippet     bsas
+abbr        as directive
+options     word
+ [@bs.as 20]
+
+snippet     object_literal
+abbr        object literal
+options     word
+  [%bs.obj {
+  ${1: info = {author = "Bob"} } }]
+
+snippet     unicode_string
+abbr        {js|你好， 世界|js}
+options     word
+  {js|${0:TARGET}|js}
+
+snippet     interpolated_string
+abbr        {j|hello, $world|j}
+options     word
+  {j|${0:#: hello, $world }|j}
+
+snippet     raw
+abbr        raw directive
+options     word
+  let ${1:()} = [%raw "${2}"] ${0:TARGET}
+
+snippet     realraw
+abbr        real raw directive
+options     word
+  [%%raw "${1:var a = 1}"] ${0:TARGET}
+
+snippet     rawfun
+abbr        raw function directive
+options     word
+  let ${1:()} = [%raw fun ${2:a b} -> "${3:return a + b }"] ${0:TARGET}
+
+snippet     tea_arch
+abbr        tea architecture
+options     head
+  (* bring Teash into scope *)
+  open Teash
+
+  (* a type to define possible messages/events in the program *)
+  type msg =
+    | Key of Notty.Unescape.key (* this will hold key presses *)
+
+  (* initialize the model *)
+  let init () = ()
+
+  (* the central message/event handler *)
+  let update model = function
+    | Key (`Escape, _mods) -> model, App.exit (* listen for ESC and exit *)
+    | Key _ -> model, Cmd.none
+
+  (* the view is just a function that returns a Notty.image given the model *)
+  let view _model =
+    Notty.(I.string A.(fg red) "Hello World!")
+
+  (* hookup subscription to events *)
+  let subscriptions _model =
+    Keyboard.presses (fun key -> Key key) (* subscribe to key presses and map to our msg type *)
+
+  (* "main" *)
+  let () =
+    App.run {
+      init;
+      update;
+      view;
+      subscriptions;
+      shutdown = (fun _model -> ());
+    } ()

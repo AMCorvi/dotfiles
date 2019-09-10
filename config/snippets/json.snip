@@ -1,0 +1,16 @@
+snippet onlypnpm
+options head
+  ,"preinstall": "node --eval \"!process.env.npm_config_user_agent.startsWith('pnpm/')&&(console.log('Use \`pnpm install\` to install dependencies in this repository')||true)&&process.exit(1)\""
+
+snippet     gentypeconfig
+abbr        genType Config
+options     head
+  "gentypeconfig": {
+    "language": "untyped",
+    "shims": {},
+    "debug": {
+      "all": false,
+      "basic": false
+    }
+  },
+
