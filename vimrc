@@ -29,7 +29,7 @@
             call dein#add('heavenshell/vim-jsdoc', {'on_ft': 'javascript'})
             call dein#add('othree/jsdoc-syntax.vim', {'on_ft': 'javascript'})
             call dein#add('pangloss/vim-javascript',  {'on_ft': 'javascript'}) "Vastly improved Javascript indentation and syntax support in Vim.
-            call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
+            " call dein#add('othree/yajs.vim') " Yet Another Javascript Syntax
             call dein#add("flowtype/vim-flow") " A vim plugin for Flow
             " call dein#add('carlitux/deoplete-ternjs',  {'on_ft': 'javascript'}) "deoplete.nvim source for javascript{'build': ' sudo yarn global add tern '}
             " call dein#add('ternjs/tern_for_vim', { 'build': 'yarn install'}) " This is a Vim plugin that provides Tern-based JavaScript editing support.
@@ -141,6 +141,7 @@
         "Add-on Features"-----------{{{
             call dein#add('tmux-plugins/vim-tmux')
             call dein#add('vim-airline/vim-airline')
+            call dein#add('vim-scripts/CSSMinister') " Convert colors css color  alternate formats
             call dein#add('Zuckonit/vim-airline-tomato')
             call dein#add('tpope/vim-dadbod') " dadbod.vim: Modern database interface for Vim https://www.vim.org/scripts/script.ph…
             call dein#add('liuchengxu/vista.vim') " 🌵 Viewer & Finder for LSP symbols and tags in Vim http://liuchengxu.org/vista.vim
@@ -961,8 +962,6 @@
           nnoremap J 5j
           nnoremap K 5k
 
-          " Replace J functionality for joining lines
-          nmap <M-j> :join<CR>
 
           "Permit rapid scrolling in visualmode
           vnoremap J 5j
@@ -977,7 +976,7 @@
 
       "}}}
 
-      "Window & Buffer -------------------- {{{
+      "Window, Tab & Buffer -------------------- {{{
 
         " New File
         nmap <leader><M-n> :new <Space>
@@ -1010,6 +1009,8 @@
 
         " create tab
         nnoremap <M-t> :tab split<CR>
+        nnoremap <M-[> :tabp<CR>
+        nnoremap <M-]> :tabp<CR>
 
       "}}}
 
@@ -1019,8 +1020,8 @@
           nnoremap <M-a> ggVG
 
           " Sort all or selection
-          nnoremap "sort ggVG:sort<CR>
-          vnoremap "sort :sort<CR>
+          nnoremap <leader><leader>sort ggVG:sort<CR>
+          vnoremap <leader><leader>sort :sort<CR>
 
           " Toggle Neomake globally
           nnoremap <leader>nt :NeomakeToggle<cr>
@@ -1028,11 +1029,12 @@
           nnoremap <leader>nn :Neomake<CR>
 
           " Page wide find and replace
-          nnoremap <leader><leader>s :%s/
-          nnoremap <leader><leader>S :s/
+          nnoremap <leader><leader>sa :%s/
+          nnoremap <leader><leader>sl :s/
+          vnoremap <leader><leader>sl :s/
 
-          " join/split short cut
-          nmap =j :join<CR>
+          " Replace J functionality for joining lines
+          nmap <M-J> :join<CR>
           nmap <CR> i<CR><ESC>
 
           " Use <A-o> <Shift><A-o> in order to create new line above  or below in normal mode
@@ -1051,7 +1053,7 @@
           " nmap <S-CR> O<Esc>
 
           " Pressing ;ss will toggle and untoggle spell checking
-          nnoremap <leader>ss :setlocal spell!<cr>
+          " nnoremap <leader>ss :setlocal spell!<cr>
 
           " copy current files path to clipboard
           nmap cp :let @+= expand("%") <cr>
@@ -1092,6 +1094,11 @@
           " exit insert, dd line, enter insert
           inoremap <c-d> <esc>ddi
 
+          " Terminal macros for enter and esc
+          " nmap ;; <ESC>
+          " nmap ;l <CR>
+
+
       "}}}
 
       " Neovim terminal mapping -------------------- {{{
@@ -1099,7 +1106,7 @@
           " terminal 'normal mode'
 
           tmap <esc> <c-\><c-n>
-          " Disable <ESC> in terminal mode. (Prevents crash)
+          " Disable <ESC> behavior in terminal mode. (Prevents crash)
           tnoremap <ESC> <ESC>
 
           " Kill terminal-mode while leaving buffer open
@@ -1114,11 +1121,33 @@
           " Print ';' character. Escape global leader key
           tnoremap <M-;> ;
 
+          " Clear to cancel
+          tmap ;h clear<cr>
+          " Normal while still in terminal mode context
+          tmap ;j <esc>
+          " Simulate press of enter key
+          tmap ;k <cr>
+          " Cancel current line input
+          tmap ;l <C-c>
+
           " Prompt command for terminal
-          nmap <leader>com  :term<Space>
-          "Yank visual selection and run on commandline
-          nmap <leader>comt vf;Y:term<SPACE><CR>p
-          vmap <leader>comt y:term<SPACE><CR>p
+          nmap <leader>co :term<Space>
+          "Yank visual selection and run on command
+          nmap <leader>col vf;Y:term<SPACE><CR>p
+          vmap <leader>col y:term<SPACE><CR>p
+          "Delete the whole line into register and run command
+          nmap <leader>cox vf;D:term<SPACE><CR>p
+
+          " Set mark in 'Vim Window Manager (VWM) terminal
+          nmap <leader><space>1m mJ<C-j>mK<C-j>
+          nmap <leader><space>2m mJ<C-l>mK<C-l>
+          nmap <leader><space>3m mH<C-j>mJ<C-j>mK<C-j>
+
+          " Jump to VWM terminal
+          nmap <leader>coh :split<cr><C-j>'H
+          nmap <leader>coj :split<cr><C-j>'J
+          nmap <leader>cok :split<cr><C-j>'K
+
 
       "}}}
 
@@ -1228,6 +1257,14 @@
           xmap <leader>f  <Plug>(coc-format-selected)
           nmap <leader>f  <Plug>(coc-format-selected)
 
+          nmap <expr> <silent> <C-d> <SID>select_current_word()
+          function! s:select_current_word()
+            if !get(g:, 'coc_cursors_activated', 0)
+              return "\<Plug>(coc-cursors-word)"
+            endif
+            return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+          endfunc
+
           augroup mygroup
             autocmd!
             " Setup formatexpr specified filetype(s).
@@ -1237,8 +1274,8 @@
           augroup end
 
           " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-          xmap <leader>a  <Plug>(coc-codeaction-selected)
-          nmap <leader>a  <Plug>(coc-codeaction-selected)
+          xmap <leader><leader>a  <Plug>(coc-codeaction-selected)
+          nmap <leader><leader>a  <Plug>(coc-codeaction-selected)
 
           " Remap for do codeAction of current line
           nmap <leader>ac  <Plug>(coc-codeaction)
@@ -1274,22 +1311,25 @@
 
           " Using CocList
           " Show all diagnostics
-          nnoremap <silent> <leader><leader><SPACE>a  :<C-u>CocList diagnostics<cr>
+          nnoremap <silent> <leader><SPACE>l  :<C-u>CocList <cr>
           " Manage extensions
-          nnoremap <silent> <leader><leader><SPACE>e  :<C-u>CocList extensions<cr>
+          nnoremap <silent> <leader><SPACE>e  :<C-u>CocList extensions<cr>
           " Show commands
-          nnoremap <silent> <leader><leader><SPACE>c  :<C-u>CocList commands<cr>
+          nnoremap <silent> <leader><SPACE>c  :<C-u>CocList commands<cr>
           " Find symbol of current document
-          nnoremap <silent> <leader><leader><SPACE>o  :<C-u>CocList outline<cr>
+          nnoremap <silent> <leader><SPACE>o  :<C-u>CocList outline<cr>
           " Search workspace symbols
-          nnoremap <silent> <leader><leader><SPACE>s  :<C-u>CocList -I symbols<cr>
+          nnoremap <silent> <leader><SPACE>s  :<C-u>CocList -I services<cr>
           " Do default action for next item.
-          nnoremap <silent> <leader><leader><SPACE>j  :<C-u>CocNext<CR>
+          nnoremap <silent> <leader><SPACE>j  :<C-u>CocNext<CR>
           " Do default action for previous item.
-          nnoremap <silent> <leader><leader><SPACE>k  :<C-u>CocPrev<CR>
+          nnoremap <silent> <leader><SPACE>k  :<C-u>CocPrev<CR>
           " Resume latest coc list
-          nnoremap <silent> <leader><leader><SPACE>p  :<C-u>CocListResume<CR>
+          nnoremap <silent> <leader><SPACE>r  :<C-u>CocListResume<CR>
 
+          " exit denite fuzzy filter without pressing Return key
+          " autocmd BufEnter,Filetype list imap <leader>l <C-o>
+          " autocmd! BufLeave list
       "}}}
 
       " Javascript ----------------------------------------------------------------{{{
@@ -1297,7 +1337,7 @@
           autocmd FileType javascript set tabstop=4|set shiftwidth=2|set expandtab
 
           " Node File Execution
-          au BufEnter,Filetype javascript nmap "run :!node %<CR>
+          au BufEnter,Filetype javascript nmap run :!node %<CR>
 
 
           " Autocompletion
@@ -1534,8 +1574,8 @@
           autocmd FileType reason nnoremap <leader>dc :JsDoc<CR>
 
           " Node File Execution
-          au BufEnter,Filetype reason nnoremap "run :!ocamlrun %<CR>
-          au BufEnter,Filetype ocaml nnoremap "run :!ocaml %<CR>
+          au BufEnter,Filetype reason nnoremap <leader><leader>run :!ocamlrun %<CR>
+          au BufEnter,Filetype ocaml nnoremap <leader><leader>run :!ocaml %<CR>
 
           " Use 'vim-sexp' syntax package on the dune files
           augroup dune_ft
@@ -1635,7 +1675,7 @@
       let g:neomake_verbose = 1
       let g:neoformat_enabled_rust = ['rustfmt']
 
-      au BufEnter,Filetype rust nmap "run :!cargo run %<cr>
+      au BufEnter,Filetype rust nmap <leader><leader>run :!cargo run %<cr>
       au Filetype rust nmap `clean :!cargo clean %<cr>
       au Filetype rust nmap `build :!cargo build %<cr>
       au Filetype rust nmap `test :!cargo test %<cr>
@@ -1643,7 +1683,7 @@
 
       " C/C++ --------------------------------------------------------------------{{{
 
-      au BufEnter,Filetype cpp nmap "run :mak!<CR><CR>
+      au BufEnter,Filetype cpp nmap <leader><leader>run :mak!<CR><CR>
       au Filetype python nmap <M-;> A;<ESC>
 
       " Use an absolute configuration path if you want system-wide settings
@@ -1715,7 +1755,7 @@
       " Go ------------------------------------------------------------------------{{{
 
       " Go File Execution
-      au BufEnter,Filetype go nmap "run :!go run %<CR>
+      au BufEnter,Filetype go nmap <leader><leader>run :!go run %<CR>
 
       " Go Format
       let g:neoformat_enabled_go = ['gofmt']
@@ -1744,7 +1784,7 @@
       " au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=html
 
       au BufEnter,Filetype python nmap <M-;> A:<ESC>
-      au BufEnter,Filetype python nmap "run :!python %<cr>
+      au BufEnter,Filetype python nmap <leader><leader>run :!python %<cr>
 
 
 
@@ -1798,7 +1838,7 @@
 
 
       " Markdown preview macro using the 'Typora' (on mac) when installed
-      au BufEnter,Filetype markdown nmap "run :!open -a Typora "%"
+      au BufEnter,Filetype markdown nmap <leader><leader>run :!open -a Typora "%"
 
       " iamcco/markdown-preview.vim ---- {{{{
 
@@ -1840,7 +1880,7 @@
 
       " preview/previm - - - - - - - - - - - - - - - - - - - -  {{{
       " open by Firefow Developer Edition
-      " au Filetype markdown nmap "run :PrevimOpen
+      " au Filetype markdown nmap <leader><leader>run :PrevimOpen
       " let g:previm_open_cmd = 'open -a Firefox\ Developer\ Edition'
       " }}}
 
@@ -2083,9 +2123,9 @@
             let g:neosnippet#enable_snipmate_compatibility = 1
             let g:neosnippet#expand_word_boundary = 1
             let g:neosnippet#snippets_directory='~/.config/snippets'
-            imap <leader><space> <Plug>(neosnippet_expand_or_jump)
-            smap <leader><space> <Plug>(neosnippet_expand_or_jump)
-            xmap <leader><space> <Plug>(neosnippet_expand_target)
+            imap <leader><space><leader> <Plug>(neosnippet_expand_or_jump)
+            smap <leader><space><leader> <Plug>(neosnippet_expand_or_jump)
+            xmap <leader><space><leader> <Plug>(neosnippet_expand_target)
 
             " For conceal markers.
             if has('conceal')
@@ -2159,20 +2199,22 @@
         " Denite keybinding
         autocmd FileType denite call s:denite_my_settings()
         function! s:denite_my_settings() abort
-          nnoremap <silent><buffer><expr> l
+          nnoremap <silent><buffer><expr> <leader>k
                 \ denite#do_map('do_action')
-          nnoremap <silent><buffer><expr> <Delete>
+          nnoremap <silent><buffer><expr> <leader>d<leader>
                 \ denite#do_map('do_action', 'delete')
           nnoremap <silent><buffer><expr> p
                 \ denite#do_map('do_action', 'preview')
           nnoremap <silent><buffer><expr> i
                 \ denite#do_map('open_filter_buffer')
+          " nnoremap <silent><buffer><expr> h
+                " \ denite#do_map('open_filter_buffer')
           nnoremap <silent><buffer><expr> <Space>
                 \ denite#do_map('toggle_select').'j'
         endfunction
 
-        " Prevent completion window popup from displaying when filtering
-        autocmd BufEnter denite-filter imap <leader>l <cr>
+        " exit denite fuzzy filter without pressing Return key
+        autocmd BufEnter denite-filter imap <leader>j <cr>
         autocmd! BufLeave denite-filter
 
 
@@ -2225,7 +2267,7 @@
         nnoremap <silent> <leader>j :Denite file/rec<CR>i
         nnoremap <silent> <leader>? :Denite  help<CR>
         nnoremap <silent> <leader>th :Denite colorscheme<CR>
-        nnoremap <silent> <leader>b :Denite buffer<CR>
+        nnoremap <silent> <leader>bb :Denite buffer<CR>
         nnoremap <silent> <leader>a :Denite grep:::!<CR>
         nnoremap <silent> <Leader>gh :Denite menu:git<CR>
 
@@ -2370,9 +2412,13 @@
       "}}}
 
       " Task-Warrior Plugin ------------------------------{{{
-          nmap <leader>tk :TW<CR>
-          nmap <leader>task :TW
+          nmap <leader>task :TW<CR>
+          nmap <leader>tw :TW
 
+
+
+          let g:task_default_prompt = ['description','tag']
+          let g:task_info_vsplit = 1
       "}}}
 
       " Vim-Licenses ------------------------------{{{
@@ -2422,6 +2468,32 @@
           imap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
           imap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
 
+          " nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+          " nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+          " nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+          " nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
+          " nnoremap <silent> <M-:> :TmuxNavigatePrevious<cr>
+          " tmap <M-j> <C-\><C-n>:TmuxNavigateDown<cr>
+          " tmap <M-j> <C-\><C-n>:TmuxNavigateDown<cr>
+          " tmap <M-k> <C-\><C-n>:TmuxNavigateUp<cr>
+          " tmap <M-l> <C-\><C-n>:TmuxNavigateRight<cr>
+          " tmap <M-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+          " tmap <M-:> <C-\><C-n>:TmuxNavigatePrevious<cr>
+          " imap <M-j> <C-\><C-n>:TmuxNavigateDown<cr>
+          " imap <M-k> <C-\><C-n>:TmuxNavigateUp<cr>
+          " imap <M-l> <C-\><C-n>:TmuxNavigateRight<cr>
+          " imap <M-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+          " imap <M-:> <C-\><C-n>:TmuxNavigatePrevious<cr>
+          " tmap <M-k> <C-\><C-n>:TmuxNavigateUp<cr>
+          " tmap <M-l> <C-\><C-n>:TmuxNavigateRight<cr>
+          " tmap <M-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+          " tmap <M-:> <C-\><C-n>:TmuxNavigatePrevious<cr>
+          " imap <M-j> <C-\><C-n>:TmuxNavigateDown<cr>
+          " imap <M-k> <C-\><C-n>:TmuxNavigateUp<cr>
+          " imap <M-l> <C-\><C-n>:TmuxNavigateRight<cr>
+          " imap <M-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+          " imap <M-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
+          "
     "}}}
 
       " Movement------------------------------ {{{

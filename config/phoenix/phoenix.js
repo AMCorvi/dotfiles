@@ -1,3 +1,4 @@
-require("./config/init");
+Phoenix.set({
+  openAtLogin: false
+});
 
-alert ( '', App.get ( 'Phoenix' ).icon () );
