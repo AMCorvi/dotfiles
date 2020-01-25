@@ -123,6 +123,10 @@
           call dein#add("vhdirk/vim-cmake") " Vim plugin to make working with CMake a little nicer
         "}}}
 
+        "SHELL"---------------------------------{{{
+          call dein#add("dag/vim-fish") " Vim support for editing fish scripts
+        "}}}
+
         "PlantUML"---------------------------------{{{
           " call dein#add('weirongxu/plantuml-previewer.vim')
           " call dein#add ('scrooloose/vim-slumlord') "Inline previews for Plantuml sequence diagrams. OMG!
@@ -134,6 +138,11 @@
             call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
         " }}}
 
+        " TOML -------------------- {{{
+            call dein#add('cespare/vim-toml') " Vim syntax for TOML
+            call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
+        " }}}
+
     "}}}
 
     " BOLT-ON PLUGINS"---------------------------------{{{
@@ -141,6 +150,17 @@
         "Add-on Features"-----------{{{
             call dein#add('tmux-plugins/vim-tmux')
             call dein#add('vim-airline/vim-airline')
+            call dein#add('segeljakt/vim-silicon') " Vim plugin for generating images of source code using https://github.com/Aloxaf/silicon
+            call dein#add('thiagoalessio/rainbow_levels.vim') " A different approach to code highlighting.
+            call dein#add('aquach/vim-http-client') " Forget your curl today! Make HTTP requests from Vim without wrestling the command line!
+            call dein#add('liuchengxu/vim-which-key') " 🌷 Vim plugin that shows keybindings in popup
+            call dein#add('mbbill/undotree') " The undo history visualizer for VIM
+            call dein#add('voldikss/vim-floaterm') " Open built-in terminal in the floating window
+            call dein#add('gu-fan/colorv.vim') " edit color easy
+            call dein#add('rhysd/vim-wasm') " WebAssembly filetype support for Vim
+            call dein#add('TaDaa/vimade') "An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
+            call dein#add('fourjay/vim-flexagon') " Flexible and useful vim folding switcher
+            call dein#add('vimoutliner/vimoutliner') " Covert css color alternate format
             call dein#add('vim-scripts/CSSMinister') " Convert colors css color  alternate formats
             call dein#add('Zuckonit/vim-airline-tomato')
             call dein#add('tpope/vim-dadbod') " dadbod.vim: Modern database interface for Vim https://www.vim.org/scripts/script.ph…
@@ -312,7 +332,6 @@
     " update vim plugins
     nnoremap <silent> <leader><leader>u :call dein#update()<CR>
     "}}}
-
 
   " }}}
 
@@ -708,7 +727,7 @@
           " show name of buffers in tab
           let g:airline#extensions#tabline#show_splits = 1
           " show a 'buffer' label on right
-          let g:airline#extensions#tabline#show_buffers = 1
+          let g:airline#extensions#tabline#show_buffers = 0
           " whether 'tabs' & 'buffers' label display at all
           let g:airline#extensions#tabline#show_tab_type = 1
           " whether the number indicator set for the tab is shown
@@ -817,9 +836,9 @@
       " VWM(Vim Window Manager) ------------------------------{{{
 
           " Toggles the layout(s) specified by {name}
-          nmap <leader><space>1 :VwmToggle dev_panel<CR>
-          nmap <leader><space>2 :VwmToggle dev_panelv<CR>
-          nmap <leader><space>3 :VwmToggle iterator_panel<CR>
+          nmap <leader><space>111 :VwmToggle dev_panel<CR>
+          nmap <leader><space>222 :VwmToggle dev_panelv<CR>
+          nmap <leader><space>333 :VwmToggle iterator_panel<CR>
 
           " Vista attempts to move itself, the sleep prevents a race.
           let s:debug_panel = {
@@ -941,6 +960,33 @@
       " Suspend Vim
       nnoremap 1<ESC> :suspend<CR>
 
+      " echo type of 'syntax item' under cursor
+      nnoremap <leader>z :call <SID>SynStack()<CR>
+
+      " Codi interactive REPL
+      " nmap =oer :Codi!!<CR>
+
+
+      if exists(":Tabularize")
+        nmap <Leader>a= :Tabularize /=<CR>
+        vmap <Leader>a= :Tabularize /=<CR>
+        nmap <Leader>a: :Tabularize /:\zs<CR>
+        vmap <Leader>a: :Tabularize /:\zs<CR>
+      endif
+
+      function! <SID>SynStack()
+        if !exists("*synstack")
+          return
+        endif
+        echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+      endfunc
+
+      function! s:PlaceholderImgTag(size)
+        let url = 'http://dummyimage.com/' . a:size . '/000000/555555'
+        let [width,height] = split(a:size, 'x')
+        execute "normal a<img src=\"".url."\" width=\"".width."\" height=\"".height."\" />"
+      endfunction
+      command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
 
       "Movement ------------------------- {{{
           " Navigate between display lines
@@ -972,14 +1018,14 @@
           " vnoremap <M-,> ;
 
           " On highlight search selection
-          nnoremap <silent> <esc> :noh<cr>
+          " nnoremap <silent> <esc> :noh<cr>
 
       "}}}
 
       "Window, Tab & Buffer -------------------- {{{
 
         " New File
-        nmap <leader><M-n> :new <Space>
+        " nmap <leader><M-n> :new <Space>
 
         " Vertical Split
         nnoremap <leader>sp :sp<CR>
@@ -1029,9 +1075,9 @@
           nnoremap <leader>nn :Neomake<CR>
 
           " Page wide find and replace
-          nnoremap <leader><leader>sa :%s/
-          nnoremap <leader><leader>sl :s/
-          vnoremap <leader><leader>sl :s/
+          nnoremap <leader>suba :%s/
+          nnoremap <leader>subl :sm/
+          vnoremap <leader>subl :sm/
 
           " Replace J functionality for joining lines
           nmap <M-J> :join<CR>
@@ -1098,14 +1144,47 @@
           " nmap ;; <ESC>
           " nmap ;l <CR>
 
+          "Numpad Simulation -------------------- {{{
 
+              inoremap <M-m> <ESC>:call VimLock(1)<CR>a
+              function! VimLock(enable)
+                if a:enable
+                  inoremap m 1
+                  inoremap , 2
+                  inoremap . 3
+                  inoremap j 4
+                  inoremap k 5
+                  inoremap l 6
+                  inoremap u 7
+                  inoremap i 8
+                  inoremap o 9
+                  inoremap ; 0
+                  inoremap <M-i><M-i> <Esc>:call VimLock(0)<CR>
+                  inoremap a <Esc>:call VimLock(0)<CR>a
+                else
+                  iunmap m
+                  iunmap ,
+                  iunmap .
+                  iunmap j
+                  iunmap k
+                  iunmap l
+                  iunmap u
+                  iunmap i
+                  iunmap o
+                  iunmap ;
+                  iunmap <M-i><M-i>
+                  iunmap a
+                endif
+              endfunction
+
+          "}}}
       "}}}
 
       " Neovim terminal mapping -------------------- {{{
 
           " terminal 'normal mode'
+          " tmap <esc> <c-\><c-n>
 
-          tmap <esc> <c-\><c-n>
           " Disable <ESC> behavior in terminal mode. (Prevents crash)
           tnoremap <ESC> <ESC>
 
@@ -1113,7 +1192,9 @@
           tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
 
           " prevent terminal from jumping to the last line
-          tnoremap ii <C-\><C-n>
+          " upon exiting terminal mode
+          tmap <leader>ii <C-\><C-n>
+          tnoremap <leader>k  <C-\><C-n>
 
           " Print 'i' character. Escape the ii tmap binding.
           tnoremap <M-i> i
@@ -1121,69 +1202,80 @@
           " Print ';' character. Escape global leader key
           tnoremap <M-;> ;
 
-          " Clear to cancel
-          tmap ;h clear<cr>
-          " Normal while still in terminal mode context
-          tmap ;j <esc>
+          " run `clear` on command line
+          tmap <leader>h clear<cr>
+          " Enter normal mode while still on the commandline (set -o)
+          tmap ii <esc>
           " Simulate press of enter key
-          tmap ;k <cr>
+          tmap <leader>j <cr>
           " Cancel current line input
-          tmap ;l <C-c>
+          tmap <leader>l <C-c>
 
           " Prompt command for terminal
-          nmap <leader>co :term<Space>
+          nmap <leader>com :term<Space>
+
           "Yank visual selection and run on command
-          nmap <leader>col vf;Y:term<SPACE><CR>p
+          nmap <leader>col Y:term<SPACE><CR>p
           vmap <leader>col y:term<SPACE><CR>p
+
           "Delete the whole line into register and run command
-          nmap <leader>cox vf;D:term<SPACE><CR>p
+          nmap <leader>cox D:term<SPACE><CR>p
+
+          "q  Delete line under cursor and execute as
+          " filter in Ex mode
+          nmap <leader>coc dd:!<C-R>"<CR>
+          vmap <leader>coc d:!<C-R>"<CR>
 
           " Set mark in 'Vim Window Manager (VWM) terminal
-          nmap <leader><space>1m mJ<C-j>mK<C-j>
-          nmap <leader><space>2m mJ<C-l>mK<C-l>
-          nmap <leader><space>3m mH<C-j>mJ<C-j>mK<C-j>
+          " Terminal Suite Marks
+          nmap <leader><space>1 <C-l>mJ<C-j>mK<C-j>
+          nmap <leader><space>2 <C-j>mJ<C-l>mK<C-l>
+          nmap <leader><space>3 <C-l>mH<C-j>mJ<C-j>mK<C-j>
+
+          " Actvate Terminal Window Layout, Set marks, and Hide Terminal Windows
+          " Terminal Suite
+          nmap <leader><space>11 <esc><leader><space>111<leader><space>1<leader><space>111
+          nmap <leader><space>22 <esc><leader><space>222<leader><space>2<leader><space>222
+          nmap <leader><space>33 <ESC><leader><space>333<leader><space>3<leader><space>333
 
           " Jump to VWM terminal
-          nmap <leader>coh :split<cr><C-j>'H
-          nmap <leader>coj :split<cr><C-j>'J
-          nmap <leader>cok :split<cr><C-j>'K
+            " Horizontal(bottom) Split
+            nmap <leader>cohj :belowright split<cr><C-j>'H
+            nmap <leader>cojj :belowright split<cr><C-j>'J
+            nmap <leader>cokj :belowright split<cr><C-j>'K
+            " Horizontal(top) Split
+            nmap <leader>cohk :aboveleft split<cr><C-j>'H
+            nmap <leader>cojk :aboveleft split<cr><C-j>'J
+            nmap <leader>cokk :aboveleft split<cr><C-j>'K
+            "Vertical(right) Split
+            nmap <leader>cohl :belowright vsplit<cr><C-j>'H
+            nmap <leader>cojl :belowright vsplit<cr><C-j>'J
+            nmap <leader>cokl :belowright vsplit<cr><C-j>'K
+            "Vertical(left) Split
+            nmap <leader>cohh :aboveleft vsplit<cr><C-j>'H
+            nmap <leader>cojh :aboveleft vsplit<cr><C-j>'J
+            nmap <leader>cokh :aboveleft vsplit<cr><C-j>'K
+            " Current Window
+            nmap <leader>coh<leader> 'H
+            nmap <leader>coj<leader> 'J
+            nmap <leader>cok<leader> 'K
 
+        " Floatterm
+            nmap <leader>comfn :FloatermNew<CR>
 
+            nmap <leader>comf<Space> :FloatermToggle<CR>
+
+            nmap <leader>comfh :FloatermPrev<CR>
+
+            nmap <leader>comfl :FloatermNext<CR>
       "}}}
-
-      " echo type of 'syntax item' under cursor
-      nnoremap <leader>z :call <SID>SynStack()<CR>
-
-      " Codi interactive REPL
-      nmap =oer :Codi!!<CR>
-
-
-      if exists(":Tabularize")
-          nmap <Leader>a= :Tabularize /=<CR>
-          vmap <Leader>a= :Tabularize /=<CR>
-          nmap <Leader>a: :Tabularize /:\zs<CR>
-          vmap <Leader>a: :Tabularize /:\zs<CR>
-      endif
-
-      function! <SID>SynStack()
-          if !exists("*synstack")
-              return
-          endif
-          echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-      endfunc
-
-      function! s:PlaceholderImgTag(size)
-        let url = 'http://dummyimage.com/' . a:size . '/000000/555555'
-        let [width,height] = split(a:size, 'x')
-        execute "normal a<img src=\"".url."\" width=\"".width."\" height=\"".height."\" />"
-      endfunction
-      command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
 
   "}}}"
 
   " Languages -------------------------------------------------------------------{{{
 
       " Language Server Settings (COC) ------------------------------------------------------------------------{{{
+
 
           " if hidden is not set, TextEdit might fail.
           set hidden
@@ -1308,7 +1400,6 @@
           "       \ }
           "
 
-
           " Using CocList
           " Show all diagnostics
           nnoremap <silent> <leader><SPACE>l  :<C-u>CocList <cr>
@@ -1320,6 +1411,8 @@
           nnoremap <silent> <leader><SPACE>o  :<C-u>CocList outline<cr>
           " Search workspace symbols
           nnoremap <silent> <leader><SPACE>s  :<C-u>CocList -I services<cr>
+          " Yank List
+          nnoremap <silent> <leader><SPACE>y  :<C-u>CocList  yank<cr>
           " Do default action for next item.
           nnoremap <silent> <leader><SPACE>j  :<C-u>CocNext<CR>
           " Do default action for previous item.
@@ -1457,6 +1550,18 @@
 										\}
 
 							let g:neomake_typescript_enabled_makers = ['tsc']
+
+              autocmd FileType typescript set formatprg=prettier-eslint\ --stdin\ --parser\ typescript
+              let g:neoformat_typescript_prettier_eslint = {
+                    \ 'exe': 'prettier-eslint',
+                    \ 'args': ['--stdin', ''],
+                    \ 'replace': 0,
+                    \ 'stdin': 1,
+                    \ 'valid_exit_codes': [0, 23],
+                    \ 'no_append': 1,
+                    \ }
+              let g:neoformat_enabled_typescript = ['prettier_eslint']
+
 							" map <silent> <leader>gd :TSDoc <cr>
 							" map <silent> <leader>gt :TSType <cr>
 							" map <silent> <leader>@ :Denite -buffer-name=TSDocumentSymbol TSDocumentSymbol <cr>
@@ -1564,7 +1669,6 @@
 
 
           "}}}
-
 
       " }}}
 
@@ -1766,8 +1870,9 @@
 
       " Python --------------------------------------------------------------------{{{
 
-      let g:python_host_prog = '/usr/local/bin/python'
-      let g:python3_host_prog = '/usr/local/bin/python3'
+      let g:python_host_prog = '/Users/AMC/.asdf/shims/python3'
+      let g:python2_host_prog = '/usr/bin/python2.6'
+      let g:python3_host_prog = '/Users/AMC/.asdf/shims/python3'
       " let $NVIM_PYTHON_LOG_FILE='nvim-python.log'
 
       let g:jedi#auto_vim_configuration = 0
@@ -1775,6 +1880,9 @@
 
       let g:neomake_python_enabled_makers = ['flake8']
 
+      if has('nvim')
+        runtime! plugin/python_setup.vim
+      endif
 
       " Keymappings - python
       "
@@ -1829,7 +1937,6 @@
       let g:neomake_markdown_enabled_makers = ['alex', 'proselint']
 
 
-
       let g:instant_markdown_autostart = 0
       let g:instant_markdown_slow = 1
       let vim_markdown_preview_browser='Opera'
@@ -1839,6 +1946,7 @@
 
       " Markdown preview macro using the 'Typora' (on mac) when installed
       au BufEnter,Filetype markdown nmap <leader><leader>run :!open -a Typora "%"
+      au Filetype markdown set textwidth=88
 
       " iamcco/markdown-preview.vim ---- {{{{
 
@@ -1913,6 +2021,7 @@
       "}}}
 
       " VIM -----------------------------------------------------------------------{{{
+
 
             let g:markdown_fenced_languages = [
                   \ 'vim',
@@ -2007,12 +2116,7 @@
 
       nmap - :Ranger<CR>
 
-
-
-
-
      "}}}
-
 
   "}}}
 
@@ -2199,7 +2303,7 @@
         " Denite keybinding
         autocmd FileType denite call s:denite_my_settings()
         function! s:denite_my_settings() abort
-          nnoremap <silent><buffer><expr> <leader>k
+          nnoremap <silent><buffer><expr> <leader>j
                 \ denite#do_map('do_action')
           nnoremap <silent><buffer><expr> <leader>d<leader>
                 \ denite#do_map('do_action', 'delete')
@@ -2207,9 +2311,9 @@
                 \ denite#do_map('do_action', 'preview')
           nnoremap <silent><buffer><expr> i
                 \ denite#do_map('open_filter_buffer')
-          " nnoremap <silent><buffer><expr> h
-                " \ denite#do_map('open_filter_buffer')
           nnoremap <silent><buffer><expr> <Space>
+                \ denite#do_map('toggle_select').'j'
+          nnoremap <silent><buffer><expr> l
                 \ denite#do_map('toggle_select').'j'
         endfunction
 
@@ -2501,10 +2605,12 @@
           "Clever-F------------------------------{{{
               let g:clever_f_smart_case = 1
               let g:clever_f_repeat_last_char_inputs = ["\<CR>", "\<Tab>"]
+
+              " essentially turns clever-f off
+              let g:clever_f_not_overwrites_standard_mappings = 1
           "}}}
 
       " }}}
-
 
 "}}}
 

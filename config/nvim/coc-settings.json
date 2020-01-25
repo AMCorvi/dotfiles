@@ -1,6 +1,6 @@
 {
   "coc.preferences.enableFloatHighlight": false,
-  "codeLens.enable": true,
+  "codeLens.enable": false,
   "diagnostic.checkCurrentLine": false,
   "diagnostic.virtualText": false,
   "json.enable": true,
@@ -23,12 +23,12 @@
       "command": "ocaml-language-server",
       "args": ["--stdio"],
       "rootPatterns": ["dune", ".merlin"],
-      "filetypes": ["reason", "ocaml"],
+      "filetypes": ["NAreason", "NAocaml"],
       "trace.server": "verbose",
       "ignoredRootPaths": ["~"]
     },
     "reason": {
-      "command": "reason-language-server.exe",
+      "command": "reason-language-server",
       "rootPatterns": ["bsconfig.json"],
       "filetypes": ["reason", "ocaml"],
       "requireRootPattern": true

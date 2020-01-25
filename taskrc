@@ -30,5 +30,5 @@ include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
 
 context.research=project:learn or +learn or +lookup or +research
-context.tasking=+ACTIVE
 context.config=+maintenance or +config or +search or +tools or +vim
+context.active=+ACTIVE or entry:today or +current

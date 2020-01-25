@@ -16,6 +16,8 @@ fi
 brew tap twlz0ne/homebrew-ccls # require for install ccls (See Below)
 
 packages=(
+"asdf"
+"autojump"
 "git"
 "node"
 "tmux"

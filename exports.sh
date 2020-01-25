@@ -52,3 +52,12 @@
   # export OPAMKEEPBUILDDIR=true
   # export OCAMLPARAM="_,bin-annot=1"
 
+# list config directory for ocaml and others
+  export XDG_CONFIG_HOME="$HOME/.config"
+
+# Silicon (VIM code snippet) image generator
+  export PATH="$PATH:$CARGO_HOME/bin"
+
+# Deno completions configuration
+  echo 'export PATH="/Users/AMC/.deno/bin:$PATH"' >> ~/.bashrc
+  # change this to your shell
