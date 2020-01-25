@@ -64,6 +64,7 @@
   alias esnode='node --experimental-modules '
   alias flush='dscacheutil -flushcache'
   alias frammed='alias'
+  alias gitignore='add-gitignore'
   alias hack='cd $DESKTOP/hack; ranger'
   alias hackdatabase='termsaver programmer --path ~/.rfcs --delay 0.010'
   alias hacknode2='termsaver programmer --path ~/go --delay 0.020'
