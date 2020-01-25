@@ -1,3 +1,165 @@
+let _boolean: bool = true (* "or" false *)
+
+let _tuple: int * string * int bool =  (1,"two",3,true,)
+let _list: int list = [1;2;3;4;5]
+let _array: int array = [|1;2;3;4;5|]
+
+(* Recursive Function *)
+let rec
+  is_even = function
+  | 0 -> true
+  | n -> is_odd (n-1)
+and
+  is_odd = function
+  | 0 -> false
+  | n -> is_even (n-1)
+;;
+
+(* Refs *)
+type 'a ref = { mutable contents: 'a };;
+
+let ( ! ) r = r.contents;;
+
+let ( := ) r newval = r.contents <- newval;;
+
+(* Loops *)
+let insertion_sort a =
+  for i = 1 to Array.length a - 1 do
+    let val_i = a.(i) in
+    let j = ref i in
+    while !j > 0 && val_i < a.(!j - 1) do
+      a.(!j) <- a.(!j - 1);
+      j := !j - 1
+    done;
+    a.(!j) <- val_i
+  done;;
+
+(* Module  *)
+module PrioQueue =
+struct
+  type priority = int
+  type 'a queue = Empty | Node of priority * 'a * 'a queue * 'a queue
+  let empty = Empty
+  let rec insert queue prio elt =
+    match queue with
+      Empty -> Node(prio, elt, Empty, Empty)
+    | Node(p, e, left, right) ->
+      if prio <= p
+      then Node(prio, elt, insert right p e, left)
+      else Node(p, e, insert right prio elt, left)
+  exception Queue_is_empty
+  let rec remove_top = function
+      Empty -> raise Queue_is_empty
+    | Node(prio, elt, left, Empty) -> left
+    | Node(prio, elt, Empty, right) -> right
+    | Node(prio, elt, (Node(lprio, lelt, _, _) as left),
+           (Node(rprio, relt, _, _) as right)) ->
+      if lprio <= rprio
+      then Node(lprio, lelt, remove_top left, right)
+      else Node(rprio, relt, left, remove_top right)
+  let extract = function
+      Empty -> raise Queue_is_empty
+    | Node(prio, elt, _, _) as queue -> (prio, elt, remove_top queue)
+end;;
+
+(* Module Signature *)
+module type PRIOQUEUE =
+sig
+  type priority = int         (* still concrete *)
+  type 'a queue               (* now abstract *)
+  val empty : 'a queue
+  val insert : 'a queue -> int -> 'a -> 'a queue
+  val extract : 'a queue -> int * 'a * 'a queue
+  exception Queue_is_empty
+end;;
+
+(* Module Functor *)
+module type SETFUNCTOR =
+  functor (Elt: ORDERED_TYPE) ->
+  sig
+    type element = Elt.t      (* concrete *)
+    type set                  (* abstract *)
+    val empty : set
+    val add : element -> set -> set
+    val member : element -> set -> bool
+  end;;
+
+(* Defining Module with Signature *)
+module A: sig (* contents of file A.mli *) end
+= struct (* contents of file A.ml *) end;;
+
+(* Object  *)
+let obj = object
+  (* class body *)
+end
+
+class stack_of_ints = object (self)
+  (* class body *)
+    val mutable the_list = ( [] : int list ) (* instance variable *)
+    method push x =                        (* push method *)
+      the_list <- x :: the_list
+    method pop =                           (* pop method *)
+      let result = List.hd the_list in
+      the_list <- List.tl the_list;
+      result
+    method peek =                          (* peek method *)
+      List.hd the_list
+    method size =                          (* size method *)
+      List.length the_list
+  end;;
+
+(* Polymorphic Classes *)
+class ['a] stack =
+  object (self)
+    val mutable list = ( [] : 'a list )  (* instance variable *)
+    method push x =                      (* push method *)
+      list <- x :: list
+    method pop =                         (* pop method *)
+      let result = List.hd list in
+      list <- List.tl list;
+      result
+    method peek =                        (* peek method *)
+      List.hd list
+    method size =                        (* size method *)
+      List.length list
+  end;;
+
+class virtual container name =
+  object (self)
+    inherit widget name
+    val mutable widgets = ( [] : widget list )
+    method add w =
+      widgets <- w :: widgets
+    method get_widgets =
+      widgets
+    method repaint =
+      List.iter (fun w -> w#repaint) widgets
+  end;;
+
+class button ?callback name =
+  object (self)
+    inherit container name as super
+    val mutable state = Released
+    method press =
+      state <- Pressed;
+      match callback with
+      | None -> ()
+      | Some f -> f ()
+    method release =
+      state <- Released
+    method repaint =
+      super#repaint;
+      print_endline ("Button being repainted, state is " ^
+                     (match state with
+                      | Pressed -> "Pressed"
+                      | Released -> "Released"))
+  end;;
+
+(* Coercions *)
+(* Expressions whose type contains object or polymorphic variant types can be explicitly coerced (weakened) to a supertype. The expression (expr :>  typexpr) coerces the expression expr to type typexpr. The expression (expr :  typexpr1 :>  typexpr2) coerces the expression expr from type typexpr1 to type typexpr2. *)
+
+
+
 (*** Comments ***)
 
 (* Comments are enclosed in (* and *). It's fine to nest comments. *)
@@ -399,4 +561,40 @@ let () =
                                     channels are not flushed *)
 
     (* normal exit: all channels are flushed and closed *)
+
+(* -------------------- First Class Modules -------------------- *)
+
+(* A first-class module is created by packaging up a module with a signature that *)
+(* it satisfies by using the `module` keyword: *)
+
+    let three    : (module OneInt) = (module Three : OneInt);;
+    let three'   = (module Three);; (* Error: Signature couldn't be inferred *)
+    let three''  : (module OneInt) = (module Three);;
+    let three''' = (module Three : OneInt);; (* Most terse ^_^ *)
+
+    (* Lists are homogeneous, whence latters' type inferred from formers'  *)
+    let list_of_modules = [three; (module Three); (module Four)];;
+
+(* Dot notation only works for records and modules, so we access contents of a *)
+(* first-class module by turning it into an ordinary module with `val`: *)
+
+    let x : int = let module M = (val three : OneInt) in M.x;;
+    let x : int = (val three : OneInt).x;; (* Error: Invalid syntax. *)
+
+(* **Warning!** The parentheses for these `module, val` keywords are important! *)
+
+(* Rule of thumb: Use the forms `(module M : T)` and `(val M : T)` always. *)
+
+(* We can create ordinary functions which consume and create first-class modules. *)
+
+    let unpack (m : (module OneInt)) : int = let module M = (val m) in M.x;;
+    let pack (n : int) : (module OneInt) = (module struct let x = n end);;
+
+    3 = unpack three;;
+    3 = unpack (pack 3);;
+    pack 3 = three;; (* Woah! Equality of modules! *)
+
+    (* “Module pattern matching” *)
+    (* unpack' : (module OneInt) -> int *)
+    let unpack' (module M : OneInt) = M.x;;
 

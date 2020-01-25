@@ -1,3 +1,5 @@
+say lit
+
 <h1> OCamlCheatSheet </h1>
 
 Quick reference for the OCaml language.
