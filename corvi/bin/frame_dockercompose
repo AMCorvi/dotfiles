@@ -1,6 +1,6 @@
 #! /bin/bash
 
-basic_compose ='version: "3"
+basic_compose='version: "3"
 
 services:
 
@@ -16,7 +16,7 @@ services:
       - 400:5432
 
   events:
-    # 'build' is used to delegate to a dockerfile in defined
+    # "build" is used to delegate to a dockerfile in defined
     # elsewhere. Commonly another folder!
     build: ./events
     ports:
@@ -55,7 +55,8 @@ services:
     # Override the default command.
     command: bundle exec thin -p 3000
 
-    # **Note**: Setting `entrypoint` both overrides any default entrypoint set on the service's image with the `ENTRYPOINT` Dockerfile instruction, *and* clears out any default command on the image - meaning that if there's a `CMD` instruction in the Dockerfile, it is ignored.
+    # **Note**: Setting `entrypoint` both overrides any default entrypoint set on the service`s image with the `ENTRYPOINT` Dockerfile instruction, *and* clears out any default command on the image - meaning that if there`s a `CMD` instruction in the Dockerfile, it is ignored.
+
     entrypoint:
       - php
       - -d
@@ -68,6 +69,5 @@ services:
     environment:
       - NODE_ENV=production
 '
-
 # Make Docker Compose file using string defined above
-echo basic_compose >docker-compose.yaml
+echo $basic_compose > docker-compose.yaml
