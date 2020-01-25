@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# NOTE TO SELF: Retrieved the following script from: https://github.com/Homebrew/legacy-homebrew/issues/48792
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
