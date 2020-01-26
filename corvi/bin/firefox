@@ -1,3 +1,3 @@
-#! /bin/bash
+#! /bin/sh
 
 open -a "Firefox Developer Edition" $1

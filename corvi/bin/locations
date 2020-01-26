@@ -1,0 +1,16 @@
+#! /bin/bash
+du -hs /usr/local/.DS_Store
+du -hs /usr/local/bin/
+du -hs /usr/local/Deco/
+du -hs /usr/local/doc/
+du -hs /usr/local/etc/
+du -hs /usr/local/Frameworks/
+du -hs /usr/local/heroku/
+du -hs /usr/local/include/
+du -hs /usr/local/lib/
+du -hs /usr/local/opt/
+du -hs /usr/local/remotedesktop/
+du -hs /usr/local/sbin/
+du -hs /usr/local/share/
+du -hs /usr/local/texlive/
+du -hs /usr/local/var/

@@ -1,6 +1,5 @@
-brew uninstall node
-# or `brew uninstall --force node` which removes all versions
-brew cleanup
+!#/bin/bash
+
 rm -f /usr/local/bin/npm /usr/local/lib/dtrace/node.d
 rm -rf ~/.npm
 rm -f /usr/local/bin/node

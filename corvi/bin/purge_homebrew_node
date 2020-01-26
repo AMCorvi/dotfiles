@@ -1,0 +1,4 @@
+!#/bin/bash
+brew uninstall node
+# or `brew uninstall --force node` which removes all versions
+brew cleanup
