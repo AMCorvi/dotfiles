@@ -12,4 +12,6 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
   . /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash
 
 # autojump configuration
-  [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+        . /opt/local/etc/profile.d/autojump.sh
+    fi
